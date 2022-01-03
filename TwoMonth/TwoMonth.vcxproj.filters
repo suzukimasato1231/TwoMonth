@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Library">
+      <UniqueIdentifier>{88116251-976b-41e1-85a9-d21d4343058a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library">
+      <UniqueIdentifier>{fc352733-eec8-4bdf-a475-49580f53ec0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL">
+      <UniqueIdentifier>{53bc2d34-cd53-43aa-bd66-bf1fa0267c65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\Input">
+      <UniqueIdentifier>{d7871b41-571a-4791-91cc-efec169a625d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\Input">
+      <UniqueIdentifier>{7c006617-66d1-4aa3-affa-32cc3f02fae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\Collision">
+      <UniqueIdentifier>{a4868a3a-5cd7-4a67-aa1b-0c5696f49f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\Collision">
+      <UniqueIdentifier>{20ff1e6f-15ef-4d99-ba5e-07d4f496346a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\DirectXCommon">
+      <UniqueIdentifier>{2571d38c-ff9a-4275-be33-cbd6d701f888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\DirectXCommon">
+      <UniqueIdentifier>{9611b816-1170-4cde-81ae-f9b205c0d346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\2d">
+      <UniqueIdentifier>{2f2e757c-c591-48c2-8337-012add6d824d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\2d">
+      <UniqueIdentifier>{512a2f2f-905d-4b20-b711-aff313b0fbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\3d">
+      <UniqueIdentifier>{5c6a596c-a049-4219-a504-47d004146c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\3d">
+      <UniqueIdentifier>{77a32ea3-f070-48c7-99c7-ef297261d66e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\Sound">
+      <UniqueIdentifier>{edac69d1-0a3e-4a64-b8f0-92d7f40caf98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\Sound">
+      <UniqueIdentifier>{9e5ffdb1-1541-4b1e-b47a-115d74360c2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\Pipeline">
+      <UniqueIdentifier>{22edc707-4db7-4ddc-8c85-c54e99e02a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\Pipeline">
+      <UniqueIdentifier>{d8f9e24f-60f5-448d-b790-227d779f54f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Sprite">
+      <UniqueIdentifier>{edaf40de-3f0f-4c3d-9da4-708678380d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\OBJ">
+      <UniqueIdentifier>{fc0cd271-62b6-4515-a680-677aebf2af40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Object">
+      <UniqueIdentifier>{3c4d9a58-393e-4f11-9716-7c0f19770a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Particle">
+      <UniqueIdentifier>{c8ca7c7a-debb-4d39-a0e4-28ec248f7558}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\shaders\SpritePS.hlsl">
+      <Filter>HLSL\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpriteVS.hlsl">
+      <Filter>HLSL\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJPixelShader.hlsl">
+      <Filter>HLSL\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJVertexShader.hlsl">
+      <Filter>HLSL\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\BasicPS.hlsl">
+      <Filter>HLSL\Object</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\BasicVS.hlsl">
+      <Filter>HLSL\Object</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\ParticleGS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\ParticlePS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\ParticleVS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shaders\Sprite.hlsli">
+      <Filter>HLSL\Sprite</Filter>
+    </None>
+    <None Include="Resources\shaders\OBJShaderHeader.hlsli">
+      <Filter>HLSL\OBJ</Filter>
+    </None>
+    <None Include="Resources\shaders\BasicShaderHeader.hlsli">
+      <Filter>HLSL\Object</Filter>
+    </None>
+    <None Include="Resources\shaders\Particle.hlsli">
+      <Filter>HLSL\Particle</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameSceneManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Input.h">
+      <Filter>ヘッダー ファイル\Library\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Keybord.h">
+      <Filter>ヘッダー ファイル\Library\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Controller.h">
+      <Filter>ヘッダー ファイル\Library\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>ヘッダー ファイル\Library\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="collision\Collision.h">
+      <Filter>ヘッダー ファイル\Library\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="collision\CollisionPrimitive.h">
+      <Filter>ヘッダー ファイル\Library\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="base\_DirectX.h">
+      <Filter>ヘッダー ファイル\Library\DirectXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="base\_Window.h">
+      <Filter>ヘッダー ファイル\Library\DirectXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Safe_delete.h">
+      <Filter>ヘッダー ファイル\Library\DirectXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="base\XMFLOATHelper.h">
+      <Filter>ヘッダー ファイル\Library\DirectXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="3d\Light.h">
+      <Filter>ヘッダー ファイル\Library\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="3d\Object.h">
+      <Filter>ヘッダー ファイル\Library\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="3d\ParticleManager.h">
+      <Filter>ヘッダー ファイル\Library\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="3d\View.h">
+      <Filter>ヘッダー ファイル\Library\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="2d\DebugText.h">
+      <Filter>ヘッダー ファイル\Library\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="2d\Sprite.h">
+      <Filter>ヘッダー ファイル\Library\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\Pipeline.h">
+      <Filter>ヘッダー ファイル\Library\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\Sound.h">
+      <Filter>ヘッダー ファイル\Library\Sound</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameSceneManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Input.cpp">
+      <Filter>ソース ファイル\Library\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Controller.cpp">
+      <Filter>ソース ファイル\Library\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Keybord.cpp">
+      <Filter>ソース ファイル\Library\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>ソース ファイル\Library\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="collision\Collision.cpp">
+      <Filter>ソース ファイル\Library\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="base\_DirectX.cpp">
+      <Filter>ソース ファイル\Library\DirectXCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="base\_Window.cpp">
+      <Filter>ソース ファイル\Library\DirectXCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="base\XMFLOATHelper.cpp">
+      <Filter>ソース ファイル\Library\DirectXCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="3d\Light.cpp">
+      <Filter>ソース ファイル\Library\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="3d\Object.cpp">
+      <Filter>ソース ファイル\Library\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="3d\ParticleManager.cpp">
+      <Filter>ソース ファイル\Library\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="3d\View.cpp">
+      <Filter>ソース ファイル\Library\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="2d\DebugText.cpp">
+      <Filter>ソース ファイル\Library\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="2d\Sprite.cpp">
+      <Filter>ソース ファイル\Library\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\Sound.cpp">
+      <Filter>ソース ファイル\Library\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\Pipeline.cpp">
+      <Filter>ソース ファイル\Library\Pipeline</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
