@@ -49,16 +49,21 @@ void GameSceneManager::Init()
 	light->SetLightColor({ 1,1,1 });
 
 	//スプライト画像読み込み
-	spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
+	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
 	BGGraph = sprite->SpriteCreate(L"Resources/backgroundA.png");
 
 	//オブジェクト画像読み込み
-	graph1 = object->LoadTexture(L"Resources/texture2.jpg");
-	graph3 = object->LoadTexture(L"Resources/white.png");
+	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
+	//graph3 = object->LoadTexture(L"Resources/white.png");
 
 	//オブジェクト生成
-	Polygon = object->CreateOBJ("Boss");
-	BossPolygon = object->CreateOBJ("sphere", true);
+	//Polygon = object->CreateOBJ("Boss");
+	//BossPolygon = object->CreateOBJ("sphere", true);
+
+	//台クラス初期化
+	table.Init(input, sprite);
+	//ブロッククラス
+	block.Init(input, sprite);
 }
 
 void GameSceneManager::Update()
@@ -80,9 +85,13 @@ void GameSceneManager::Update()
 		pPos1.x += 1;
 	}
 
+	table.Update();
 
+	block.Update();
+
+	block.ColBlock(&table.table, table.GetPos(), table.GetStatus());
 	//パーティクル更新
-	particleMan->ParticleAdd(pPos1);
+	//particleMan->ParticleAdd(pPos1);
 	particleMan->Update();
 	//ライト更新
 	light->Update();
@@ -95,21 +104,43 @@ void GameSceneManager::Draw(_DirectX directX)
 	sprite->PreDraw();
 
 	//背景描画
-	sprite->Draw(BGGraph, XMFLOAT2{ 0.0f,0.0f }, window_width, window_height);
+	//sprite->Draw(BGGraph, XMFLOAT2{ 0.0f,0.0f }, window_width, window_height);
 
 
 	//オブジェクト
-	object->OBJDraw(Polygon, pPos1, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
-	object->OBJDraw(Polygon, pPos2, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
+	//object->OBJDraw(Polygon, pPos1, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
+	//object->OBJDraw(Polygon, pPos2, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
+
+
+	table.Draw();
+
+	block.Draw();
 
 	//パーティクル描画
 	particleMan->Draw();
 
 
 	//前景描画
-	sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
+	//sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
 
-	debugText.Print(1, 120, 2, "%d", 1891);
+	switch (table.GetStatus())
+	{
+	case UP:
+		debugText.Print(1, 120, 2, "direction:UP");
+		break;
+	case Down:
+		debugText.Print(1, 120, 2, "direction:Down");
+		break;
+	case Left:
+		debugText.Print(1, 120, 2, "direction:Left");
+		break;
+	case Right:
+		debugText.Print(1, 120, 2, "direction:Right");
+		break;
+	}
+
+	debugText.Print(1, 30, 2, "AD:rotation");
+	debugText.Print(1, 60, 2, "yazirusi:position");
 
 	//デバックテキスト描画
 	debugText.DrawAll();

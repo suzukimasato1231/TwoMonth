@@ -1,6 +1,6 @@
 #pragma once
 #include"CollisionPrimitive.h"
-
+#include"../2d/Sprite.h"
 ///<summary>
 ///当たり判定ヘルパークラス
 ///</summary>
@@ -47,5 +47,16 @@ public:
 	/// <returns>交差しているか否か</returns>
 	static bool CheckRay2Plane(const Ray &ray, const Plane &plane, float *distance = nullptr, DirectX::XMVECTOR *inter = nullptr);
 
+	/// <summary>
+	/// 長方形と長方形の当たり判定
+	/// </summary>
+	/// <param name="pos1"></param>
+	/// <param name="width1"></param>
+	/// <param name="height1"></param>
+	/// <param name="pos2"></param>
+	/// <param name="width2"></param>
+	/// <param name="height2"></param>
+	/// <returns></returns>
+	static bool MapChipCollision(XMFLOAT2 pos1, float width1, float height1, XMFLOAT2 pos2, float width2, float height2);
 
 };

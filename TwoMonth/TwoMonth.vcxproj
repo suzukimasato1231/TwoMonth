@@ -227,8 +227,10 @@
     <ClInclude Include="base\XMFLOATHelper.h" />
     <ClInclude Include="base\_DirectX.h" />
     <ClInclude Include="base\_Window.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="collision\Collision.h" />
     <ClInclude Include="collision\CollisionPrimitive.h" />
+    <ClInclude Include="ColorBlock.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="Input\Controller.h" />
     <ClInclude Include="Input\Input.h" />
@@ -236,6 +238,7 @@
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Pipeline\Pipeline.h" />
     <ClInclude Include="Sound\Sound.h" />
+    <ClInclude Include="Table.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2d\DebugText.cpp" />
@@ -247,7 +250,9 @@
     <ClCompile Include="base\XMFLOATHelper.cpp" />
     <ClCompile Include="base\_DirectX.cpp" />
     <ClCompile Include="base\_Window.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="collision\Collision.cpp" />
+    <ClCompile Include="ColorBlock.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Input\Controller.cpp" />
     <ClCompile Include="Input\Input.cpp" />
@@ -256,6 +261,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pipeline\Pipeline.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
+    <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

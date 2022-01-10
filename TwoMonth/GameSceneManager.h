@@ -7,6 +7,8 @@
 #include"3d/ParticleManager.h"
 #include"Collision/Collision.h"
 #include"Sound/Sound.h"
+#include"Table.h"
+#include"Block.h"
 extern const int window_width;
 extern const int window_height;
 class GameSceneManager
@@ -60,4 +62,10 @@ private://定義
 	XMFLOAT3 pPos2 = { 2.0f,4.0f,5.0f };
 
 	XMFLOAT3 angle = { 0.0f,0.0f,0.0f };
+
+	//台クラス
+	Table table;
+
+	//ブロッククラス
+	Block block;
 };

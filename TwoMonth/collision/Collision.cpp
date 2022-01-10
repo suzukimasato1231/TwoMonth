@@ -139,3 +139,13 @@ bool Collision::CheckRay2Plane(const Ray &ray, const Plane &plane, float *distan
 	if (inter) { *inter = ray.start + t * ray.dir; }
 	return true;
 }
+
+bool  Collision::MapChipCollision(XMFLOAT2 pos1, float width1, float height1, XMFLOAT2 pos2, float width2, float height2)
+{
+	//x‚Æy‚Í‚»‚ê‚¼‚ê’†SÀ•W‚Æ‚µ‚ÄŒvZ‚·‚é
+	return pos1.x - (width1 - 1) / 2 < pos2.x + width2 / 2
+		&& pos2.x - width2 / 2 < pos1.x + (width1 - 1) / 2
+		&& pos1.y - height1 / 2 < pos2.y + height2 / 2
+		&& pos2.y - height2 / 2 < pos1.y + height1 / 2;
+
+}
