@@ -122,8 +122,8 @@ void _DirectX::Swapchain()
 	//各種設定をしてスワップチェーンを生成
 	DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 	//各種設定をしてスワップチェーンを生成
-	swapchainDesc.Width = 1280;
-	swapchainDesc.Height = 720;
+	swapchainDesc.Width = window_width;
+	swapchainDesc.Height = window_height;
 	swapchainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//色情報を書式
 	swapchainDesc.SampleDesc.Count = 1;//マルチサンプルにしない
 	swapchainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;//バックバッファー用
