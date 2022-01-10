@@ -353,12 +353,24 @@ void Sprite::Update(SpriteData &sprite, XMFLOAT2 position, float width, float he
 	//平行移動
 	sprite.matWorld *= XMMatrixTranslation(position.x, position.y, 0);
 
-	//定数バッファの転送
-	ConstBufferData *constMap = nullptr;
-	HRESULT result = constBuffer[spriteNum]->constBuff->Map(0, nullptr, (void **)&constMap);
-	constMap->mat = sprite.matWorld * spriteCommon.matProjection;
-	constMap->color = color;
-	constBuffer[spriteNum]->constBuff->Unmap(0, nullptr);
+	if (sprite.parent == nullptr)
+	{
+		//定数バッファの転送
+		ConstBufferData *constMap = nullptr;
+		HRESULT result = constBuffer[spriteNum]->constBuff->Map(0, nullptr, (void **)&constMap);
+		constMap->mat = sprite.matWorld * spriteCommon.matProjection;
+		constMap->color = color;
+		constBuffer[spriteNum]->constBuff->Unmap(0, nullptr);
+	}
+	else
+	{
+		//定数バッファの転送
+		ConstBufferData *constMap = nullptr;
+		HRESULT result = constBuffer[spriteNum]->constBuff->Map(0, nullptr, (void **)&constMap);
+		constMap->mat = sprite.matWorld * sprite.parent->matWorld * spriteCommon.matProjection;
+		constMap->color = color;
+		constBuffer[spriteNum]->constBuff->Unmap(0, nullptr);
+	}
 
 }
 

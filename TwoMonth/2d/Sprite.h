@@ -38,6 +38,8 @@ public://構造体
 		XMFLOAT2 texSize = { 0,0 };
 		//アンカーポイント
 		XMFLOAT2 anchorpoint = { 0.5f,0.5f };
+		//親クラス
+		SpriteData *parent = nullptr;
 	};
 
 	struct VertexPosUv
