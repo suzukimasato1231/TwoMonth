@@ -46,6 +46,8 @@ private://定義
 	Sprite::SpriteData spriteGraph;
 	Sprite::SpriteData BGGraph;
 
+	Sprite::SpriteData enemyGraph;///敵画像
+
 	//オブジェクトの形
 	Object::ObjectData Polygon;
 	Object::ObjectData rayPolygon;
@@ -68,4 +70,19 @@ private://定義
 
 	//ブロッククラス
 	Block block;
+
+	//プレイヤーステータス
+	int playerHP = 3;///体力
+	bool playerIsAlive = 1;///存在するか
+
+	//敵ステータス
+	static const int enemy_Num = 5;//敵の数
+	int enemyHP[enemy_Num] = {1, 2, 5, 5, 5 };///体力
+	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1 };///存在するか
+	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0 };///攻撃しているか
+	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 };///攻撃するまでの時間
+	int  enemyAttackCount = -1;///攻撃のカウント用
+
+	//フェーズ
+	int nowPhase = 0;
 };

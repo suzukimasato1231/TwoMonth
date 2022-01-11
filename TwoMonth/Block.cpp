@@ -65,10 +65,12 @@ void Block::Draw()
 void Block::AddBlock()
 {
 	int pushFlag = true;
+	addFlag = true;
 	for (int i = 0; i < colorBlock.size(); i++)
 	{//動かせるブロックがあるかどうか
 		if (colorBlock[i]->GetFlag() == true)
 		{
+			addFlag = false;
 			pushFlag = false;
 		}
 	}//無かったらブロックを追加
@@ -257,6 +259,15 @@ void Block::Damege()
 	}
 }
 
+void Block::DeleteBlock()
+{
+	for (int n = 0; n < colorBlock.size(); n++)
+	{
+		delete colorBlock[n];
+		colorBlock.erase(colorBlock.begin() + n);	
+	}
+}
+
 void Block::BlockShift(int i, int j)
 {
 	//下にブロックが無かったらずれる
@@ -316,6 +327,11 @@ void Block::BlockShift(int i, int j)
 bool Block::GetDameFlag()
 {
 	return DamegeFlag;
+}
+
+bool Block::GetAddFlag()
+{
+	return addFlag;
 }
 
 

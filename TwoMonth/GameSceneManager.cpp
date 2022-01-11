@@ -51,6 +51,7 @@ void GameSceneManager::Init()
 	//スプライト画像読み込み
 	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
 	BGGraph = sprite->SpriteCreate(L"Resources/backgroundA.png");
+	enemyGraph = sprite->SpriteCreate(L"Resources/enemy.png");
 
 	//オブジェクト画像読み込み
 	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
@@ -90,6 +91,55 @@ void GameSceneManager::Update()
 	block.Update();
 
 	block.ColBlock(&table.table, table.GetPos(), table.GetStatus());
+
+	if (block.GetDameFlag() == true)
+	{
+		enemyHP[nowPhase]--;
+	}
+	if (enemyHP[nowPhase] == 0)
+	{
+		//block.DeleteBlock();
+		enemyIsAlive[nowPhase] = 0;
+		enemyAttackCount = -1;
+		nowPhase++;
+	}
+	//for (int i = 0; i < enemy_Num; i++)
+	if (enemyIsAlive[nowPhase] == true)
+	{
+		if (block.GetAddFlag() == true)
+		{
+			enemyAttackCount++;
+		}
+		if (enemyAttackCount == enemyAttackDelay[nowPhase])
+		{
+			enemyIsAttack[nowPhase] = true;
+		}
+		if (enemyIsAttack[nowPhase] == true)
+		{
+			enemyAttackCount = 0;
+			playerHP--;
+			enemyIsAttack[nowPhase] = false;
+		}
+
+		/*enemyAttackCount++;
+		if (enemyAttackCount >= enemyAttackDelay[nowPhase])
+		{
+			enemyIsAttack[nowPhase] = true;
+		}
+		if (enemyIsAttack[nowPhase] == true)
+		{
+			enemyAttackCount = 0;
+			playerHP--;
+			enemyIsAttack[nowPhase] = false;
+		}*/
+	}
+	if (enemyHP[nowPhase] == 0 && enemyIsAlive[nowPhase] == 1)
+	{
+		nowPhase++;
+		enemyIsAlive[nowPhase] = 0;
+	}
+	
+	
 	//パーティクル更新
 	//particleMan->ParticleAdd(pPos1);
 	particleMan->Update();
@@ -122,6 +172,7 @@ void GameSceneManager::Draw(_DirectX directX)
 
 	//前景描画
 	//sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
+	sprite->Draw(enemyGraph, XMFLOAT2(window_width / 2 - 46, window_height / 2 - 46), 100, 100);
 
 	switch (table.GetStatus())
 	{
@@ -141,7 +192,12 @@ void GameSceneManager::Draw(_DirectX directX)
 
 	debugText.Print(1, 30, 2, "AD:rotation");
 	debugText.Print(1, 60, 2, "yazirusi:position");
-
+	
+	debugText.Print(10, 140, 2, "   playerHP :%d", playerHP);
+	debugText.Print(10, 180, 2, "    enemyHP :%d", enemyHP[nowPhase]);
+	debugText.Print(10, 220, 2, "      phese :%d", nowPhase + 1);
+	debugText.Print(10, 260, 2, "enemyAttack :%d", enemyAttackCount);
+	debugText.Print(10, 300, 2, "            :%d", block.GetAddFlag());
 	//デバックテキスト描画
 	debugText.DrawAll();
 }
