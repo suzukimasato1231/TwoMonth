@@ -27,9 +27,9 @@ public:
 	void Draw();
 
 	XMFLOAT2 GetPos();
-
+	//台の向き
 	int GetStatus();
-
+	//スプライトデータ
 	Sprite::SpriteData table;
 private:
 	XMFLOAT2 pos{ 630.0f,420.0f };//座標
@@ -39,4 +39,8 @@ private:
 	float height = 300.0f;
 
 	int Status = UP;
+
+	//回転してるかどうか
+	bool rotationFlag = false;
+	float rotationMemory = 0;
 };

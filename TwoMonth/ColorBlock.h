@@ -3,6 +3,12 @@
 #include"base/Safe_delete.h"
 #include"base/XMFLOATHelper.h"
 #include"Table.h"
+enum BlockColor
+{
+	Red = 1,
+	Yellow,
+	Blue,
+};
 class ColorBlock
 {
 private:
@@ -23,7 +29,7 @@ public:
 	//親クラスを取得
 	void GetSpriteParent(Sprite::SpriteData *parent);
 	//押し戻し処理
-	void PushBack(int isHit);
+	void PushBack(int isHit, const float blockSize);
 
 
 	XMFLOAT2 GetPos();
@@ -32,16 +38,19 @@ public:
 
 	bool GetFlag();
 	//マップチップ内の情報を保存、台の上での座標を入れる
-	void Pos(int i, int j, int direction);
+	void Pos(int i, int j, int direction, const float blockSize);
 
 	XMFLOAT2 Getmap();
 
 	int GetStatus();
+
+	int GetColor();
 private:
 	Sprite::SpriteData block;
 	XMFLOAT2 pos{ 600.0f,0.0f };
 	XMFLOAT2 oldPos{};
-	bool Flag = true;
+	bool Flag = true;//台に乗ってるかどうか
+	int color = 0;//色
 	//マップチップの位置を保存
 	XMFLOAT2 map = { -1,-1 };
 	int Status = 0;

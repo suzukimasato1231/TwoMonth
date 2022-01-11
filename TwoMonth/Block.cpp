@@ -6,7 +6,6 @@ Block::Block()
 
 Block::~Block()
 {
-
 	for (int i = (int)colorBlock.size() - 1; i >= 0; i--)
 	{
 		delete colorBlock[i];
@@ -99,11 +98,12 @@ void Block::MoveBlock()
 	}
 }
 
+
 void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction)
 {
 	if (colorBlock.size() != 0)
 	{
-		XMFLOAT2 TablePos = { tablePos.x - 300 / 2,tablePos.y - 300 / 2 };
+		XMFLOAT2 TablePos = { tablePos.x - blockSize * mapNum / 2,tablePos.y - blockSize * mapNum / 2 };
 		for (int i = 0; i < mapNum; i++)
 		{
 			for (int j = 0; j < mapNum; j++)
@@ -111,83 +111,83 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 				switch (direction)
 				{
 				case UP:
-					if (mapUP[j][i] == 1)
+					if (mapUP[j][i] > 0)
 					{
-						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
+						XMFLOAT2 mapChipPos{ TablePos.x + blockSize * i,TablePos.y - blockSize * j };
 
 						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
 							mapChipPos, 30.0f, 30.0f);
 						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
-						{
+						{//台の上での座標をいれる
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
-							mapUP[j + 1][i] = 1;
+							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
+							mapUP[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
 						//押し戻し処理
 						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
 						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 
 					}
 					break;
 				case Down:
-					if (mapDown[j][i] == 1)
+					if (mapDown[j][i] > 0)
 					{
-						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
+						XMFLOAT2 mapChipPos{ TablePos.x + blockSize * i,TablePos.y - blockSize * j };
 
 						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-							mapChipPos, 30.0f, 30.0f);
+							mapChipPos, blockSize, blockSize);
 						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
-						{
+						{//台の上での座標をいれる
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
-							mapDown[j + 1][i] = 1;
+							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
+							mapDown[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
 						//押し戻し処理
 						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
 						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 					}
 					break;
 				case Left:
-					if (mapLeft[j][i] == 1)
+					if (mapLeft[j][i] > 0)
 					{
-						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
+						XMFLOAT2 mapChipPos{ TablePos.x + blockSize * i,TablePos.y - blockSize * j };
 
 						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-							mapChipPos, 30.0f, 30.0f);
+							mapChipPos, blockSize, blockSize);
 						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
-						{
+						{//台の上での座標をいれる
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
-							mapLeft[j + 1][i] = 1;
+							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
+							mapLeft[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
 						//押し戻し処理
 						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
 						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 					}
 					break;
 				case Right:
-					if (mapRight[j][i] == 1)
+					if (mapRight[j][i] > 0)
 					{
-						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
+						XMFLOAT2 mapChipPos{ TablePos.x + blockSize * i,TablePos.y - blockSize * j };
 
 						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-							mapChipPos, 30.0f, 30.0f);
+							mapChipPos, blockSize, blockSize);
 						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
-						{
+						{//台の上での座標をいれる
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
-							mapRight[j + 1][i] = 1;
+							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
+							mapRight[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
 						//押し戻し処理
 						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
 						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 					}
 					break;
@@ -203,8 +203,8 @@ void Block::Damege()
 	for (int i = 0; i < mapNum; i++)
 	{
 		for (int j = 1; j < mapNum; j++)
-		{
-			if (mapUP[j][i] == 1 && mapDown[j][mapNum - i - 1] == 1)
+		{//挟んでいるかどうか
+			if (mapUP[j][i] > 0 && mapDown[j][mapNum - i - 1] > 0)
 			{
 				DamegeFlag = true;
 				mapUP[j][i] = 0;
@@ -227,8 +227,8 @@ void Block::Damege()
 					}
 				}
 			}
-
-			if (mapLeft[j][i] == 1 && mapRight[j][mapNum - i - 1] == 1)
+			//挟んでいるかどうか
+			if (mapLeft[j][i] > 0 && mapRight[j][mapNum - i - 1] > 0)
 			{
 				DamegeFlag = true;
 				mapLeft[j][i] = 0;
@@ -250,6 +250,64 @@ void Block::Damege()
 						colorBlock.erase(colorBlock.begin() + n);
 					}
 				}
+			}
+			//ブロックをずらす
+			BlockShift(i, j);
+		}
+	}
+}
+
+void Block::BlockShift(int i, int j)
+{
+	//下にブロックが無かったらずれる
+	if (mapUP[j][i] > 0 && mapUP[j - 1][i] == 0)
+	{
+		mapUP[j - 1][i] = mapUP[j][i];
+		mapUP[j][i] = 0;
+		for (int n = 0; n < colorBlock.size(); n++)
+		{
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			{//座標更新
+				colorBlock[n]->Pos(i, j - 2, UP, blockSize);
+			}
+		}
+	}
+	//下にブロックが無かったらずれる
+	if (mapLeft[j][i] > 0 && mapLeft[j - 1][i] == 0)
+	{
+		mapLeft[j - 1][i] = mapLeft[j][i];
+		mapLeft[j][i] = 0;
+		for (int n = 0; n < colorBlock.size(); n++)
+		{
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			{//座標更新
+				colorBlock[n]->Pos(i, j - 2, Left, blockSize);
+			}
+		}
+	}
+	//下にブロックが無かったらずれる
+	if (mapDown[j][i] > 0 && mapDown[j - 1][i] == 0)
+	{
+		mapDown[j - 1][i] = mapDown[j][i];
+		mapDown[j][i] = 0;
+		for (int n = 0; n < colorBlock.size(); n++)
+		{
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			{//座標更新
+				colorBlock[n]->Pos(i, j - 2, Down, blockSize);
+			}
+		}
+	}
+	//下にブロックが無かったらずれる
+	if (mapRight[j][i] > 0 && mapRight[j - 1][i] == 0)
+	{
+		mapRight[j - 1][i] = mapRight[j][i];
+		mapRight[j][i] = 0;
+		for (int n = 0; n < colorBlock.size(); n++)
+		{
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			{//座標更新
+				colorBlock[n]->Pos(i, j - 2, Right, blockSize);
 			}
 		}
 	}

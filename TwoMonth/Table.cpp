@@ -21,9 +21,10 @@ void Table::Init(Input *input, Sprite *sprite)
 void Table::Update()
 {
 	//âÒì]
-	if (input->KeybordTrigger(DIK_A))
+	if (input->KeybordTrigger(DIK_A) && rotationFlag == false)
 	{
-		table.rotation -= 90;
+		rotationMemory = table.rotation - 90.0f;
+		rotationFlag = true;
 		switch (Status)
 		{
 		case UP:
@@ -40,9 +41,10 @@ void Table::Update()
 			break;
 		}
 	}
-	if (input->KeybordTrigger(DIK_D))
+	if (input->KeybordTrigger(DIK_D) && rotationFlag == false)
 	{
-		table.rotation += 90;
+		rotationMemory = table.rotation + 90.0f;
+		rotationFlag = true;
 		switch (Status)
 		{
 		case UP:
@@ -57,6 +59,26 @@ void Table::Update()
 		case Right:
 			Status = UP;
 			break;
+		}
+	}
+
+	if (rotationFlag == true)
+	{//âEâÒÇË
+		if (rotationMemory > table.rotation)
+		{
+			table.rotation += 5;
+			if (rotationMemory == table.rotation)
+			{
+				rotationFlag = false;
+			}
+		}//ç∂âÒÇË
+		if (rotationMemory < table.rotation)
+		{
+			table.rotation -= 5;
+			if (rotationMemory == table.rotation)
+			{
+				rotationFlag = false;
+			}
 		}
 	}
 }

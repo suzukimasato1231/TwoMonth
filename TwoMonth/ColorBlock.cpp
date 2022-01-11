@@ -9,6 +9,8 @@ void ColorBlock::Init(Sprite::SpriteData block, Sprite *sprite)
 	this->block = block;
 	assert(sprite);
 	this->sprite = sprite;
+
+	color = rand() % 3 + 1;
 }
 
 void ColorBlock::Update()
@@ -22,7 +24,18 @@ void ColorBlock::Update()
 
 void ColorBlock::Draw()
 {
-	sprite->Draw(block, pos, 30.0f, 30.0f);
+	switch (color)
+	{
+	case Red:
+		sprite->Draw(block, pos, 30.0f, 30.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		break;
+	case Yellow:
+		sprite->Draw(block, pos, 30.0f, 30.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
+		break;
+	case Blue:
+		sprite->Draw(block, pos, 30.0f, 30.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		break;
+	}
 }
 
 void ColorBlock::LeftMove()
@@ -43,15 +56,15 @@ void ColorBlock::GetSpriteParent(Sprite::SpriteData *parent)
 	Flag = false;
 }
 
-void ColorBlock::PushBack(int isHit)
+void ColorBlock::PushBack(int isHit, const float blockSize)
 {
 	if (isHit == 2)
 	{
-		pos.x -= 30;
+		pos.x -= blockSize;
 	}
 	if (isHit == 3)
 	{
-		pos.x += 30;
+		pos.x += blockSize;
 	}
 
 }
@@ -71,25 +84,25 @@ bool ColorBlock::GetFlag()
 	return Flag;
 }
 
-void ColorBlock::Pos(int i, int j, int direction)
+void ColorBlock::Pos(int i, int j, int direction, const float blockSize)
 {
 	switch (direction)
 	{
 	case UP:
-		pos.x = i * 30 - 150;
-		pos.y = -150 - 30 - j * 30;
+		pos.x = i * blockSize - 150;
+		pos.y = -150 - blockSize - j * blockSize;
 		break;
 	case Down:
-		pos.x = -i * 30 + 150 - 30;
-		pos.y = 150 + j * 30;
+		pos.x = -i * blockSize + 150 - blockSize;
+		pos.y = 150 + j * blockSize;
 		break;
 	case Left:
-		pos.x = -150 - j * 30 - 30;
-		pos.y = +150 - i * 30 - 30;
+		pos.x = -150 - j * blockSize - blockSize;
+		pos.y = +150 - i * blockSize - blockSize;
 		break;
 	case Right:
-		pos.x = 150 + j * 30;
-		pos.y = -150 + i * 30;
+		pos.x = 150 + j * blockSize;
+		pos.y = -150 + i * blockSize;
 		break;
 	}
 	//マップの位置を保存
@@ -105,4 +118,9 @@ XMFLOAT2 ColorBlock::Getmap()
 int ColorBlock::GetStatus()
 {
 	return Status;
+}
+
+int ColorBlock::GetColor()
+{
+	return color;
 }

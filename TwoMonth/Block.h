@@ -7,12 +7,6 @@
 #include"collision/Collision.h"
 #include"Table.h"
 const int mapNum = 10;
-enum BlockColor
-{
-	Red,
-	Yellow,
-	Blue,
-};
 
 class Block
 {
@@ -30,16 +24,24 @@ public:
 
 	void Draw();
 
-	//ブロック追加
-	void AddBlock();
-	//ブロック移動
-	void MoveBlock();
 	//ブロックと台の当たり判定
 	void ColBlock(Sprite::SpriteData *table,XMFLOAT2 tablePos,int direction);
 	//ダメージ
 	void Damege();
 
 	bool GetDameFlag();
+private:
+	//ブロック追加
+	void AddBlock();
+	//ブロック移動
+	void MoveBlock();
+	/// <summary>
+	/// ブロックをずらす
+	/// </summary>
+	/// <param name="i">マップチップのｘ</param>
+	/// <param name="j">マップチップのｙ</param>
+	void BlockShift(int i, int j);
+
 private:
 	std::vector<ColorBlock *>colorBlock;
 
@@ -50,6 +52,8 @@ private:
 	int mapDown[10][mapNum];//下の状態
 	int mapLeft[10][mapNum];//左の状態
 	int mapRight[10][mapNum];//右の状態
+
+	const float blockSize = 30.0f;
 
 	bool DamegeFlag = false;
 };
