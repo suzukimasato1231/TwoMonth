@@ -29,7 +29,11 @@ public:
 	//ダメージ
 	void Damege();
 
+	void DeleteBlock();
+
 	bool GetDameFlag();
+
+	bool GetAddFlag();
 private:
 	//ブロック追加
 	void AddBlock();
@@ -56,4 +60,6 @@ private:
 	const float blockSize = 30.0f;
 
 	bool DamegeFlag = false;
+
+	bool addFlag = false;
 };
