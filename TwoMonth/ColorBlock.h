@@ -23,16 +23,16 @@ public:
 	//親クラスを取得
 	void GetSpriteParent(Sprite::SpriteData *parent);
 	//押し戻し処理
-	void PushBack(XMFLOAT2 mapChip, int isHit);
+	void PushBack(int isHit);
 
-	
+
 	XMFLOAT2 GetPos();
 
 	XMFLOAT2 GetoldPos();
 
 	bool GetFlag();
 	//マップチップ内の情報を保存、台の上での座標を入れる
-	void Pos(int i, int j,int direction);
+	void Pos(int i, int j, int direction);
 
 	XMFLOAT2 Getmap();
 
@@ -43,6 +43,6 @@ private:
 	XMFLOAT2 oldPos{};
 	bool Flag = true;
 	//マップチップの位置を保存
-	XMFLOAT2 map = {-1,-1};
+	XMFLOAT2 map = { -1,-1 };
 	int Status = 0;
 };

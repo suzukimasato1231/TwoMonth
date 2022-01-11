@@ -43,9 +43,17 @@ void ColorBlock::GetSpriteParent(Sprite::SpriteData *parent)
 	Flag = false;
 }
 
-void ColorBlock::PushBack(XMFLOAT2 mapChip, int isHit)
+void ColorBlock::PushBack(int isHit)
 {
-	pos.x -= 30;
+	if (isHit == 2)
+	{
+		pos.x -= 30;
+	}
+	if (isHit == 3)
+	{
+		pos.x += 30;
+	}
+
 }
 
 XMFLOAT2 ColorBlock::GetPos()

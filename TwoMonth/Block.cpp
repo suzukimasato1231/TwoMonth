@@ -115,15 +115,18 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 					{
 						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
 
-						bool isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), 30, 30,
+						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
 							mapChipPos, 30.0f, 30.0f);
-						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit)
+						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 						{
-
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
 							mapUP[j + 1][i] = 1;
-
+						}
+						//‰Ÿ‚µ–ß‚µˆ—
+						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
+						{
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
 						}
 
 					}
@@ -133,13 +136,18 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 					{
 						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
 
-						bool isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), 30, 30,
+						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
 							mapChipPos, 30.0f, 30.0f);
-						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit)
+						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 						{
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
 							mapDown[j + 1][i] = 1;
+						}
+						//‰Ÿ‚µ–ß‚µˆ—
+						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
+						{
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
 						}
 					}
 					break;
@@ -148,13 +156,18 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 					{
 						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
 
-						bool isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), 30, 30,
+						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
 							mapChipPos, 30.0f, 30.0f);
-						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit)
+						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 						{
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
 							mapLeft[j + 1][i] = 1;
+						}
+						//‰Ÿ‚µ–ß‚µˆ—
+						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
+						{
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
 						}
 					}
 					break;
@@ -163,13 +176,18 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 					{
 						XMFLOAT2 mapChipPos{ TablePos.x + 30 * i,TablePos.y - 30 * j };
 
-						bool isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), 30, 30,
+						int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
 							mapChipPos, 30.0f, 30.0f);
-						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit)
+						if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 						{
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction);
 							mapRight[j + 1][i] = 1;
+						}
+						//‰Ÿ‚µ–ß‚µˆ—
+						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
+						{
+							colorBlock[colorBlock.size() - 1]->PushBack(isHit);
 						}
 					}
 					break;

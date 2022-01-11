@@ -57,6 +57,7 @@ public:
 	/// <param name="width2"></param>
 	/// <param name="height2"></param>
 	/// <returns></returns>
-	static bool MapChipCollision(XMFLOAT2 pos1, float width1, float height1, XMFLOAT2 pos2, float width2, float height2);
+	static int MapChipCollision(XMFLOAT2 pos1, XMFLOAT2 oldPos, float width1, float height1, XMFLOAT2 pos2, float width2, float height2);
+
 
 };
