@@ -45,7 +45,6 @@ private:
 	/// <param name="i">マップチップのｘ</param>
 	/// <param name="j">マップチップのｙ</param>
 	void BlockShift(int i, int j);
-
 private:
 	std::vector<ColorBlock *>colorBlock;
 

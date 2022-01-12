@@ -7,8 +7,8 @@
 #include"GameSceneManager.h"
 #include"2d/Sprite.h"
 #include"2d/DebugText.h"
-const int window_width = 1280;//横幅
-const int window_height = 720;
+const int window_width = 1920;//横幅
+const int window_height = 1080;
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Light::StaticInitialize(directX->GetDevice());
 	//スプライト静的初期化
 	Sprite::StaticInit(directX->GetDevice(), directX->GetCmandList());
-	
+
 
 	//ゲームシーン
 	gameScene = new GameSceneManager();

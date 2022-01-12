@@ -22,10 +22,6 @@ public:
 	void Update();
 	//描画
 	void Draw();
-	//左移動
-	void LeftMove();
-	//右移動
-	void RightMove();
 	//親クラスを取得
 	void GetSpriteParent(Sprite::SpriteData *parent);
 	//押し戻し処理
@@ -39,7 +35,8 @@ public:
 	bool GetFlag();
 	//マップチップ内の情報を保存、台の上での座標を入れる
 	void Pos(int i, int j, int direction, const float blockSize);
-
+	//下にブロックがないときの座標を入れる
+	void ShiftPos(int i, int j, int direction, const float blockSize);
 	XMFLOAT2 Getmap();
 
 	int GetStatus();
@@ -47,7 +44,7 @@ public:
 	int GetColor();
 private:
 	Sprite::SpriteData block;
-	XMFLOAT2 pos{ 600.0f,0.0f };
+	XMFLOAT2 pos{ 900.0f,210.0f };
 	XMFLOAT2 oldPos{};
 	bool Flag = true;//台に乗ってるかどうか
 	int color = 0;//色

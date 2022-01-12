@@ -88,14 +88,6 @@ void Block::MoveBlock()
 		if (colorBlock[i]->GetFlag() == true)
 		{
 			colorBlock[i]->Update();
-			if (input->KeybordTrigger(DIK_LEFT))
-			{
-				colorBlock[i]->LeftMove();
-			}
-			if (input->KeybordTrigger(DIK_RIGHT))
-			{
-				colorBlock[i]->RightMove();
-			}
 		}
 	}
 }
@@ -125,12 +117,6 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
 							mapUP[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
-						//押し戻し処理
-						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
-						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
-						}
-
 					}
 					break;
 				case Down:
@@ -145,11 +131,6 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
 							mapDown[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
-						}
-						//押し戻し処理
-						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
-						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 					}
 					break;
@@ -166,11 +147,6 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
 							mapLeft[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
 						}
-						//押し戻し処理
-						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
-						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
-						}
 					}
 					break;
 				case Right:
@@ -185,11 +161,6 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
 							colorBlock[colorBlock.size() - 1]->Pos(i, j, direction, blockSize);
 							mapRight[j + 1][i] = colorBlock[colorBlock.size() - 1]->GetColor();
-						}
-						//押し戻し処理
-						if ((isHit == 2 || isHit == 3) && colorBlock[colorBlock.size() - 1]->GetFlag())
-						{
-							colorBlock[colorBlock.size() - 1]->PushBack(isHit, blockSize);
 						}
 					}
 					break;
@@ -206,11 +177,11 @@ void Block::Damege()
 	{
 		for (int j = 1; j < mapNum; j++)
 		{//挟んでいるかどうか
-			if (mapUP[j][i] > 0 && mapDown[j][mapNum - i - 1] > 0)
+			if (mapUP[j][i] > 0 && mapDown[j][i] > 0)
 			{
 				DamegeFlag = true;
 				mapUP[j][i] = 0;
-				mapDown[j][mapNum - i - 1] = 0;
+				mapDown[j][i] = 0;
 				//該当するブロックを削除
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
@@ -222,7 +193,7 @@ void Block::Damege()
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					if (colorBlock[n]->Getmap().x == mapNum - i - 1 && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+					if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
 					{
 						delete colorBlock[n];
 						colorBlock.erase(colorBlock.begin() + n);
@@ -230,11 +201,11 @@ void Block::Damege()
 				}
 			}
 			//挟んでいるかどうか
-			if (mapLeft[j][i] > 0 && mapRight[j][mapNum - i - 1] > 0)
+			if (mapLeft[j][i] > 0 && mapRight[j][i] > 0)
 			{
 				DamegeFlag = true;
 				mapLeft[j][i] = 0;
-				mapRight[j][mapNum - i - 1] = 0;
+				mapRight[j][i] = 0;
 				//該当するブロックを削除
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
@@ -246,7 +217,7 @@ void Block::Damege()
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					if (colorBlock[n]->Getmap().x == mapNum - i - 1 && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+					if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
 					{
 						delete colorBlock[n];
 						colorBlock.erase(colorBlock.begin() + n);
@@ -264,7 +235,7 @@ void Block::DeleteBlock()
 	for (int n = 0; n < colorBlock.size(); n++)
 	{
 		delete colorBlock[n];
-		colorBlock.erase(colorBlock.begin() + n);	
+		colorBlock.erase(colorBlock.begin() + n);
 	}
 }
 
@@ -277,9 +248,9 @@ void Block::BlockShift(int i, int j)
 		mapUP[j][i] = 0;
 		for (int n = 0; n < colorBlock.size(); n++)
 		{
-			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
 			{//座標更新
-				colorBlock[n]->Pos(i, j - 2, UP, blockSize);
+				colorBlock[n]->ShiftPos(i, j - 2, UP, blockSize);
 			}
 		}
 	}
@@ -290,9 +261,9 @@ void Block::BlockShift(int i, int j)
 		mapLeft[j][i] = 0;
 		for (int n = 0; n < colorBlock.size(); n++)
 		{
-			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
 			{//座標更新
-				colorBlock[n]->Pos(i, j - 2, Left, blockSize);
+				colorBlock[n]->ShiftPos(i, j - 2, Left, blockSize);
 			}
 		}
 	}
@@ -303,9 +274,9 @@ void Block::BlockShift(int i, int j)
 		mapDown[j][i] = 0;
 		for (int n = 0; n < colorBlock.size(); n++)
 		{
-			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
 			{//座標更新
-				colorBlock[n]->Pos(i, j - 2, Down, blockSize);
+				colorBlock[n]->ShiftPos(i, j - 2, Down, blockSize);
 			}
 		}
 	}
@@ -316,9 +287,9 @@ void Block::BlockShift(int i, int j)
 		mapRight[j][i] = 0;
 		for (int n = 0; n < colorBlock.size(); n++)
 		{
-			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j)
+			if (colorBlock[n]->Getmap().x == i && colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
 			{//座標更新
-				colorBlock[n]->Pos(i, j - 2, Right, blockSize);
+				colorBlock[n]->ShiftPos(i, j - 2, Right, blockSize);
 			}
 		}
 	}

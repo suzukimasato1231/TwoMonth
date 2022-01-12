@@ -32,8 +32,8 @@ public:
 	//スプライトデータ
 	Sprite::SpriteData table;
 private:
-	XMFLOAT2 pos{ 630.0f,420.0f };//座標
-
+	XMFLOAT2 pos{ 930.0f,630.0f };//座標
+	//300/210
 	float width = 300.0f;
 
 	float height = 300.0f;
