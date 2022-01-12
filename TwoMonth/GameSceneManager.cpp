@@ -98,7 +98,7 @@ void GameSceneManager::Update()
 	}
 	if (enemyHP[nowPhase] == 0)
 	{
-		//block.DeleteBlock();
+		block.DeleteBlock();
 		enemyIsAlive[nowPhase] = 0;
 		enemyAttackCount = -1;
 		nowPhase++;
@@ -120,18 +120,6 @@ void GameSceneManager::Update()
 			playerHP--;
 			enemyIsAttack[nowPhase] = false;
 		}
-
-		/*enemyAttackCount++;
-		if (enemyAttackCount >= enemyAttackDelay[nowPhase])
-		{
-			enemyIsAttack[nowPhase] = true;
-		}
-		if (enemyIsAttack[nowPhase] == true)
-		{
-			enemyAttackCount = 0;
-			playerHP--;
-			enemyIsAttack[nowPhase] = false;
-		}*/
 	}
 	if (enemyHP[nowPhase] == 0 && enemyIsAlive[nowPhase] == 1)
 	{
@@ -192,12 +180,18 @@ void GameSceneManager::Draw(_DirectX directX)
 
 	debugText.Print(1, 30, 2, "AD:rotation");
 	debugText.Print(1, 60, 2, "yazirusi:position");
-	
+
 	debugText.Print(10, 140, 2, "   playerHP :%d", playerHP);
 	debugText.Print(10, 180, 2, "    enemyHP :%d", enemyHP[nowPhase]);
 	debugText.Print(10, 220, 2, "      phese :%d", nowPhase + 1);
 	debugText.Print(10, 260, 2, "enemyAttack :%d", enemyAttackCount);
 	debugText.Print(10, 300, 2, "            :%d", block.GetAddFlag());
+	debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 	//デバックテキスト描画
-	debugText.DrawAll();
+	debugText.
+		DrawAll();
+}
+void GameSceneManager::ColorCheck()
+{
+
 }

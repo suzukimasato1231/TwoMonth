@@ -34,6 +34,10 @@ public:
 	bool GetDameFlag();
 
 	bool GetAddFlag();
+
+	int GetSandDelay();
+
+	void SetSandDelay(int count);
 private:
 	//ÉuÉçÉbÉNí«â¡
 	void AddBlock();
@@ -67,4 +71,7 @@ private:
 	bool DamegeFlag = false;
 
 	bool addFlag = false;
+
+	int sandDelay = 0;
+	bool sandFlag = 0;
 };
