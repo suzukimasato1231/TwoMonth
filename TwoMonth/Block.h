@@ -6,7 +6,7 @@
 #include"base/Safe_delete.h"
 #include"collision/Collision.h"
 #include"Table.h"
-const int mapNum = 10;
+const int mapNum = 20;
 
 class Block
 {
@@ -51,13 +51,14 @@ private:
 	Sprite::SpriteData block;
 
 	//ブロックのマップチップ
-	int mapUP[10][mapNum];//上の状態
-	int mapDown[10][mapNum];//下の状態
-	int mapLeft[10][mapNum];//左の状態
-	int mapRight[10][mapNum];//右の状態
+	int mapUP[mapNum];//上の状態
+	int mapDown[mapNum];//下の状態
+	int mapLeft[mapNum];//左の状態
+	int mapRight[mapNum];//右の状態
 
 	const float blockSize = 30.0f;
-
+	//マップチップのXの残滓
+	const int blockX = 5;
 	bool DamegeFlag = false;
 
 	bool addFlag = false;

@@ -8,6 +8,8 @@ enum BlockColor
 	Red = 1,
 	Yellow,
 	Blue,
+	//“y‘ä
+	Foundation,
 };
 class ColorBlock
 {

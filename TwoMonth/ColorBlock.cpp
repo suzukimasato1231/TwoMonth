@@ -56,7 +56,6 @@ void ColorBlock::PushBack(int isHit, const float blockSize)
 	{
 		pos.x += blockSize;
 	}
-
 }
 
 XMFLOAT2 ColorBlock::GetPos()
@@ -107,20 +106,20 @@ void ColorBlock::ShiftPos(int i, int j, int direction, const float blockSize)
 	switch (direction)
 	{
 	case UP:
-		pos.x = i * blockSize - 150;
+		pos.x = i * blockSize - 180;
 		pos.y = -150 - blockSize - j * blockSize;
 		break;
 	case Down:
-		pos.x = -i * blockSize + 120 - blockSize;
+		pos.x = -i * blockSize + 150 - blockSize;
 		pos.y = 150 + j * blockSize;
 		break;
 	case Left:
 		pos.x = -j * blockSize - blockSize;
-		pos.y = i * blockSize - blockSize - 240;
+		pos.y = i * blockSize - blockSize - 270;
 		break;
 	case Right:
 		pos.x = j * blockSize + 300;
-		pos.y = i * blockSize - 270;
+		pos.y = i * blockSize - 300;
 		break;
 	}
 	//マップの位置を保存
