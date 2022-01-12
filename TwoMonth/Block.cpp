@@ -204,49 +204,65 @@ void Block::Damege()
 	{//挟んでいるかどうか
 		if (mapUP[j] > 0 && mapDown[j] > 0)
 		{
-			DamegeFlag = true;
-			mapUP[j] = 0;
-			mapDown[j] = 0;
-			//該当するブロックを削除
-			for (int n = 0; n < colorBlock.size(); n++)
+			sandFlag = true;
+			sandDelay++;
+			if (sandDelay > 120 && sandFlag == true)
 			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
+				mapUP[j] = 0;
+				mapDown[j] = 0;
+				//該当するブロックを削除
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+					}
 				}
-			}
-			for (int n = 0; n < colorBlock.size(); n++)
-			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+					}
 				}
+				DamegeFlag = true;
+				sandFlag = 0;
+				addFlag = true;
+				sandDelay = 0;
 			}
 		}
 		//挟んでいるかどうか
 		if (mapLeft[j] > 0 && mapRight[j] > 0)
 		{
-			DamegeFlag = true;
-			mapLeft[j] = 0;
-			mapRight[j] = 0;
-			//該当するブロックを削除
-			for (int n = 0; n < colorBlock.size(); n++)
+			sandFlag = true;
+			sandDelay++;
+			if (sandDelay > 120 && sandFlag == true)
 			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
+				mapLeft[j] = 0;
+				mapRight[j] = 0;
+				//該当するブロックを削除
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+					}
 				}
-			}
-			for (int n = 0; n < colorBlock.size(); n++)
-			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+					}
 				}
+				DamegeFlag = true;
+				sandFlag = 0;
+				addFlag = true;
+				sandDelay = 0;
 			}
 		}
 		//ブロックをずらす
@@ -256,10 +272,31 @@ void Block::Damege()
 
 void Block::DeleteBlock()
 {
-	for (int n = 0; n < colorBlock.size(); n++)
+	for (int i = (int)colorBlock.size() - 1; i >= 0; i--)
 	{
-		delete colorBlock[n];
-		colorBlock.erase(colorBlock.begin() + n);
+		delete colorBlock[i];
+		colorBlock.erase(colorBlock.begin() + i);
+	}
+
+	for (int i = 0; i < mapNum; i++)
+	{
+		for (int j = 0; j < mapNum; j++)
+		{
+			if (j == 0)
+			{//ブロックの台部分
+				mapUP[j] = Foundation;
+				mapDown[j] = Foundation;
+				mapLeft[j] = Foundation;
+				mapRight[j] = Foundation;
+			}
+			else
+			{
+				mapUP[j] = 0;
+				mapDown[j] = 0;
+				mapLeft[j] = 0;
+				mapRight[j] = 0;
+			}
+		}
 	}
 }
 
@@ -437,4 +474,13 @@ bool Block::GetAddFlag()
 	return addFlag;
 }
 
+int Block::GetSandDelay()
+{
+	return sandDelay;
+}
+
+void Block::SetSandDelay(int count)
+{
+	sandDelay = count;
+}
 
