@@ -44,11 +44,11 @@ void Block::Init(Input *input, Sprite *sprite)
 	}
 }
 
-void Block::Update()
+void Block::Update(Sprite::SpriteData *table, int direction)
 {
 	AddBlock();
 
-	MoveBlock();
+	MoveBlock(table, direction);
 
 	Damege();
 }
@@ -81,13 +81,15 @@ void Block::AddBlock()
 	}
 }
 
-void Block::MoveBlock()
+void Block::MoveBlock(Sprite::SpriteData *table, int direction)
 {
 	for (int i = 0; i < colorBlock.size(); i++)
 	{
 		if (colorBlock[i]->GetFlag() == true)
 		{
 			colorBlock[i]->Update();
+			//ハードドロップ
+			HardDrop(table, direction);
 		}
 	}
 }
@@ -111,9 +113,16 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 						mapChipPos, 30.0f, 30.0f);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
-						colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-						colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
-						mapUP[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						if (mapUP[j + 1] > 0)
+						{
+							BlockSetRot(table, direction);
+						}
+						else
+						{
+							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+							colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
+							mapUP[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						}
 					}
 				}
 				break;
@@ -126,9 +135,16 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 						mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
-						colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-						colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
-						mapDown[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						if (mapDown[j + 1] > 0)
+						{
+							BlockSetRot(table, direction);
+						}
+						else
+						{
+							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+							colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
+							mapDown[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						}
 					}
 				}
 				break;
@@ -141,9 +157,16 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 						mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
-						colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-						colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
-						mapLeft[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						if (mapLeft[j + 1] > 0)
+						{
+							BlockSetRot(table, direction);
+						}
+						else
+						{
+							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+							colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
+							mapLeft[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						}
 					}
 				}
 				break;
@@ -156,9 +179,16 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 						mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
-						colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-						colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
-						mapRight[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						if (mapRight[j + 1] > 0)
+						{
+							BlockSetRot(table, direction);
+						}
+						else
+						{
+							colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+							colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j, direction, blockSize);
+							mapRight[j + 1] = colorBlock[colorBlock.size() - 1]->GetColor();
+						}
 					}
 				}
 				break;
@@ -288,7 +318,115 @@ void Block::BlockShift(int i, int j)
 		}
 	}
 }
+void Block::HardDrop(Sprite::SpriteData *table, int direction)
+{
+	if (input->KeybordTrigger(DIK_SPACE))
+	{
+		for (int j = 1; j < mapNum; j++)
+		{
+			bool breakFlag = false;
+			switch (direction)
+			{
+			case UP:
+				if (mapUP[j] == 0)
+				{//空いてるところに設置
+					colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+					colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
+					mapUP[j] = colorBlock[colorBlock.size() - 1]->GetColor();
+					breakFlag = true;
+				}
+				break;
+			case Down:
+				if (mapDown[j] == 0)
+				{//空いてるところに設置
+					colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+					colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
+					mapDown[j] = colorBlock[colorBlock.size() - 1]->GetColor();
+					breakFlag = true;
+				}
+				break;
+			case Left:
+				if (mapLeft[j] == 0)
+				{//空いてるところに設置
+					colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+					colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
+					mapLeft[j] = colorBlock[colorBlock.size() - 1]->GetColor();
+					breakFlag = true;
+				}
+				break;
+			case Right:
+				if (mapRight[j] == 0)
+				{//空いてるところに設置
+					colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+					colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
+					mapRight[j] = colorBlock[colorBlock.size() - 1]->GetColor();
+					breakFlag = true;
+				}
+				break;
+			}
+			//見つけたら抜ける
+			if (breakFlag == true)
+			{
+				break;
+			}
+		}
+	}
+}
 
+void Block::BlockSetRot(Sprite::SpriteData *table, int direction)
+{
+	switch (direction)
+	{
+	case UP:
+		for (int i = 1; i < mapNum; i++)
+		{
+			if (mapUP[i] == 0)
+			{
+				colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+				colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), i - 1, direction, blockSize);
+				mapUP[i] = colorBlock[colorBlock.size() - 1]->GetColor();
+				break;
+			}
+		}
+		break;
+	case Down:
+		for (int i = 1; i < mapNum; i++)
+		{
+			if (mapDown[i] == 0)
+			{
+				colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+				colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), i - 1, direction, blockSize);
+				mapDown[i] = colorBlock[colorBlock.size() - 1]->GetColor();
+				break;
+			}
+		}
+		break;
+	case Left:
+		for (int i = 1; i < mapNum; i++)
+		{
+			if (mapLeft[i] == 0)
+			{
+				colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+				colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), i - 1, direction, blockSize);
+				mapLeft[i] = colorBlock[colorBlock.size() - 1]->GetColor();
+				break;
+			}
+		}
+		break;
+	case Right:
+		for (int i = 1; i < mapNum; i++)
+		{
+			if (mapRight[i] == 0)
+			{
+				colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
+				colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), i - 1, direction, blockSize);
+				mapRight[i] = colorBlock[colorBlock.size() - 1]->GetColor();
+				break;
+			}
+		}
+		break;
+	}
+}
 bool Block::GetDameFlag()
 {
 	return DamegeFlag;

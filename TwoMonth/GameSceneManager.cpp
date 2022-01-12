@@ -88,7 +88,7 @@ void GameSceneManager::Update()
 
 	table.Update();
 
-	block.Update();
+	block.Update(&table.table, table.GetStatus());
 
 	block.ColBlock(&table.table, table.GetPos(), table.GetStatus());
 

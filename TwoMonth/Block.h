@@ -20,7 +20,7 @@ public:
 
 	void Init(Input *input, Sprite *sprite);
 
-	void Update();
+	void Update(Sprite::SpriteData *table, int direction);
 
 	void Draw();
 
@@ -38,13 +38,18 @@ private:
 	//ブロック追加
 	void AddBlock();
 	//ブロック移動
-	void MoveBlock();
+	void MoveBlock(Sprite::SpriteData *table, int direction);
 	/// <summary>
 	/// ブロックをずらす
 	/// </summary>
 	/// <param name="i">マップチップのｘ</param>
 	/// <param name="j">マップチップのｙ</param>
 	void BlockShift(int i, int j);
+
+	//ハードドロップ
+	void HardDrop(Sprite::SpriteData *table, int direction);
+	//回転時のブロックの処理
+	void BlockSetRot(Sprite::SpriteData *table, int direction);
 private:
 	std::vector<ColorBlock *>colorBlock;
 
