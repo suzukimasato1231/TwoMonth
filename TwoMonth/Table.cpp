@@ -20,7 +20,7 @@ void Table::Init(Input *input, Sprite *sprite)
 
 void Table::Update()
 {
-	//回転
+	//左回転
 	if (input->KeybordTrigger(DIK_A) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation - 90.0f;
@@ -41,6 +41,7 @@ void Table::Update()
 			break;
 		}
 	}
+	//右回転
 	if (input->KeybordTrigger(DIK_D) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation + 90.0f;
@@ -61,23 +62,50 @@ void Table::Update()
 			break;
 		}
 	}
-
-	if (rotationFlag == true)
-	{//右回り
-		if (rotationMemory > table.rotation)
+	//半回転
+	if (input->KeybordTrigger(DIK_S) && rotationFlag == false)
+	{
+		rotationMemory = table.rotation + 180.0f;
+		rotationFlag = true;
+		switch (Status)
 		{
-			table.rotation += 5;
-			if (rotationMemory == table.rotation)
-			{
-				rotationFlag = false;
+		case UP:
+			Status = Down;
+			break;
+		case Left:
+			Status = Right;
+			break;
+		case Down:
+			Status = UP;
+			break;
+		case Right:
+			Status = Left;
+			break;
+		}
+	}
+	//回転中
+	//右回り
+	if (rotationFlag == true && rotationMemory > table.rotation)
+	{
+		table.rotation += 5;
+		if (rotationMemory == table.rotation)
+		{
+			rotationFlag = false;
+			if (table.rotation == 360)
+			{//オーバーフロー対策
+				table.rotation -= 360.0f;
 			}
-		}//左回り
-		if (rotationMemory < table.rotation)
+		}
+	}//左回り
+	if (rotationFlag == true && rotationMemory < table.rotation)
+	{
+		table.rotation -= 5;
+		if (rotationMemory == table.rotation)
 		{
-			table.rotation -= 5;
-			if (rotationMemory == table.rotation)
-			{
-				rotationFlag = false;
+			rotationFlag = false;
+			if (table.rotation == -360)
+			{//オーバーフロー対策
+				table.rotation += 360.0f;
 			}
 		}
 	}
