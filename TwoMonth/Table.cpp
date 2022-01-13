@@ -15,7 +15,8 @@ void Table::Init(Input *input, Sprite *sprite)
 	assert(sprite);
 	this->sprite = sprite;
 
-	table = sprite->SpriteCreate(L"Resources/texture2.jpg");
+	//table = sprite->SpriteCreate(L"Resources/texture2.jpg");
+	table = sprite->SpriteCreate(L"Resources/gomi.png");
 }
 
 void Table::Update()

@@ -65,6 +65,14 @@ void GameSceneManager::Init()
 	table.Init(input, sprite);
 	//ブロッククラス
 	block.Init(input, sprite);
+
+	for (int i = 0; i < 100; i++)
+	{
+		colorUp[i] = 0;
+		colorDown[i] = 0;
+		colorLeft[i] = 0;
+		colorRight[i] = 0;
+	}
 }
 
 void GameSceneManager::Update()
@@ -85,7 +93,10 @@ void GameSceneManager::Update()
 	{
 		pPos1.x += 1;
 	}
-
+	if (input->KeybordPush(DIK_1))
+	{
+		
+	}
 	table.Update();
 
 	block.Update(&table.table, table.GetStatus());
@@ -103,10 +114,9 @@ void GameSceneManager::Update()
 		enemyAttackCount = -1;
 		nowPhase++;
 	}
-	//for (int i = 0; i < enemy_Num; i++)
 	if (enemyIsAlive[nowPhase] == true)
 	{
-		if (block.GetAddFlag() == true)
+		if (block.GetDameFlag() == true)
 		{
 			enemyAttackCount++;
 		}
@@ -126,7 +136,26 @@ void GameSceneManager::Update()
 		nowPhase++;
 		enemyIsAlive[nowPhase] = 0;
 	}
-	
+	if (block.GetComboCount() == 0)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			colorUp[i] = 0;
+			colorDown[i] = 0;
+			colorLeft[i] = 0;
+			colorRight[i] = 0;
+		}
+	}
+
+
+	if (block.GetCheckFlag() == true)
+	{
+		colorUp[block.GetComboCount() - 1] = block.GetColorNumUp();
+		colorDown[block.GetComboCount() - 1] = block.GetColorNumDown();
+		colorLeft[block.GetComboCount() - 1] = block.GetColorNumLeft();
+		colorRight[block.GetComboCount() - 1] = block.GetColorNumRight();
+	}
+	ColorDamageCheck();
 	
 	//パーティクル更新
 	//particleMan->ParticleAdd(pPos1);
@@ -181,17 +210,377 @@ void GameSceneManager::Draw(_DirectX directX)
 	debugText.Print(1, 30, 2, "AD:rotation");
 	debugText.Print(1, 60, 2, "yazirusi:position");
 
-	debugText.Print(10, 140, 2, "   playerHP :%d", playerHP);
+	/*debugText.Print(10, 140, 2, "   playerHP :%d", playerHP);
 	debugText.Print(10, 180, 2, "    enemyHP :%d", enemyHP[nowPhase]);
 	debugText.Print(10, 220, 2, "      phese :%d", nowPhase + 1);
 	debugText.Print(10, 260, 2, "enemyAttack :%d", enemyAttackCount);
 	debugText.Print(10, 300, 2, "            :%d", block.GetAddFlag());
 	debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
-	//デバックテキスト描画
+	debugText.Print(10, 380, 2, "      combo :%d", block.GetComboCount());
+	debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
+	debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());
+	debugText.Print(10, 500, 2, "  colorLeft :%d", block.GetColorNumLeft());
+	debugText.Print(10, 540, 2, " colorRight :%d", block.GetColorNumRight());*/
+	debugText.Print(10, 120, 2, "            :%d", block.GetSandDelay());
+	debugText.Print(10, 160, 2, "      combo :%d", block.GetComboCount());
+	debugText.Print(10, 200 + 0 * 40, 2, " color :%d %d %d %d", colorUp[0], colorDown[0], colorLeft[0], colorRight[0]);
+	debugText.Print(10, 200 + 1 * 40, 2, " color :%d %d %d %d", colorUp[1], colorDown[1], colorLeft[1], colorRight[1]);
+	debugText.Print(10, 200 + 2 * 40, 2, " color :%d %d %d %d", colorUp[2], colorDown[2], colorLeft[2], colorRight[2]);
+	debugText.Print(10, 200 + 3 * 40, 2, " color :%d %d %d %d", colorUp[3], colorDown[3], colorLeft[3], colorRight[3]);
+	debugText.Print(10, 200 + 4 * 40, 2, " color :%d %d %d %d", colorUp[4], colorDown[4], colorLeft[4], colorRight[4]);
+	debugText.Print(10, 200 + 5 * 40, 2, " color :%d %d %d %d", colorUp[5], colorDown[5], colorLeft[5], colorRight[5]);
+	debugText.Print(10, 200 + 6 * 40, 2, " color :%d %d %d %d", colorUp[6], colorDown[6], colorLeft[6], colorRight[6]);
+	debugText.Print(10, 200 + 7 * 40, 2, " color :%d %d %d %d", colorUp[7], colorDown[7], colorLeft[7], colorRight[7]);
+	debugText.Print(10, 200 + 8 * 40, 2, " color :%d %d %d %d", colorUp[8], colorDown[8], colorLeft[8], colorRight[8]);
+	debugText.Print(10, 200 + 9 * 40, 2, " color :%d %d %d %d", colorUp[9], colorDown[9], colorLeft[9], colorRight[9]);
+	debugText.Print(10, 200 + 10 * 40, 2, " color :%d %d %d %d", colorUp[10], colorDown[10], colorLeft[10], colorRight[10]);
+	
+		//デバックテキスト描画
 	debugText.
 		DrawAll();
 }
-void GameSceneManager::ColorCheck()
-{
 
+void GameSceneManager::ColorDamageCheck()
+{
+	if (table.GetStatus() == UP)
+	{
+		for (int i = 0; i < block.GetComboCount(); i++)
+		{
+			///上2つ
+			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) {}
+
+			///下2つ
+			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) {}
+
+			///左2つ
+			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) {}
+
+			///右2つ
+			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) {}
+		}
+	}
+	else if (table.GetStatus() == Down)
+	{
+		for (int i = 0; i < block.GetComboCount(); i++)
+		{
+			///下2つ
+			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) {}
+
+			///上2つ
+			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) {}
+
+			///右2つ
+			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) {}
+
+			///左2つ
+			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) {}
+		}
+	}
+	else if (table.GetStatus() == Left)
+	{
+		for (int i = 0; i < block.GetComboCount(); i++)
+		{
+			///右2つ
+			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) {}
+
+			///左2つ
+			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) {}
+
+			///上2つ
+			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) {}
+
+			///下2つ
+			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) {}
+		}
+	}
+	else if (table.GetStatus() == Right)
+	{
+		for (int i = 0; i < block.GetComboCount(); i++)
+		{
+			///左2つ
+			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) {}
+
+			///右2つ
+			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) {}
+			
+
+			///下2つ
+			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) {}
+			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) {}
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) {}
+
+			///上2つ
+			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) {}
+			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) {}
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) {}
+		}
+	}
 }

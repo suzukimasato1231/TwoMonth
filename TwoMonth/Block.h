@@ -33,9 +33,18 @@ public:
 
 	bool GetDameFlag();
 
+	bool GetCheckFlag();
+
 	bool GetAddFlag();
 
 	int GetSandDelay();
+
+	int GetComboCount();
+
+	int GetColorNumUp();
+	int GetColorNumDown();
+	int GetColorNumLeft();
+	int GetColorNumRight();
 
 	void SetSandDelay(int count);
 private:
@@ -74,4 +83,12 @@ private:
 
 	int sandDelay = 0;
 	bool sandFlag = 0;
+
+	int comboCount = 0;
+
+	bool checkFlag = 0;
+	int checkColorUp = 0;
+	int checkColorDown = 0;
+	int checkColorLeft = 0;
+	int checkColorRight = 0;
 };
