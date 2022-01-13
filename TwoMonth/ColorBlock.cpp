@@ -18,7 +18,8 @@ void ColorBlock::Update()
 	oldPos = pos;
 	if (Flag == true)
 	{
-		pos.y += 1.0f;
+		//pos.y += 1.0f;
+		pos.y += 0.1f;
 	}
 }
 

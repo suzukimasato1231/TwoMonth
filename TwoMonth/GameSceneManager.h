@@ -20,7 +20,7 @@ public:
 	GameSceneManager();
 	~GameSceneManager();
 
-	 void Initialize(Input *input, _DirectX *directX);
+	void Initialize(Input *input, _DirectX *directX);
 
 	void Init();
 
@@ -28,7 +28,7 @@ public:
 
 	void Draw(_DirectX directX);
 
-	void ColorCheck();
+	void ColorDamageCheck();
 private:
 	Object *object = nullptr;
 	Sprite *sprite = nullptr;
@@ -78,17 +78,24 @@ private://定義
 
 	//敵ステータス
 	static const int enemy_Num = 5;//敵の数
-	int enemyHP[enemy_Num] = { 3, 3, 3, 5, 5 };///体力
+	int enemyHP[enemy_Num] = { 10, 3, 3, 5, 5 };///体力
 	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1 };///存在するか
 	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0 };///攻撃しているか
 	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 };///攻撃するまでの時間
-	int enemyColorTopL[enemy_Num] = { 1, 1, 1, 1, 1 };
-	int enemyColorTopR[enemy_Num] = { 1, 1, 1, 1, 1 };
-	int enemyColorBottomL[enemy_Num] = { 1, 1, 1, 1, 1 };
-	int enemyColorBottomR[enemy_Num] = { 1, 1, 1, 1, 1 };
+	int enemyColorTopL[enemy_Num] = { 3, 1, 1, 1, 1 };
+	int enemyColorTopR[enemy_Num] = { 3, 1, 1, 1, 1 };
+	int enemyColorBottomL[enemy_Num] = { 3, 1, 1, 1, 1 };
+	int enemyColorBottomR[enemy_Num] = { 3, 1, 1, 1, 1 };
 
 	int  enemyAttackCount = 0;///攻撃のカウント用
 
-	//フェーズ
+	//ブロック
+	int colorUp[100];
+	int colorDown[100];
+	int colorLeft[100];
+	int colorRight[100];
+
+	
+		//フェーズ
 	int nowPhase = 0;
 };

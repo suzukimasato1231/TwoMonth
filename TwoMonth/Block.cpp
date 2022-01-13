@@ -200,73 +200,83 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 void Block::Damege()
 {
 	DamegeFlag = false;
+	checkFlag = 0;
+	checkColorUp = 0;
+	checkColorDown = 0;
+	checkColorLeft = 0;
+	checkColorRight = 0;
 	for (int j = 1; j < mapNum; j++)
 	{//挟んでいるかどうか
 		if (mapUP[j] > 0 && mapDown[j] > 0)
 		{
 			sandFlag = true;
-			sandDelay++;
-			if (sandDelay > 120 && sandFlag == true)
+			mapUP[j] = 0;
+			mapDown[j] = 0;
+			//該当するブロックを削除
+			for (int n = 0; n < colorBlock.size(); n++)
 			{
-				mapUP[j] = 0;
-				mapDown[j] = 0;
-				//該当するブロックを削除
-				for (int n = 0; n < colorBlock.size(); n++)
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
 				{
-					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
-					{
-						delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);
-					}
+					checkColorUp = colorBlock[n]->GetColor();
+					delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);
 				}
-				for (int n = 0; n < colorBlock.size(); n++)
-				{
-					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
-					{
-						delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);
-					}
-				}
-				DamegeFlag = true;
-				sandFlag = 0;
-				addFlag = true;
-				sandDelay = 0;
 			}
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+				{
+					checkColorDown = colorBlock[n]->GetColor();
+					delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);
+				}
+			}
+			checkFlag = 1;
+			comboCount++;
+			sandDelay = 0;
 		}
 		//挟んでいるかどうか
 		if (mapLeft[j] > 0 && mapRight[j] > 0)
 		{
 			sandFlag = true;
-			sandDelay++;
-			if (sandDelay > 120 && sandFlag == true)
+			mapLeft[j] = 0;
+			mapRight[j] = 0;
+			//該当するブロックを削除
+			for (int n = 0; n < colorBlock.size(); n++)
 			{
-				mapLeft[j] = 0;
-				mapRight[j] = 0;
-				//該当するブロックを削除
-				for (int n = 0; n < colorBlock.size(); n++)
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
 				{
-					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
-					{
-						delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);
-					}
+					checkColorLeft = colorBlock[n]->GetColor();
+					delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);
 				}
-				for (int n = 0; n < colorBlock.size(); n++)
-				{
-					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
-					{
-						delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);
-					}
-				}
-				DamegeFlag = true;
-				sandFlag = 0;
-				addFlag = true;
-				sandDelay = 0;
 			}
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+				{
+					checkColorRight = colorBlock[n]->GetColor();
+					delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);
+				}
+			}
+			checkFlag = 1;
+			comboCount++;
+			sandDelay= 0;
 		}
 		//ブロックをずらす
 		BlockShift(blockX, j);
+	}
+	if (sandFlag == true) {
+		sandDelay++;
+	}
+	if (sandDelay > 150 && sandFlag == true)
+	{
+		DamegeFlag = true;
+		sandFlag = 0;
+		addFlag = true;
+		sandDelay = 0;
+		comboCount = 0;
 	}
 }
 
@@ -469,6 +479,11 @@ bool Block::GetDameFlag()
 	return DamegeFlag;
 }
 
+bool Block::GetCheckFlag()
+{
+	return checkFlag;
+}
+
 bool Block::GetAddFlag()
 {
 	return addFlag;
@@ -479,8 +494,32 @@ int Block::GetSandDelay()
 	return sandDelay;
 }
 
+int Block::GetComboCount()
+{
+	return comboCount;
+}
+
+int Block::GetColorNumUp()
+{
+	return checkColorUp;
+}
+
+int Block::GetColorNumDown()
+{
+	return checkColorDown;
+}
+
+int Block::GetColorNumLeft()
+{
+	return checkColorLeft;
+}
+
+int Block::GetColorNumRight()
+{
+	return checkColorRight;
+}
+
 void Block::SetSandDelay(int count)
 {
 	sandDelay = count;
 }
-
