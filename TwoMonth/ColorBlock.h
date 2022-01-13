@@ -19,7 +19,7 @@ public:
 	ColorBlock();
 	~ColorBlock();
 
-	void Init(Sprite::SpriteData block, Sprite *sprite);
+	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite);
 	//更新
 	void Update();
 	//描画
@@ -44,8 +44,12 @@ public:
 	int GetStatus();
 
 	int GetColor();
+
+	int GetLevel();
+	//レベル上昇
+	void LevelUP(int i);
 private:
-	Sprite::SpriteData block;
+	Sprite::SpriteData block[3];
 	XMFLOAT2 pos{ 900.0f,210.0f };
 	XMFLOAT2 oldPos{};
 	bool Flag = true;//台に乗ってるかどうか
@@ -53,4 +57,6 @@ private:
 	//マップチップの位置を保存
 	XMFLOAT2 map = { -1,-1 };
 	int Status = 0;
+
+	int Level = 1;
 };

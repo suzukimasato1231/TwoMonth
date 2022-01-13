@@ -20,26 +20,27 @@ void Block::Init(Input *input, Sprite *sprite)
 	assert(sprite);
 	this->sprite = sprite;
 
-	block = sprite->SpriteCreate(L"Resources/white.png");
+	block[0] = sprite->SpriteCreate(L"Resources/white.png");
 
-	for (int i = 0; i < mapNum; i++)
+	block[1] = sprite->SpriteCreate(L"Resources/white.png");
+
+	block[2] = sprite->SpriteCreate(L"Resources/white.png");
+
+	for (int j = 0; j < mapNum; j++)
 	{
-		for (int j = 0; j < mapNum; j++)
+		if (j == 0)
+		{//ブロックの台部分
+			mapUP[j] = Foundation;
+			mapDown[j] = Foundation;
+			mapLeft[j] = Foundation;
+			mapRight[j] = Foundation;
+		}
+		else
 		{
-			if (j == 0)
-			{//ブロックの台部分
-				mapUP[j] = Foundation;
-				mapDown[j] = Foundation;
-				mapLeft[j] = Foundation;
-				mapRight[j] = Foundation;
-			}
-			else
-			{
-				mapUP[j] = 0;
-				mapDown[j] = 0;
-				mapLeft[j] = 0;
-				mapRight[j] = 0;
-			}
+			mapUP[j] = 0;
+			mapDown[j] = 0;
+			mapLeft[j] = 0;
+			mapRight[j] = 0;
 		}
 	}
 }
@@ -49,6 +50,8 @@ void Block::Update(Sprite::SpriteData *table, int direction)
 	AddBlock();
 
 	MoveBlock(table, direction);
+
+	BlockJoin();
 
 	Damege();
 }
@@ -77,7 +80,7 @@ void Block::AddBlock()
 	if (pushFlag == true)
 	{
 		colorBlock.push_back(new ColorBlock);
-		colorBlock[colorBlock.size() - 1]->Init(block, sprite);
+		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], sprite);
 	}
 }
 
@@ -211,21 +214,23 @@ void Block::Damege()
 		{
 			sandFlag = true;
 			mapUP[j] = 0;
-			mapDown[j] = 0;
 			//該当するブロックを削除
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
 				{
+					LevelDelete(UP, n, j);
 					checkColorUp = colorBlock[n]->GetColor();
 					delete colorBlock[n];
 					colorBlock.erase(colorBlock.begin() + n);
 				}
 			}
+			mapDown[j] = 0;
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
 				{
+					LevelDelete(Down, n, j);
 					checkColorDown = colorBlock[n]->GetColor();
 					delete colorBlock[n];
 					colorBlock.erase(colorBlock.begin() + n);
@@ -240,21 +245,23 @@ void Block::Damege()
 		{
 			sandFlag = true;
 			mapLeft[j] = 0;
-			mapRight[j] = 0;
 			//該当するブロックを削除
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
 				{
+					LevelDelete(Left, n, j);
 					checkColorLeft = colorBlock[n]->GetColor();
 					delete colorBlock[n];
 					colorBlock.erase(colorBlock.begin() + n);
 				}
 			}
+			mapRight[j] = 0;
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
 				{
+					LevelDelete(Right, n, j);
 					checkColorRight = colorBlock[n]->GetColor();
 					delete colorBlock[n];
 					colorBlock.erase(colorBlock.begin() + n);
@@ -262,7 +269,7 @@ void Block::Damege()
 			}
 			checkFlag = 1;
 			comboCount++;
-			sandDelay= 0;
+			sandDelay = 0;
 		}
 		//ブロックをずらす
 		BlockShift(blockX, j);
@@ -288,24 +295,21 @@ void Block::DeleteBlock()
 		colorBlock.erase(colorBlock.begin() + i);
 	}
 
-	for (int i = 0; i < mapNum; i++)
+	for (int j = 0; j < mapNum; j++)
 	{
-		for (int j = 0; j < mapNum; j++)
+		if (j == 0)
+		{//ブロックの台部分
+			mapUP[j] = Foundation;
+			mapDown[j] = Foundation;
+			mapLeft[j] = Foundation;
+			mapRight[j] = Foundation;
+		}
+		else
 		{
-			if (j == 0)
-			{//ブロックの台部分
-				mapUP[j] = Foundation;
-				mapDown[j] = Foundation;
-				mapLeft[j] = Foundation;
-				mapRight[j] = Foundation;
-			}
-			else
-			{
-				mapUP[j] = 0;
-				mapDown[j] = 0;
-				mapLeft[j] = 0;
-				mapRight[j] = 0;
-			}
+			mapUP[j] = 0;
+			mapDown[j] = 0;
+			mapLeft[j] = 0;
+			mapRight[j] = 0;
 		}
 	}
 }
@@ -474,6 +478,250 @@ void Block::BlockSetRot(Sprite::SpriteData *table, int direction)
 		break;
 	}
 }
+
+
+void Block::LevelDelete(int direction, int blockNum, int mapY)
+{
+	switch (direction)
+	{
+	case UP://レベルに合わせてマップチップ削除
+		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
+		{
+			mapUP[mapY + 1] = 0;
+			mapUP[mapY + 2] = 0;
+		}
+		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
+		{
+			mapUP[mapY + 1] = 0;
+		}
+		break;
+	case Down:
+		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
+		{
+			mapDown[mapY + 1] = 0;
+			mapDown[mapY + 2] = 0;
+		}
+		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
+		{
+			mapDown[mapY + 1] = 0;
+		}
+		break;
+	case Left:
+		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
+		{
+			mapLeft[mapY + 1] = 0;
+			mapLeft[mapY + 2] = 0;
+		}
+		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
+		{
+			mapLeft[mapY + 1] = 0;
+		}
+		break;
+	case Right:
+		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
+		{
+			mapRight[mapY + 1] = 0;
+			mapRight[mapY + 2] = 0;
+		}
+		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
+		{
+			mapRight[mapY + 1] = 0;
+		}
+		break;
+	}
+
+}
+void Block::BlockJoin()
+{
+	//上
+	for (int i = 1; i < mapNum - 2; i++)
+	{
+		for (int color = Red; color < Foundation; color++)
+		{
+			//上
+			//３つ
+			if (mapUP[i] == color && mapUP[i + 1] == color && mapUP[i + 2] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == UP && colorBlock[n]->GetLevel() == 2)
+					{
+						colorBlock[n]->LevelUP(3);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 2 && colorBlock[n]->GetStatus() == UP && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+			//2つ
+			else if (mapUP[i] == color && mapUP[i + 1] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == UP && colorBlock[n]->GetLevel() == 1)
+					{
+						colorBlock[n]->LevelUP(2);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 1 && colorBlock[n]->GetStatus() == UP && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+			//下
+			//3つ
+			if (mapDown[i] == color && mapDown[i + 1] == color && mapDown[i + 2] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Down && colorBlock[n]->GetLevel() == 2)
+					{
+						colorBlock[n]->LevelUP(3);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 2 && colorBlock[n]->GetStatus() == Down && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+
+			//2つ
+			if (mapDown[i] == color && mapDown[i + 1] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Down && colorBlock[n]->GetLevel() == 1)
+					{
+						colorBlock[n]->LevelUP(2);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 1 && colorBlock[n]->GetStatus() == Down && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+			//右
+			if (mapRight[i] == color && mapRight[i + 1] == color && mapRight[i + 2] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Right && colorBlock[n]->GetLevel() == 2)
+					{
+						colorBlock[n]->LevelUP(3);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 2 && colorBlock[n]->GetStatus() == Right && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+
+			//2つ
+			if (mapRight[i] == color && mapRight[i + 1] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Right && colorBlock[n]->GetLevel() == 1)
+					{
+						colorBlock[n]->LevelUP(2);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 1 && colorBlock[n]->GetStatus() == Right && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+			//左
+			if (mapLeft[i] == color && mapLeft[i + 1] == color && mapLeft[i + 2] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Left && colorBlock[n]->GetLevel() == 2)
+					{
+						colorBlock[n]->LevelUP(3);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 2 && colorBlock[n]->GetStatus() == Left && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+						break;
+					}
+				}
+			}
+
+			//2つ
+			if (mapLeft[i] == color && mapLeft[i + 1] == color)
+			{
+				bool Flag = false;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i && colorBlock[n]->GetStatus() == Left && colorBlock[n]->GetLevel() == 1)
+					{
+						colorBlock[n]->LevelUP(2);
+						Flag = true;
+					}
+				}
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == i + 1 && colorBlock[n]->GetStatus() == Left && Flag == true)
+					{
+						delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);
+					}
+				}
+			}
+		}
+	}
+}
+
 bool Block::GetDameFlag()
 {
 	return DamegeFlag;

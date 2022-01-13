@@ -63,10 +63,14 @@ private:
 	void HardDrop(Sprite::SpriteData *table, int direction);
 	//回転時のブロックの処理
 	void BlockSetRot(Sprite::SpriteData *table, int direction);
+	//レベルに合わせてマップチップ初期化
+	void LevelDelete(int direction, int blockNum, int mapY);
+	//ブロック結合
+	void BlockJoin();
 private:
 	std::vector<ColorBlock *>colorBlock;
 
-	Sprite::SpriteData block;
+	Sprite::SpriteData block[3];
 
 	//ブロックのマップチップ
 	int mapUP[mapNum];//上の状態
