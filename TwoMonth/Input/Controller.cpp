@@ -373,10 +373,16 @@ void UpdateGamePad()
 			is_push[ButtonKind::ButtonB] = true;
 			break;
 		case 2:
-			is_push[ButtonKind::ButtonB] = true;
+			is_push[ButtonKind::ButtonX] = true;
 			break;
 		case 3:
-			is_push[ButtonKind::ButtonB] = true;
+			is_push[ButtonKind::ButtonY] = true;
+			break;
+		case 4:
+			is_push[ButtonKind::ButtonLB] = true;
+			break;
+		case 5:
+			is_push[ButtonKind::ButtonRB] = true;
 			break;
 		}
 	}

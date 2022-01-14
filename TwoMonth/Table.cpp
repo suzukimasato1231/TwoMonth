@@ -22,7 +22,7 @@ void Table::Init(Input *input, Sprite *sprite)
 void Table::Update()
 {
 	//¶‰ñ“]
-	if (input->KeybordTrigger(DIK_A) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_A) || input->ControllerUp(ButtonLB)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation - 90.0f;
 		rotationFlag = true;
@@ -43,7 +43,7 @@ void Table::Update()
 		}
 	}
 	//‰E‰ñ“]
-	if (input->KeybordTrigger(DIK_D) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_D) || input->ControllerUp(ButtonRB)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation + 90.0f;
 		rotationFlag = true;
@@ -64,7 +64,7 @@ void Table::Update()
 		}
 	}
 	//”¼‰ñ“]
-	if (input->KeybordTrigger(DIK_S) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_S) || input->ControllerUp(ButtonY)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation + 180.0f;
 		rotationFlag = true;

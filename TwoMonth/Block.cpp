@@ -371,7 +371,7 @@ void Block::BlockShift(int i, int j)
 }
 void Block::HardDrop(Sprite::SpriteData *table, int direction)
 {
-	if (input->KeybordTrigger(DIK_SPACE))
+	if (input->KeybordTrigger(DIK_SPACE) || input->ControllerUp(ButtonA))
 	{
 		for (int j = 1; j < mapNum; j++)
 		{
