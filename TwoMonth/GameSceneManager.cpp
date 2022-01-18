@@ -24,7 +24,7 @@ void GameSceneManager::Initialize(Input *input, _DirectX *directX)
 	assert(directX);
 	this->directX = directX;
 	sound = Sound::Create();
-	view = View::Create();	
+	view = View::Create();
 	sprite = Sprite::Create();
 	object = Object::Create();
 	ParticleManager::StaticInitialize(directX->GetDevice(), directX->GetCmandList(), this->view, window_width, window_height);
@@ -77,25 +77,26 @@ void GameSceneManager::Init()
 
 void GameSceneManager::Update()
 {
-	if (input->KeybordPush(DIK_UP))
+	if (input->KeybordPush(DIK_R))
 	{
-		pPos1.z += 1;
-	}
-	if (input->KeybordPush(DIK_DOWN))
-	{
-		pPos1.z -= 1;
-	}
-	if (input->KeybordPush(DIK_LEFT))
-	{
-		pPos1.x -= 1;
-	}
-	if (input->KeybordPush(DIK_RIGHT))
-	{
-		pPos1.x += 1;
-	}
-	if (input->KeybordPush(DIK_1))
-	{
-		
+		table.MainInit();
+		block.MainInit();
+		//プレイヤーステータス
+		playerHP = 3;///体力
+		playerIsAlive = 1;///存在するか
+		//エネミー
+		for (int i = 0; i < enemy_Num; i++)
+		{
+			enemyHP[i] = enemyHPKeep[i];
+			enemyIsAlive[i] = enemyIsAliveKeep[i];
+			enemyIsAttack[i] = enemyIsAttackKeep[i];
+			enemyAttackDelay[i] = enemyAttackDelayKeep[i];
+			enemyColorTopL[i] = enemyColorTopLKeep[i];
+			enemyColorTopR[i] = enemyColorTopRKeep[i];
+			enemyColorBottomL[i] = enemyColorBottomLKeep[i];
+			enemyColorBottomR[i] = enemyColorBottomRKeep[i];
+		}
+		enemyAttackCount = 0;///攻撃のカウント用
 	}
 	table.Update();
 
@@ -156,7 +157,7 @@ void GameSceneManager::Update()
 		colorRight[block.GetComboCount() - 1] = block.GetColorNumRight();
 	}
 	ColorDamageCheck();
-	
+
 	//パーティクル更新
 	//particleMan->ParticleAdd(pPos1);
 	particleMan->Update();
@@ -234,7 +235,7 @@ void GameSceneManager::Draw(_DirectX directX)
 	debugText.Print(10, 200 + 8 * 40, 2, " color :%d %d %d %d", colorUp[8], colorDown[8], colorLeft[8], colorRight[8]);
 	debugText.Print(10, 200 + 9 * 40, 2, " color :%d %d %d %d", colorUp[9], colorDown[9], colorLeft[9], colorRight[9]);
 	debugText.Print(10, 200 + 10 * 40, 2, " color :%d %d %d %d", colorUp[10], colorDown[10], colorLeft[10], colorRight[10]);
-	
+
 	debugText.Print(10, 200 + 12 * 40, 2, " UPgameOverTime :%d", block.GetGameOverCount(0));
 	debugText.Print(10, 200 + 13 * 40, 2, "DowngameOverTime:%d", block.GetGameOverCount(1));
 	debugText.Print(10, 200 + 14 * 40, 2, " LeftgameOverTime:%d ", block.GetGameOverCount(2));
@@ -244,7 +245,7 @@ void GameSceneManager::Draw(_DirectX directX)
 	{
 		debugText.Print(10, 200 + 16 * 40, 2, " GAMEOVER");
 	}
-		//デバックテキスト描画
+	//デバックテキスト描画
 	debugText.
 		DrawAll();
 }
@@ -549,7 +550,7 @@ void GameSceneManager::ColorDamageCheck()
 			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) {}
 			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) {}
 			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) {}
-			
+
 
 			///下2つ
 			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) {}

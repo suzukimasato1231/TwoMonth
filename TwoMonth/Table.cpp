@@ -19,6 +19,16 @@ void Table::Init(Input *input, Sprite *sprite)
 	table = sprite->SpriteCreate(L"Resources/gomi.png");
 }
 
+
+void Table::MainInit()
+{
+	Status = UP;
+	//‰ñ“]‚µ‚Ä‚é‚©‚Ç‚¤‚©
+	rotationFlag = false;
+	rotationMemory = 0;
+	table.rotation = 0;
+}
+
 void Table::Update()
 {
 	//¶‰ñ“]

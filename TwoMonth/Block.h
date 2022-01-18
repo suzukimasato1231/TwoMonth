@@ -22,6 +22,8 @@ public:
 
 	void Init(Input *input, Sprite *sprite);
 
+	void MainInit();
+
 	void Update(Sprite::SpriteData *table, int direction);
 
 	void Draw();

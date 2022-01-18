@@ -45,7 +45,32 @@ void Block::Init(Input *input, Sprite *sprite)
 		}
 	}
 }
-
+void Block::MainInit()
+{
+	//ゲームシーン初期化
+	for (int i = (int)colorBlock.size() - 1; i >= 0; i--)
+	{
+		delete colorBlock[i];
+		colorBlock.erase(colorBlock.begin() + i);
+	}
+	//マップチップ初期化
+	for (int j = 0; j < mapNum; j++)
+	{
+		if (j == 0)
+		{//ブロックの台部分
+			mapUP[j] = Foundation, mapDown[j] = Foundation;
+			mapLeft[j] = Foundation, mapRight[j] = Foundation;
+		}
+		else
+		{
+			mapUP[j] = 0, mapDown[j] = 0;
+			mapLeft[j] = 0;
+			mapRight[j] = 0;
+		}
+	}
+	gameOverFlag = false;
+	comboCount = 0;
+}
 void Block::Update(Sprite::SpriteData *table, int direction)
 {
 	AddBlock(direction);

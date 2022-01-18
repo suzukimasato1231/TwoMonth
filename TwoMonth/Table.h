@@ -22,6 +22,8 @@ public:
 
 	void Init(Input *input, Sprite *sprite);
 
+	void MainInit();
+
 	void Update();
 
 	void Draw();

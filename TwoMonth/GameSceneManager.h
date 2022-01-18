@@ -86,16 +86,26 @@ private://定義
 	int enemyColorTopR[enemy_Num] = { 3, 1, 1, 1, 1 };
 	int enemyColorBottomL[enemy_Num] = { 3, 1, 1, 1, 1 };
 	int enemyColorBottomR[enemy_Num] = { 3, 1, 1, 1, 1 };
+	//初期化用
+	const int enemyHPKeep[enemy_Num] = { 10, 3, 3, 5, 5 };//初期化用体力
+	const bool enemyIsAliveKeep[enemy_Num] = { 1, 1, 1, 1, 1 };
+	const bool enemyIsAttackKeep[enemy_Num] = { 0, 0, 0, 0, 0 };///攻撃しているか
+	const int enemyAttackDelayKeep[enemy_Num] = { 5, 5, 5 ,5 ,5 };///攻撃するまでの時間
+	const int enemyColorTopLKeep[enemy_Num] = { 3, 1, 1, 1, 1 };
+	const int enemyColorTopRKeep[enemy_Num] = { 3, 1, 1, 1, 1 };
+	const int enemyColorBottomLKeep[enemy_Num] = { 3, 1, 1, 1, 1 };
+	const int enemyColorBottomRKeep[enemy_Num] = { 3, 1, 1, 1, 1 };
 
-	int  enemyAttackCount = 0;///攻撃のカウント用
 
-	//ブロック
+	int enemyAttackCount = 0;///攻撃のカウント用
+
+	   //ブロック
 	int colorUp[100];
 	int colorDown[100];
 	int colorLeft[100];
 	int colorRight[100];
 
-	
-		//フェーズ
+
+	//フェーズ
 	int nowPhase = 0;
 };
