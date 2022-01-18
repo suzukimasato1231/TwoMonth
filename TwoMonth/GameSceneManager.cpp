@@ -235,6 +235,15 @@ void GameSceneManager::Draw(_DirectX directX)
 	debugText.Print(10, 200 + 9 * 40, 2, " color :%d %d %d %d", colorUp[9], colorDown[9], colorLeft[9], colorRight[9]);
 	debugText.Print(10, 200 + 10 * 40, 2, " color :%d %d %d %d", colorUp[10], colorDown[10], colorLeft[10], colorRight[10]);
 	
+	debugText.Print(10, 200 + 12 * 40, 2, " UPgameOverTime :%d", block.GetGameOverCount(0));
+	debugText.Print(10, 200 + 13 * 40, 2, "DowngameOverTime:%d", block.GetGameOverCount(1));
+	debugText.Print(10, 200 + 14 * 40, 2, " LeftgameOverTime:%d ", block.GetGameOverCount(2));
+	debugText.Print(10, 200 + 15 * 40, 2, " RightgameOverTime:%d ", block.GetGameOverCount(3));
+
+	if (block.GetGameOverFlag() == TRUE)
+	{
+		debugText.Print(10, 200 + 16 * 40, 2, " GAMEOVER");
+	}
 		//デバックテキスト描画
 	debugText.
 		DrawAll();

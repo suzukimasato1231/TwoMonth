@@ -2,10 +2,12 @@
 #include"2d/Sprite.h"
 #include"Input/Input.h"
 #include<vector>
+#include<time.h>
 #include"ColorBlock.h"
 #include"base/Safe_delete.h"
 #include"collision/Collision.h"
 #include"Table.h"
+time_t time(time_t *);
 const int mapNum = 20;
 
 class Block
@@ -47,9 +49,13 @@ public:
 	int GetColorNumRight();
 
 	void SetSandDelay(int count);
+
+	int GetGameOverCount(int i);
+
+	bool GetGameOverFlag();
 private:
 	//ブロック追加
-	void AddBlock();
+	void AddBlock(int direction);
 	//ブロック移動
 	void MoveBlock(Sprite::SpriteData *table, int direction);
 	/// <summary>
@@ -67,6 +73,10 @@ private:
 	void LevelDelete(int direction, int blockNum, int mapY);
 	//ブロック結合
 	void BlockJoin();
+	//ゲームオーバーまでの時間を計測
+	void CountGamaeOverTime();
+	//ブロックがあふれたかどか
+	void Overflow();
 private:
 	std::vector<ColorBlock *>colorBlock;
 
@@ -95,4 +105,10 @@ private:
 	int checkColorDown = 0;
 	int checkColorLeft = 0;
 	int checkColorRight = 0;
+
+	time_t start_time[4], end_time[4];//時間計測
+	bool blockOverFlag[4] = {};//ブロックをオーバーしたかどうか
+	bool gameOverFlag = false;//ゲームーオーバー
+	const int gameOverTimeMax = 5;//オーバータイム（５ｓ）
+	int gameOverCount[4] = { 0,0,0,0 };	//ゲームオーバータイムカウント
 };

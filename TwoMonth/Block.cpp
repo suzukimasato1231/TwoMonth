@@ -47,13 +47,17 @@ void Block::Init(Input *input, Sprite *sprite)
 
 void Block::Update(Sprite::SpriteData *table, int direction)
 {
-	AddBlock();
+	AddBlock(direction);
 
 	MoveBlock(table, direction);
 
 	BlockJoin();
 
 	Damege();
+
+	Overflow();
+
+	CountGamaeOverTime();
 }
 
 void Block::Draw()
@@ -65,9 +69,10 @@ void Block::Draw()
 }
 
 
-void Block::AddBlock()
+void Block::AddBlock(int direction)
 {
 	int pushFlag = true;
+	const int mapY = 12;//おけなくなるブロックの高さ
 	addFlag = true;
 	for (int i = 0; i < colorBlock.size(); i++)
 	{//動かせるブロックがあるかどうか
@@ -75,9 +80,17 @@ void Block::AddBlock()
 		{
 			addFlag = false;
 			pushFlag = false;
+			//おけなくなるブロックの高さまでいったらブロックを消す
+			if ((direction == UP && mapUP[mapY] > 0) || (direction == Down && mapDown[mapY] > 0) ||
+				(direction == Left && mapLeft[mapY] > 0) || (direction == Right && mapRight[mapY] > 0))
+			{
+				delete colorBlock[i];
+				colorBlock.erase(colorBlock.begin() + i);
+			}
 		}
 	}//無かったらブロックを追加
-	if (pushFlag == true)
+	if (pushFlag == true && ((direction == UP && mapUP[mapY] == 0) || (direction == Down && mapDown[mapY] == 0) ||
+		(direction == Left && mapLeft[mapY] == 0) || (direction == Right && mapRight[mapY] == 0)))
 	{
 		colorBlock.push_back(new ColorBlock);
 		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], sprite);
@@ -722,6 +735,82 @@ void Block::BlockJoin()
 	}
 }
 
+void Block::CountGamaeOverTime()
+{
+	for (int i = UP; i < 4; i++)
+	{
+		if (blockOverFlag[i] == true)
+		{
+			end_time[i] = time(NULL);
+			gameOverCount[i] = end_time[i] - start_time[i];
+			//５秒経ったらゲームオーバー
+			if (gameOverCount[i] > gameOverTimeMax)
+			{
+				gameOverFlag = true;
+			}
+		}
+	}
+}
+//ブロックがあふれたかどうか
+void Block::Overflow()
+{
+	const int mapY = 8;
+	if (mapUP[mapY] > 0)
+	{
+		if (blockOverFlag[UP] == false)
+		{
+			blockOverFlag[UP] = true;
+			start_time[UP] = time(NULL);
+		}
+	}
+	else
+	{
+		blockOverFlag[UP] = false;
+		gameOverCount[UP] = 0;
+
+	}
+	if (mapDown[mapY] > 0)
+	{
+		if (blockOverFlag[Down] == false)
+		{
+			blockOverFlag[Down] = true;
+			start_time[Down] = time(NULL);
+		}
+	}
+	else
+	{
+		blockOverFlag[Down] = false;
+		gameOverCount[Down] = 0;
+	}
+	if (mapLeft[mapY] > 0)
+	{
+		if (blockOverFlag[Left] == false)
+		{
+			blockOverFlag[Left] = true;
+			start_time[Left] = time(NULL);
+		}
+	}
+	else
+	{
+		blockOverFlag[Left] = false;
+		gameOverCount[Left] = 0;
+	}
+	if (mapRight[mapY] > 0)
+	{
+		if (blockOverFlag[Right] == false)
+		{
+			blockOverFlag[Right] = true;
+			start_time[Right] = time(NULL);
+		}
+	}
+	else
+	{
+		blockOverFlag[Right] = false;
+		gameOverCount[Right] = 0;
+	}
+
+}
+
 bool Block::GetDameFlag()
 {
 	return DamegeFlag;
@@ -770,4 +859,14 @@ int Block::GetColorNumRight()
 void Block::SetSandDelay(int count)
 {
 	sandDelay = count;
+}
+
+int Block::GetGameOverCount(int i)
+{
+	return gameOverCount[i];
+}
+
+bool Block::GetGameOverFlag()
+{
+	return gameOverFlag;
 }

@@ -8,7 +8,7 @@
 using namespace Microsoft::WRL;
 using namespace DirectX;
 //テクスチャの最大枚数
-const int spriteSRVCount = 256;
+const int spriteSRVCount = 512;
 
 extern const int window_width;
 extern const int window_height;
