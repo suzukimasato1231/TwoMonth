@@ -4,7 +4,7 @@ ColorBlock::ColorBlock() {}
 
 ColorBlock::~ColorBlock() {}
 
-void ColorBlock::Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite)
+void ColorBlock::Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite, int color)
 {
 	this->block[0] = block;
 	this->block[1] = block2;
@@ -12,7 +12,7 @@ void ColorBlock::Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprit
 	assert(sprite);
 	this->sprite = sprite;
 
-	color = rand() % 3 + 1;
+	this->color = color;
 }
 
 void ColorBlock::Update()

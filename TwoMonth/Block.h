@@ -81,7 +81,7 @@ private:
 	std::vector<ColorBlock *>colorBlock;
 
 	Sprite::SpriteData block[3];
-
+	Sprite::SpriteData nextBlock;
 	//ブロックのマップチップ
 	int mapUP[mapNum];//上の状態
 	int mapDown[mapNum];//下の状態
@@ -91,6 +91,9 @@ private:
 	const float blockSize = 30.0f;
 	//マップチップのXの残滓
 	const int blockX = 5;
+	//色のデータ保持
+	int memoryColor = 1;
+
 	bool DamegeFlag = false;
 
 	bool addFlag = false;

@@ -19,7 +19,7 @@ public:
 	ColorBlock();
 	~ColorBlock();
 
-	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite);
+	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite, int color);
 	//çXêV
 	void Update();
 	//ï`âÊ

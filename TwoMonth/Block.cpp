@@ -26,6 +26,7 @@ void Block::Init(Input *input, Sprite *sprite)
 
 	block[2] = sprite->SpriteCreate(L"Resources/white.png");
 
+	nextBlock = sprite->SpriteCreate(L"Resources/nextBlock.png");
 	for (int j = 0; j < mapNum; j++)
 	{
 		if (j == 0)
@@ -66,6 +67,23 @@ void Block::Draw()
 	{
 		colorBlock[i]->Draw();
 	}
+	//次のブロックの表示
+	sprite->Draw(nextBlock, XMFLOAT2(1400.0f, 0.0f), 500.0f, 200.0f);
+	switch (memoryColor)
+	{
+	case Red:
+		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		break;
+	case Yellow:
+		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
+		break;
+	case Blue:
+		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		break;
+	}
 }
 
 
@@ -84,6 +102,7 @@ void Block::AddBlock(int direction)
 			if ((direction == UP && mapUP[mapY] > 0) || (direction == Down && mapDown[mapY] > 0) ||
 				(direction == Left && mapLeft[mapY] > 0) || (direction == Right && mapRight[mapY] > 0))
 			{
+				memoryColor = colorBlock[i]->GetColor();//色のデータを保持
 				delete colorBlock[i];
 				colorBlock.erase(colorBlock.begin() + i);
 			}
@@ -93,7 +112,8 @@ void Block::AddBlock(int direction)
 		(direction == Left && mapLeft[mapY] == 0) || (direction == Right && mapRight[mapY] == 0)))
 	{
 		colorBlock.push_back(new ColorBlock);
-		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], sprite);
+		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], sprite,memoryColor);
+		memoryColor = rand() % 3 + 1;//色のデータを決める
 	}
 }
 
