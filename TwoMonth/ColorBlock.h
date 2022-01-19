@@ -58,7 +58,7 @@ public:
 	void Sandwich();
 private:
 	Sprite::SpriteData block[9];
-	XMFLOAT2 pos{ 900.0f,100.0f };
+	XMFLOAT2 pos{ 920.0f,100.0f };
 	XMFLOAT2 oldPos{};
 	bool Flag = true;//ë‰Ç…èÊÇ¡ÇƒÇÈÇ©Ç«Ç§Ç©
 	int color = 0;//êF

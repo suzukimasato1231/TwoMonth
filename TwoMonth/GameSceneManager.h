@@ -48,6 +48,7 @@ private://定義
 	//スプライト画像
 	Sprite::SpriteData spriteGraph;
 	Sprite::SpriteData BGGraph;
+	Sprite::SpriteData BG2Graph;
 
 	Sprite::SpriteData enemyGraph;///敵画像
 	Sprite::SpriteData phaseGraph;///敵画像
@@ -124,6 +125,21 @@ private://定義
 	const float damagaHigh = 200;
 	const float damageNormal = 100;
 	const float damageLow = 50;
+
+
+	//エネミー攻撃オブジェクト関連
+	XMFLOAT3 eAttackPos{ 0.0f,0.0f,0.0f };
+	bool eAttackFlag = false;//アタック描画
+	int  eAttackTime = 50;//アタックHP
+	//いずれクラス内に入れるエネミー攻撃シェイク用変数
+	float shakeX, shakeY;	//シェイクした分の大きさ
+	float shakeTime;		//シェイク時間
+	int  shakeString;		//シェイクの強さ
+	float shkeStringTime;	//減衰
+	bool shakeFlag;			//シェイクフラグ
+	void ShakeUpdate();
+	//シェイクスタート/シェイク時間、シェイクの強さ
+	void ShakeStart(float shakeTime, int shakeString);
 
 	//フェーズ
 	int nowPhase = 0;

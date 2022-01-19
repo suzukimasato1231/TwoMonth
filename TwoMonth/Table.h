@@ -41,7 +41,7 @@ public:
 
 	bool ShakeGet(bool shakeFlag);
 private:
-	XMFLOAT2 pos{ 930.0f,600.0f };//ç¿ïW
+	XMFLOAT2 pos{ 950.0f,600.0f };//ç¿ïW
 	//300/210
 	float width = 300.0f;
 

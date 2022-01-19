@@ -51,6 +51,7 @@ void GameSceneManager::Init()
 	//スプライト画像読み込み
 	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
 	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
+	BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
 	enemyGraph = sprite->SpriteCreate(L"Resources/enemy.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 
@@ -59,7 +60,7 @@ void GameSceneManager::Init()
 	//graph3 = object->LoadTexture(L"Resources/white.png");
 
 	//オブジェクト生成
-	//Polygon = object->CreateOBJ("Boss");
+	Polygon = object->CreateOBJ("sphere");
 	//BossPolygon = object->CreateOBJ("sphere", true);
 
 	//台クラス初期化
@@ -144,6 +145,9 @@ void GameSceneManager::Update()
 				enemyAttackCount = 0;
 				playerHP--;
 				enemyIsAttack[nowPhase] = false;
+				eAttackFlag = true;
+				eAttackPos = { 0.0f,0.0f,0.0f };
+				eAttackTime = 50;
 			}
 		}
 		/*if (enemyHP[nowPhase] == 0 )
@@ -200,6 +204,25 @@ void GameSceneManager::Update()
 	}
 	ColorDamageCheck();
 	DamageCheck();
+	/*if (input->KeybordTrigger(DIK_L))
+	{
+		eAttackFlag = true;
+		eAttackPos = { 0.0f,0.0f,0.0f };
+		eAttackTime = 50;
+	}*/
+	//敵の攻撃座標更新
+	if (eAttackFlag == true)
+	{
+		eAttackTime--;
+		eAttackPos.z -= 5.0f;
+		if (eAttackTime <= 0)
+		{
+			eAttackFlag = false;
+			ShakeStart(20.0f, 20);
+		}
+	}
+	ShakeUpdate();
+
 	//パーティクル更新
 	//particleMan->ParticleAdd(pPos1);
 	particleMan->Update();
@@ -214,7 +237,8 @@ void GameSceneManager::Draw(_DirectX directX)
 	sprite->PreDraw();
 
 	//背景描画
-	sprite->Draw(BGGraph, XMFLOAT2{ 0.0f,0.0f }, window_width, window_height);
+	sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + shakeX,0.0f + shakeY }, window_width, window_height);
+	sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + shakeX,0.0f + shakeY }, window_width, window_height);
 
 
 	//オブジェクト
@@ -226,13 +250,22 @@ void GameSceneManager::Draw(_DirectX directX)
 
 	block.Draw();
 
+	//敵の画像
+	sprite->Draw(enemyGraph, XMFLOAT2(window_width / 2 - 46, window_height / 2 - 46), 100, 100);
+
+
+	//エネミー攻撃描画場所
+	if (eAttackFlag == true)
+	{
+		object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.0f,1.0f,1.0f }, XMFLOAT3{});
+	}
+
 	//パーティクル描画
 	particleMan->Draw();
 
 
 	//前景描画
 	//sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
-	sprite->Draw(enemyGraph, XMFLOAT2(window_width / 2 - 46, window_height / 2 - 46), 100, 100);
 
 	if (phaseFlag == 1)
 	{
@@ -655,4 +688,28 @@ void GameSceneManager::DamageCheck()
 	{
 		damage += damageValue[i];
 	}
+}
+void GameSceneManager::ShakeUpdate()
+{
+	//シェイク初期化
+	shakeX = 0, shakeY = 0;
+	//シェイクが続く時間
+	if (shakeTime > 0)
+	{
+		shakeX = (rand() % shakeString - shakeString / 2) * shkeStringTime;
+		shakeY = (rand() % shakeString - shakeString / 2) * shkeStringTime;
+		shakeTime -= 1;
+		shkeStringTime -= 0.1f;
+	}
+}
+
+void GameSceneManager::ShakeStart(float shakeTime, int shakeString)
+{
+	//シェイクする時間
+	this->shakeTime = shakeTime;
+	//シェイクの強さ
+	this->shakeString = shakeString;
+	//減衰
+	shkeStringTime = shakeTime / 10;
+	shakeFlag = false;
 }

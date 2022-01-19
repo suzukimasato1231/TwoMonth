@@ -39,7 +39,7 @@ private://メンバ変数
 	//定数バッファ
 	ComPtr<ID3D12Resource>constBuff;
 	//ライト光線方向(単位ベクトル)
-	XMVECTOR lightdir = { 1,0,0,0 };
+	XMVECTOR lightdir = { 0,0,1,0 };
 	//ライト色
 	XMFLOAT3 lightcolor = { 1,1,1 };
 	//ダーティーフラグ
