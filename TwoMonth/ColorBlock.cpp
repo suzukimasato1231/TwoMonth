@@ -271,3 +271,8 @@ void ColorBlock::Sandwich()
 		}
 	}
 }
+
+bool ColorBlock::GetBreakFlag()
+{
+	return blockBreakFlag;
+}

@@ -375,60 +375,46 @@ void Block::Damege()
 		{
 			if (mapUP[j] > 0 && mapDown[j] > 0)
 			{
-				mapUP[j] = 0;
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
 					{
-						LevelDelete(UP, n, j);
 						checkColorUp = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
-						/*delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);*/
 					}
 				}
-				mapDown[j] = 0;
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
 					{
-						LevelDelete(Down, n, j);
 						checkColorDown = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
-						/*delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);*/
 					}
 				}
 			}
 			if (mapLeft[j] > 0 && mapRight[j] > 0)
 			{
-				mapLeft[j] = 0;
 				//該当するブロックを削除
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
 					{
-						LevelDelete(Left, n, j);
 						checkColorLeft = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
-						/*delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);*/
 					}
 				}
-				mapRight[j] = 0;
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
-					{
-						LevelDelete(Right, n, j);
+					{				
 						checkColorRight = colorBlock[n]->GetColor();
-						colorBlock[n]->BreakFlagTRUE();
-						/*delete colorBlock[n];
-						colorBlock.erase(colorBlock.begin() + n);*/
+						colorBlock[n]->BreakFlagTRUE();			
 					}
 				}
 			}
 		}
+		//該当のマップチップを０にする
+		MapDelete();
 	}
 }
 
@@ -625,57 +611,6 @@ void Block::BlockSetRot(Sprite::SpriteData *table, int direction)
 }
 
 
-void Block::LevelDelete(int direction, int blockNum, int mapY)
-{
-	switch (direction)
-	{
-	case UP://レベルに合わせてマップチップ削除
-		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
-		{
-			mapUP[mapY + 1] = 0;
-			mapUP[mapY + 2] = 0;
-		}
-		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
-		{
-			mapUP[mapY + 1] = 0;
-		}
-		break;
-	case Down:
-		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
-		{
-			mapDown[mapY + 1] = 0;
-			mapDown[mapY + 2] = 0;
-		}
-		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
-		{
-			mapDown[mapY + 1] = 0;
-		}
-		break;
-	case Left:
-		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
-		{
-			mapLeft[mapY + 1] = 0;
-			mapLeft[mapY + 2] = 0;
-		}
-		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
-		{
-			mapLeft[mapY + 1] = 0;
-		}
-		break;
-	case Right:
-		if (colorBlock[blockNum]->GetLevel() == 3 && mapY < mapNum - 2)
-		{
-			mapRight[mapY + 1] = 0;
-			mapRight[mapY + 2] = 0;
-		}
-		if (colorBlock[blockNum]->GetLevel() == 2 && mapY < mapNum - 1)
-		{
-			mapRight[mapY + 1] = 0;
-		}
-		break;
-	}
-
-}
 void Block::BlockJoin()
 {
 	//上
@@ -952,6 +887,87 @@ void Block::SandwitchDelete()
 			ShakeFlag = true;
 			delete colorBlock[n];
 			colorBlock.erase(colorBlock.begin() + n);
+		}
+	}
+}
+//該当のマップチップを０にする
+void Block::MapDelete()
+{
+	for (int n = 0; n < colorBlock.size(); n++)
+	{
+		if (colorBlock[n]->GetBreakFlag() == TRUE)
+		{
+			switch (colorBlock[n]->GetStatus())
+			{
+			case UP:
+				if (colorBlock[n]->GetLevel() == 1)
+				{
+					mapUP[(int)colorBlock[n]->Getmap().y] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 2)
+				{
+					mapUP[(int)colorBlock[n]->Getmap().y] = 0;
+					mapUP[(int)colorBlock[n]->Getmap().y + 1] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 3)
+				{
+					mapUP[(int)colorBlock[n]->Getmap().y] = 0;
+					mapUP[(int)colorBlock[n]->Getmap().y + 1] = 0;
+					mapUP[(int)colorBlock[n]->Getmap().y + 2] = 0;
+				}
+				break;
+			case Down:
+				if (colorBlock[n]->GetLevel() == 1)
+				{
+					mapDown[(int)colorBlock[n]->Getmap().y] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 2)
+				{
+					mapDown[(int)colorBlock[n]->Getmap().y] = 0;
+					mapDown[(int)colorBlock[n]->Getmap().y + 1] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 3)
+				{
+					mapDown[(int)colorBlock[n]->Getmap().y] = 0;
+					mapDown[(int)colorBlock[n]->Getmap().y + 1] = 0;
+					mapDown[(int)colorBlock[n]->Getmap().y + 2] = 0;
+				}
+				break;
+			case Left:
+				if (colorBlock[n]->GetLevel() == 1)
+				{
+					mapLeft[(int)colorBlock[n]->Getmap().y] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 2)
+				{
+					mapLeft[(int)colorBlock[n]->Getmap().y] = 0;
+					mapLeft[(int)colorBlock[n]->Getmap().y + 1] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 3)
+				{
+					mapLeft[(int)colorBlock[n]->Getmap().y] = 0;
+					mapLeft[(int)colorBlock[n]->Getmap().y + 1] = 0;
+					mapLeft[(int)colorBlock[n]->Getmap().y + 2] = 0;
+				}
+				break;
+			case Right:
+				if (colorBlock[n]->GetLevel() == 1)
+				{
+					mapRight[(int)colorBlock[n]->Getmap().y] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 2)
+				{
+					mapRight[(int)colorBlock[n]->Getmap().y] = 0;
+					mapRight[(int)colorBlock[n]->Getmap().y + 1] = 0;
+				}
+				else if (colorBlock[n]->GetLevel() == 3)
+				{
+					mapRight[(int)colorBlock[n]->Getmap().y] = 0;
+					mapRight[(int)colorBlock[n]->Getmap().y + 1] = 0;
+					mapRight[(int)colorBlock[n]->Getmap().y + 2] = 0;
+				}
+				break;
+			}
 		}
 	}
 }

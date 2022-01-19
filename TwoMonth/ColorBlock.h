@@ -56,6 +56,8 @@ public:
 	void BreakFlagTRUE();
 	//“G‚ð‹²‚Þ
 	void Sandwich();
+
+	bool GetBreakFlag();
 private:
 	Sprite::SpriteData block[9];
 	XMFLOAT2 pos{ 920.0f,100.0f };

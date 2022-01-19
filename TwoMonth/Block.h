@@ -74,8 +74,6 @@ private:
 	void HardDrop(Sprite::SpriteData *table, int direction);
 	//回転時のブロックの処理
 	void BlockSetRot(Sprite::SpriteData *table, int direction);
-	//レベルに合わせてマップチップ初期化
-	void LevelDelete(int direction, int blockNum, int mapY);
 	//ブロック結合
 	void BlockJoin();
 	//ゲームオーバーまでの時間を計測
@@ -84,6 +82,9 @@ private:
 	void Overflow();
 	//ブロックを消す
 	void SandwitchDelete();
+
+	//挟まったマップチップの位置を０にする
+	void MapDelete();
 private:
 	std::vector<ColorBlock *>colorBlock;
 
