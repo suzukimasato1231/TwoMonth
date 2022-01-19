@@ -90,6 +90,26 @@ void GameSceneManager::Init()
 
 void GameSceneManager::Update()
 {
+	//ƒV[ƒ“ŠÇ—‚Ì“y‘ä
+	switch (scene)
+	{
+	case TitleInit:
+		scene = Title;
+	case Title:
+		break;
+	case MainInit:
+		scene = Main;
+	case Main:
+		break;
+	case GameOverInit:
+		scene = GameOver;
+	case GameOver:
+		break;
+	case GameClearInit:
+		scene = GameClear;
+	case GameClear:
+		break;
+	}
 	if (input->KeybordPush(DIK_R))
 	{
 		table.MainInit();
@@ -235,6 +255,24 @@ void GameSceneManager::Draw(_DirectX directX)
 	//ƒIƒuƒWƒFƒNƒg•`‰æ‘Oˆ—
 	object->PreDraw();
 	sprite->PreDraw();
+	//ã‚Ì•`‰æ‘O‚Ì‚Í“ü‚ê‚È‚­‚Ä‚¢‚¢
+	//ƒV[ƒ“ŠÇ—‚Ì“y‘ä
+	switch (scene)
+	{
+	case TitleInit:
+		scene = Title;
+	case Title:
+		break;
+	case MainInit:
+	case Main:
+		break;
+	case GameOverInit:
+	case GameOver:
+		break;
+	case GameClearInit:
+	case GameClear:
+		break;
+	}
 
 	//”wŒi•`‰æ
 	sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + shakeX,0.0f + shakeY }, window_width, window_height);

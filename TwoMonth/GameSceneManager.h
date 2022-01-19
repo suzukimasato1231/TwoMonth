@@ -11,6 +11,19 @@
 #include"Block.h"
 extern const int window_width;
 extern const int window_height;
+
+enum Scene
+{
+	TitleInit,
+	Title,
+	MainInit,
+	Main,
+	GameOverInit,
+	GameOver,
+	GameClearInit,
+	GameClear,
+};
+
 class GameSceneManager
 {
 private:
@@ -147,4 +160,7 @@ private://’è‹`
 	int nowPhase = 0;
 	int phaseDelay = 0;
 	bool phaseFlag = 0;
+
+
+	int scene = TitleInit;
 };
