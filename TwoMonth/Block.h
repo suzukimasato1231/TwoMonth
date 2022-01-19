@@ -90,6 +90,11 @@ private:
 	int mapLeft[mapNum];//左の状態
 	int mapRight[mapNum];//右の状態
 
+	int oldmapUP[mapNum];//上の状態
+	int oldmapDown[mapNum];//下の状態
+	int oldmapLeft[mapNum];//左の状態
+	int oldmapRight[mapNum];//右の状態
+
 	const float blockSize = 30.0f;
 	//マップチップのXの残滓
 	const int blockX = 5;
@@ -100,6 +105,7 @@ private:
 
 	bool addFlag = false;
 
+	bool delayFlag = 0;
 	int sandDelay = 0;
 	bool sandFlag = 0;
 
@@ -111,6 +117,7 @@ private:
 	int checkColorLeft = 0;
 	int checkColorRight = 0;
 
+	int JCheck = 0;
 	time_t start_time[4], end_time[4];//時間計測
 	bool blockOverFlag[4] = {};//ブロックをオーバーしたかどうか
 	bool gameOverFlag = false;//ゲームーオーバー
