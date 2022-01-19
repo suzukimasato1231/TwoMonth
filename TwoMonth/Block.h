@@ -28,6 +28,7 @@ public:
 
 	void Draw();
 
+	void DrawUI();
 	//ブロックと台の当たり判定
 	void ColBlock(Sprite::SpriteData *table,XMFLOAT2 tablePos,int direction);
 	//ダメージ
@@ -87,7 +88,6 @@ private:
 	std::vector<ColorBlock *>colorBlock;
 
 	Sprite::SpriteData block[9];
-	Sprite::SpriteData nextBlock;
 	//ブロックのマップチップ
 	int mapUP[mapNum];//上の状態
 	int mapDown[mapNum];//下の状態

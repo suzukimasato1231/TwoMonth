@@ -31,8 +31,6 @@ void Block::Init(Input *input, Sprite *sprite)
 	block[6] = sprite->SpriteCreate(L"Resources/blue.png");
 	block[7] = sprite->SpriteCreate(L"Resources/blue.png");
 	block[8] = sprite->SpriteCreate(L"Resources/blue.png");
-
-	nextBlock = sprite->SpriteCreate(L"Resources/nextBlock.png");
 	for (int j = 0; j < mapNum; j++)
 	{
 		if (j == 0)
@@ -109,20 +107,23 @@ void Block::Draw()
 	{
 		colorBlock[i]->Draw();
 	}
+}
+
+void Block::DrawUI()
+{
 	//次のブロックの表示
-	sprite->Draw(nextBlock, XMFLOAT2(1400.0f, 0.0f), 500.0f, 200.0f);
 	switch (memoryColor)
 	{
 	case Red:
-		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+		sprite->Draw(block[0], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Yellow:
-		sprite->Draw(block[3], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+		sprite->Draw(block[3], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Blue:
-		sprite->Draw(block[6], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+		sprite->Draw(block[6], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	}

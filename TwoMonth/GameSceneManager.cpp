@@ -54,7 +54,7 @@ void GameSceneManager::Init()
 	BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
 	enemyGraph = sprite->SpriteCreate(L"Resources/enemy.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
-
+	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	//オブジェクト画像読み込み
 	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
 	//graph3 = object->LoadTexture(L"Resources/white.png");
@@ -252,8 +252,10 @@ void GameSceneManager::Draw(_DirectX directX)
 
 	//敵の画像
 	sprite->Draw(enemyGraph, XMFLOAT2(window_width / 2 - 46, window_height / 2 - 46), 100, 100);
+	//UI
+	sprite->Draw(UIGraph, XMFLOAT2(), 1920, 1080);
 
-
+	block.DrawUI();
 	//エネミー攻撃描画場所
 	if (eAttackFlag == true)
 	{

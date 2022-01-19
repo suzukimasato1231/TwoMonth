@@ -53,6 +53,8 @@ private://定義
 	Sprite::SpriteData enemyGraph;///敵画像
 	Sprite::SpriteData phaseGraph;///敵画像
 
+
+	Sprite::SpriteData UIGraph;//UI画像
 	//オブジェクトの形
 	Object::ObjectData Polygon;
 	Object::ObjectData rayPolygon;
