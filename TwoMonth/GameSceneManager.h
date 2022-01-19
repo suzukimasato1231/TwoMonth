@@ -120,6 +120,11 @@ private://定義
 	float damageValue[100];
 
 	float damage;
+
+	const float damagaHigh = 200;
+	const float damageNormal = 100;
+	const float damageLow = 50;
+
 	//フェーズ
 	int nowPhase = 0;
 	int phaseDelay = 0;

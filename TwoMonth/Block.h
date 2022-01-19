@@ -92,6 +92,11 @@ private:
 	int mapLeft[mapNum];//左の状態
 	int mapRight[mapNum];//右の状態
 
+	int oldmapUP[mapNum];//上の状態
+	int oldmapDown[mapNum];//下の状態
+	int oldmapLeft[mapNum];//左の状態
+	int oldmapRight[mapNum];//右の状態
+
 	const float blockSize = 30.0f;
 	//マップチップのXの残滓
 	const int blockX = 5;
