@@ -126,6 +126,8 @@ void GameSceneManager::Update()
 		}
 		break;
 	case MainInit:
+		table.MainInit();
+		block.MainInit();
 		scene = Main;
 	case Main:
 		if (input->KeybordPush(DIK_R))
