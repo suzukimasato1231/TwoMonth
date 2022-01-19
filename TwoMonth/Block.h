@@ -55,6 +55,8 @@ public:
 	int GetGameOverCount(int i);
 
 	bool GetGameOverFlag();
+
+	bool GetShakeFlag();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -116,4 +118,6 @@ private:
 	bool gameOverFlag = false;//ゲームーオーバー
 	const int gameOverTimeMax = 5;//オーバータイム（５ｓ）
 	int gameOverCount[4] = { 0,0,0,0 };	//ゲームオーバータイムカウント
+
+	bool ShakeFlag = false;//シェイクフラグ
 };

@@ -268,6 +268,7 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 void Block::Damege()
 {
 	DamegeFlag = false;
+	ShakeFlag = false;
 	checkFlag = 0;
 	checkColorUp = 0;
 	checkColorDown = 0;
@@ -304,6 +305,7 @@ void Block::Damege()
 			checkFlag = 1;
 			comboCount++;
 			sandDelay = 0;
+			ShakeFlag = true;
 		}
 		//‹²‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
 		if (mapLeft[j] > 0 && mapRight[j] > 0)
@@ -335,6 +337,7 @@ void Block::Damege()
 			checkFlag = 1;
 			comboCount++;
 			sandDelay = 0;
+			ShakeFlag = true;
 		}
 		//ƒuƒƒbƒN‚ğ‚¸‚ç‚·
 		BlockShift(blockX, j);
@@ -921,4 +924,9 @@ int Block::GetGameOverCount(int i)
 bool Block::GetGameOverFlag()
 {
 	return gameOverFlag;
+}
+
+bool Block::GetShakeFlag()
+{
+	return ShakeFlag;
 }

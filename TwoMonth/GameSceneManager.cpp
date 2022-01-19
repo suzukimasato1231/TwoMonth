@@ -118,6 +118,8 @@ void GameSceneManager::Update()
 
 		block.ColBlock(&table.table, table.GetPos(), table.GetStatus());
 
+		table.ShakeGet(block.GetShakeFlag());
+
 		if (block.GetDameFlag() == true)
 		{
 			DamageCheck();
@@ -158,7 +160,7 @@ void GameSceneManager::Update()
 				colorLeft[i] = 0;
 				colorRight[i] = 0;
 
-				
+
 				damageValueUpL[i] = 0;
 				damageValueUpR[i] = 0;
 				damageValueDownL[i] = 0;
@@ -262,7 +264,7 @@ void GameSceneManager::Draw(_DirectX directX)
 	debugText.Print(10, 300, 2, "         d  :%f", damage);
 	debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 	debugText.Print(10, 380, 2, "         d  :%f");
-	debugText.Print(10, 420, 2, "         d  :%f" );
+	debugText.Print(10, 420, 2, "         d  :%f");
 	//debugText.Print(10, 380, 2, "      combo :%d", block.GetComboCount());
 	//debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
 	//debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());
@@ -457,7 +459,7 @@ void GameSceneManager::ColorDamageCheck()
 			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpL[i] = 0; }
 			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
 			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) {damageValueDownL[i] = 0;}
+			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) { damageValueDownL[i] = 0; }
 			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
 			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
 			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownL[i] = 0; }

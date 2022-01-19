@@ -120,11 +120,15 @@ void Table::Update()
 			}
 		}
 	}
+
+	ShakeStart(10.0f, 10);
+
+	ShakeUpdate();
 }
 
 void Table::Draw()
 {
-	sprite->Draw(table, pos, width, height, XMFLOAT2(0.5f, 0.5f));
+	sprite->Draw(table, XMFLOAT2(pos.x + shakeX, pos.y + shakeY), width, height, XMFLOAT2(0.5f, 0.5f));
 }
 
 XMFLOAT2 Table::GetPos()
@@ -138,3 +142,36 @@ int Table::GetStatus()
 }
 
 
+
+void Table::ShakeUpdate()
+{
+	//シェイク初期化
+	shakeX = 0, shakeY = 0;
+	//シェイクが続く時間
+	if (shakeTime > 0)
+	{
+		shakeX = (rand() % shakeString - shakeString / 2) * shkeStringTime;
+		shakeY = (rand() % shakeString - shakeString / 2) * shkeStringTime;
+		shakeTime -= 1;
+		shkeStringTime -= 0.1f;
+	}
+}
+
+void Table::ShakeStart(float shakeTime, int shakeString)
+{
+	if (shakeFlag == true)
+	{
+		//シェイクする時間
+		this->shakeTime = shakeTime;
+		//シェイクの強さ
+		this->shakeString = shakeString;
+		//減衰
+		shkeStringTime = shakeTime / 10;
+		shakeFlag = false;
+	}
+}
+
+bool Table::ShakeGet(bool shakeFlag)
+{
+	return this->shakeFlag= shakeFlag;
+}
