@@ -50,7 +50,7 @@ void GameSceneManager::Init()
 
 	//スプライト画像読み込み
 	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
-	BGGraph = sprite->SpriteCreate(L"Resources/backgroundA.png");
+	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
 	enemyGraph = sprite->SpriteCreate(L"Resources/enemy.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 
@@ -211,7 +211,7 @@ void GameSceneManager::Draw(_DirectX directX)
 	sprite->PreDraw();
 
 	//背景描画
-	//sprite->Draw(BGGraph, XMFLOAT2{ 0.0f,0.0f }, window_width, window_height);
+	sprite->Draw(BGGraph, XMFLOAT2{ 0.0f,0.0f }, window_width, window_height);
 
 
 	//オブジェクト

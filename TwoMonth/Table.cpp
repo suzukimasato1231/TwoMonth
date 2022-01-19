@@ -16,7 +16,7 @@ void Table::Init(Input *input, Sprite *sprite)
 	this->sprite = sprite;
 
 	//table = sprite->SpriteCreate(L"Resources/texture2.jpg");
-	table = sprite->SpriteCreate(L"Resources/gomi.png");
+	table = sprite->SpriteCreate(L"Resources/table.png");
 }
 
 

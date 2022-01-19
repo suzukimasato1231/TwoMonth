@@ -82,7 +82,7 @@ private:
 private:
 	std::vector<ColorBlock *>colorBlock;
 
-	Sprite::SpriteData block[3];
+	Sprite::SpriteData block[9];
 	Sprite::SpriteData nextBlock;
 	//ブロックのマップチップ
 	int mapUP[mapNum];//上の状態

@@ -20,11 +20,17 @@ void Block::Init(Input *input, Sprite *sprite)
 	assert(sprite);
 	this->sprite = sprite;
 
-	block[0] = sprite->SpriteCreate(L"Resources/white.png");
+	block[0] = sprite->SpriteCreate(L"Resources/red.png");
+	block[1] = sprite->SpriteCreate(L"Resources/red.png");
+	block[2] = sprite->SpriteCreate(L"Resources/red.png");
 
-	block[1] = sprite->SpriteCreate(L"Resources/white.png");
+	block[3] = sprite->SpriteCreate(L"Resources/green.png");
+	block[4] = sprite->SpriteCreate(L"Resources/green.png");
+	block[5] = sprite->SpriteCreate(L"Resources/green.png");
 
-	block[2] = sprite->SpriteCreate(L"Resources/white.png");
+	block[6] = sprite->SpriteCreate(L"Resources/blue.png");
+	block[7] = sprite->SpriteCreate(L"Resources/blue.png");
+	block[8] = sprite->SpriteCreate(L"Resources/blue.png");
 
 	nextBlock = sprite->SpriteCreate(L"Resources/nextBlock.png");
 	for (int j = 0; j < mapNum; j++)
@@ -98,15 +104,15 @@ void Block::Draw()
 	{
 	case Red:
 		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
-			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Yellow:
-		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
-			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
+		sprite->Draw(block[3], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Blue:
-		sprite->Draw(block[0], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
-			XMFLOAT2(0.0f, 0.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		sprite->Draw(block[6], XMFLOAT2(1500.0f, 150.0f), 300.0f, 30.0f,
+			XMFLOAT2(0.0f, 0.0f));
 		break;
 	}
 }
@@ -137,7 +143,8 @@ void Block::AddBlock(int direction)
 		(direction == Left && mapLeft[mapY] == 0) || (direction == Right && mapRight[mapY] == 0)))
 	{
 		colorBlock.push_back(new ColorBlock);
-		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], sprite,memoryColor);
+		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], block[3], block[4], block[5], block[6],
+			block[7], block[8], sprite, memoryColor);
 		memoryColor = rand() % 3 + 1;//色のデータを決める
 	}
 }

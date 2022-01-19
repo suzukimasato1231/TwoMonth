@@ -19,7 +19,9 @@ public:
 	ColorBlock();
 	~ColorBlock();
 
-	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3, Sprite *sprite, int color);
+	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3,
+		Sprite::SpriteData block4, Sprite::SpriteData block5, Sprite::SpriteData block6,
+		Sprite::SpriteData block7, Sprite::SpriteData block8, Sprite::SpriteData block9, Sprite *sprite, int color);
 	//çXêV
 	void Update();
 	//ï`âÊ
@@ -49,7 +51,7 @@ public:
 	//ÉåÉxÉãè„è∏
 	void LevelUP(int i);
 private:
-	Sprite::SpriteData block[3];
+	Sprite::SpriteData block[9];
 	XMFLOAT2 pos{ 900.0f,100.0f };
 	XMFLOAT2 oldPos{};
 	bool Flag = true;//ë‰Ç…èÊÇ¡ÇƒÇÈÇ©Ç«Ç§Ç©
