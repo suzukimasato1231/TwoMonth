@@ -78,13 +78,7 @@ void Block::MainInit()
 void Block::Update(Sprite::SpriteData *table, int direction)
 {
 
-	for (int j = 1; j < mapNum; j++)
-	{
-		oldmapUP[j] = mapUP[j];
-		oldmapDown[j] = mapDown[j];
-		oldmapLeft[j] = mapLeft[j];
-		oldmapRight[j] = mapRight[j];
-	}
+	
 
 	AddBlock(direction);
 
@@ -93,7 +87,13 @@ void Block::Update(Sprite::SpriteData *table, int direction)
 	BlockJoin();
 
 	Damege();
-
+	for (int j = 1; j < mapNum; j++)
+	{
+		oldmapUP[j] = mapUP[j];
+		oldmapDown[j] = mapDown[j];
+		oldmapLeft[j] = mapLeft[j];
+		oldmapRight[j] = mapRight[j];
+	}
 	Overflow();
 
 	CountGamaeOverTime();
@@ -308,17 +308,32 @@ void Block::Damege()
 					checkColorDown = colorBlock[n]->GetColor();
 				}
 			}
+
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
+				{
+					checkColorLeft = 0;
+				}
+			}
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+				{
+					checkColorRight = 0;
+				}
+			}
 			checkFlag = 1;
 			//comboCount++;
 			if (oldmapUP[j] == 0 && oldmapDown[j] > 0 && mapUP[j] > 0 && mapDown[j] > 0)
 			{
 				sandDelay = 0;
-				comboCount++;
+     				comboCount++;
 			}
 			if (oldmapUP[j] > 0 && oldmapDown[j] == 0 && mapUP[j] > 0 && mapDown[j] > 0)
 			{
 				sandDelay = 0;
-				comboCount++;
+ 				comboCount++;
 			}
 		}
 	}
@@ -339,6 +354,21 @@ void Block::Damege()
 				if (colorBlock[n]->Getmap().y == k && colorBlock[n]->GetStatus() == Right)
 				{
 					checkColorRight = colorBlock[n]->GetColor();
+				}
+			}
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == k && colorBlock[n]->GetStatus() == UP)
+				{
+					checkColorUp = 0;
+				}
+			}
+
+			for (int n = 0; n < colorBlock.size(); n++)
+			{
+				if (colorBlock[n]->Getmap().y == k && colorBlock[n]->GetStatus() == Down)
+				{
+					checkColorDown = 0;
 				}
 			}
 
