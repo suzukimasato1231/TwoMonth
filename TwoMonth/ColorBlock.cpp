@@ -124,6 +124,14 @@ void ColorBlock::PushBack(int isHit, const float blockSize)
 	}
 }
 
+void ColorBlock::SpeedUpdate()
+{
+	if (Flag == true)
+	{
+		pos.y += 10.0f;
+	}
+}
+
 XMFLOAT2 ColorBlock::GetPos()
 {
 	return pos;

@@ -31,7 +31,8 @@ public:
 	//‰Ÿ‚µ–ß‚µˆ—
 	void PushBack(int isHit, const float blockSize);
 
-
+	//ƒuƒƒbƒN‰Á‘¬
+	void SpeedUpdate();
 	XMFLOAT2 GetPos();
 
 	XMFLOAT2 GetoldPos();

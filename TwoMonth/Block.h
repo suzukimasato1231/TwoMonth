@@ -71,7 +71,7 @@ private:
 	void BlockShift(int i, int j);
 
 	//ハードドロップ
-	void HardDrop(Sprite::SpriteData *table, int direction);
+	void HardDrop();
 	//回転時のブロックの処理
 	void BlockSetRot(Sprite::SpriteData *table, int direction);
 	//ブロック結合

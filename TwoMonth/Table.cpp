@@ -32,7 +32,7 @@ void Table::MainInit()
 void Table::Update()
 {
 	//¶‰ñ“]
-	if ((input->KeybordTrigger(DIK_A) || input->ControllerUp(ButtonLB)) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_A) || input->KeybordTrigger(DIK_LEFT) || input->ControllerUp(ButtonLB)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation - 90.0f;
 		rotationFlag = true;
@@ -53,7 +53,7 @@ void Table::Update()
 		}
 	}
 	//‰E‰ñ“]
-	if ((input->KeybordTrigger(DIK_D) || input->ControllerUp(ButtonRB)) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_D) || input->KeybordTrigger(DIK_RIGHT) || input->ControllerUp(ButtonRB)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation + 90.0f;
 		rotationFlag = true;
@@ -74,7 +74,7 @@ void Table::Update()
 		}
 	}
 	//”¼‰ñ“]
-	if ((input->KeybordTrigger(DIK_S) || input->ControllerUp(ButtonY)) && rotationFlag == false)
+	if ((input->KeybordTrigger(DIK_S) || input->KeybordTrigger(DIK_DOWN) || input->KeybordTrigger(DIK_UP) || input->KeybordTrigger(DIK_W) || input->ControllerUp(ButtonY)) && rotationFlag == false)
 	{
 		rotationMemory = table.rotation + 180.0f;
 		rotationFlag = true;
@@ -173,5 +173,5 @@ void Table::ShakeStart(float shakeTime, int shakeString)
 
 bool Table::ShakeGet(bool shakeFlag)
 {
-	return this->shakeFlag= shakeFlag;
+	return this->shakeFlag = shakeFlag;
 }
