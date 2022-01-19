@@ -122,7 +122,7 @@ void GameSceneManager::Update()
 
 		if (block.GetDameFlag() == true)
 		{
-			DamageCheck();
+			
 			enemyHP[nowPhase] -= damage;
 		}
 		if (enemyHP[nowPhase] == 0 && enemyIsAlive[nowPhase] == 1)
@@ -199,6 +199,7 @@ void GameSceneManager::Update()
 		colorRight[block.GetComboCount() - 1] = block.GetColorNumRight();
 	}
 	ColorDamageCheck();
+	DamageCheck();
 	//パーティクル更新
 	//particleMan->ParticleAdd(pPos1);
 	particleMan->Update();
@@ -305,84 +306,84 @@ void GameSceneManager::ColorDamageCheck()
 		for (int i = 0; i < block.GetComboCount(); i++)
 		{
 			///上2つ
-			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = 100; }
-			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = 50; }
-			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = 200; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = 200; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = 100; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = 50; }
-			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpL[i] = 50; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpL[i] = 200; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpL[i] = 100; }
-			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpR[i] = 100; }
-			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpR[i] = 50; }
-			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpR[i] = 200; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpR[i] = 200; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpR[i] = 100; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpR[i] = 50; }
-			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpR[i] = 50; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpR[i] = 200; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpR[i] = 100; }
+			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = damageLow; }
+			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpL[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpL[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpR[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpR[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpR[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpR[i] = damageLow; }
+			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpR[i] = damageNormal; }
 
 			///下2つ
-			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) { damageValueDownL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownL[i] = damageLow; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownL[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownR[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownR[i] = damageLow; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///左2つ
-			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownL[i] = damageLow; }
+			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownL[i] = damageNormal; }
+			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueDownR[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownR[i] = damageLow; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///右2つ
-			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) { damageValueUpR[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpR[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpR[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpR[i] = damageLow; }
+			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownR[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownR[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownR[i] = damageLow; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
 		}
 	}
 	else if (table.GetStatus() == Down)
@@ -390,84 +391,84 @@ void GameSceneManager::ColorDamageCheck()
 		for (int i = 0; i < block.GetComboCount(); i++)
 		{
 			///下2つ
-			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownL[i] = damageLow; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownL[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownL[i] = damageLow; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///上2つ
-			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///右2つ
-			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///左2つ
-			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
 		}
 	}
 	else if (table.GetStatus() == Left)
@@ -475,84 +476,84 @@ void GameSceneManager::ColorDamageCheck()
 		for (int i = 0; i < block.GetComboCount(); i++)
 		{
 			///右2つ
-			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///左2つ
-			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueUpL[i] = 0; }
+			if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///上2つ
-			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueUpR[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///下2つ
-			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
 		}
 	}
 	else if (table.GetStatus() == Right)
@@ -560,85 +561,85 @@ void GameSceneManager::ColorDamageCheck()
 		for (int i = 0; i < block.GetComboCount(); i++)
 		{
 			///左2つ
-			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownL[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorUp[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///右2つ
-			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 
 			///下2つ
-			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownL[i] = 0; }
-			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownL[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
-			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = 0; }
-			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = 0; }
+			if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomL[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Red && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorBottomR[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueDownR[i] = damageNormal; }
 
 			///上2つ
-			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpL[i] = 0; }
-			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpL[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
-			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueUpR[i] = 0; }
-			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueUpR[i] = 0; }
+			if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopL[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
+			if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Red && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Red) { damageValueUpL[i] = damageNormal; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueUpL[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueUpL[i] = damagaHigh; }
+			if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Red) { damageValueDownR[i] = damageLow; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueDownR[i] = damagaHigh; }
+			else if (enemyColorTopR[nowPhase] == Blue && colorRight[i] == Blue) { damageValueDownR[i] = damageNormal; }
 		}
 	}
 }
