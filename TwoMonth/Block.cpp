@@ -372,54 +372,59 @@ void Block::Damege()
 		comboCount = 0;
 		for (int j = 1; j < mapNum; j++)
 		{
-			mapUP[j] = 0;
-			for (int n = 0; n < colorBlock.size(); n++)
+			if (mapUP[j] > 0 && mapDown[j] > 0)
 			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
+				mapUP[j] = 0;
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					LevelDelete(UP, n, j);
-					checkColorUp = colorBlock[n]->GetColor();
-					colorBlock[n]->BreakFlagTRUE();
-					/*delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);*/
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
+					{
+						LevelDelete(UP, n, j);
+						checkColorUp = colorBlock[n]->GetColor();
+						colorBlock[n]->BreakFlagTRUE();
+						/*delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);*/
+					}
+				}
+				mapDown[j] = 0;
+				for (int n = 0; n < colorBlock.size(); n++)
+				{
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+					{
+						LevelDelete(Down, n, j);
+						checkColorDown = colorBlock[n]->GetColor();
+						colorBlock[n]->BreakFlagTRUE();
+						/*delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);*/
+					}
 				}
 			}
-			mapDown[j] = 0;
-			for (int n = 0; n < colorBlock.size(); n++)
+			if (mapLeft[j] > 0 && mapRight[j] > 0)
 			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
+				mapLeft[j] = 0;
+				//該当するブロックを削除
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					LevelDelete(Down, n, j);
-					checkColorDown = colorBlock[n]->GetColor();
-					colorBlock[n]->BreakFlagTRUE();
-					/*delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);*/
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
+					{
+						LevelDelete(Left, n, j);
+						checkColorLeft = colorBlock[n]->GetColor();
+						colorBlock[n]->BreakFlagTRUE();
+						/*delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);*/
+					}
 				}
-			}
-
-			mapLeft[j] = 0;
-			//該当するブロックを削除
-			for (int n = 0; n < colorBlock.size(); n++)
-			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
+				mapRight[j] = 0;
+				for (int n = 0; n < colorBlock.size(); n++)
 				{
-					LevelDelete(Left, n, j);
-					checkColorLeft = colorBlock[n]->GetColor();
-					colorBlock[n]->BreakFlagTRUE();
-					/*delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);*/
-				}
-			}
-			mapRight[j] = 0;
-			for (int n = 0; n < colorBlock.size(); n++)
-			{
-				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
-				{
-					LevelDelete(Right, n, j);
-					checkColorRight = colorBlock[n]->GetColor();
-					colorBlock[n]->BreakFlagTRUE();
-					/*delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);*/
+					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
+					{
+						LevelDelete(Right, n, j);
+						checkColorRight = colorBlock[n]->GetColor();
+						colorBlock[n]->BreakFlagTRUE();
+						/*delete colorBlock[n];
+						colorBlock.erase(colorBlock.begin() + n);*/
+					}
 				}
 			}
 		}
