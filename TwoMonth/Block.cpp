@@ -99,6 +99,8 @@ void Block::Update(Sprite::SpriteData *table, int direction)
 	Overflow();
 
 	CountGamaeOverTime();
+
+	SandwitchDelete();
 }
 
 void Block::Draw()
@@ -168,6 +170,7 @@ void Block::MoveBlock(Sprite::SpriteData *table, int direction)
 			//ハードドロップ
 			HardDrop(table, direction);
 		}
+		colorBlock[i]->Sandwich();
 	}
 }
 
@@ -376,8 +379,9 @@ void Block::Damege()
 				{
 					LevelDelete(UP, n, j);
 					checkColorUp = colorBlock[n]->GetColor();
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					colorBlock[n]->BreakFlagTRUE();
+					/*delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);*/
 				}
 			}
 			mapDown[j] = 0;
@@ -387,8 +391,9 @@ void Block::Damege()
 				{
 					LevelDelete(Down, n, j);
 					checkColorDown = colorBlock[n]->GetColor();
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					colorBlock[n]->BreakFlagTRUE();
+					/*delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);*/
 				}
 			}
 
@@ -400,8 +405,9 @@ void Block::Damege()
 				{
 					LevelDelete(Left, n, j);
 					checkColorLeft = colorBlock[n]->GetColor();
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					colorBlock[n]->BreakFlagTRUE();
+					/*delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);*/
 				}
 			}
 			mapRight[j] = 0;
@@ -411,8 +417,9 @@ void Block::Damege()
 				{
 					LevelDelete(Right, n, j);
 					checkColorRight = colorBlock[n]->GetColor();
-					delete colorBlock[n];
-					colorBlock.erase(colorBlock.begin() + n);
+					colorBlock[n]->BreakFlagTRUE();
+					/*delete colorBlock[n];
+					colorBlock.erase(colorBlock.begin() + n);*/
 				}
 			}
 		}
@@ -928,6 +935,19 @@ void Block::Overflow()
 		gameOverCount[Right] = 0;
 	}
 
+}
+
+void Block::SandwitchDelete()
+{
+	for (int n = 0; n < colorBlock.size(); n++)
+	{
+		if (colorBlock[n]->GetDeleteFlag())
+		{
+			ShakeFlag = true;
+			delete colorBlock[n];
+			colorBlock.erase(colorBlock.begin() + n);
+		}
+	}
 }
 
 bool Block::GetDameFlag()

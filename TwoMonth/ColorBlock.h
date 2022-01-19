@@ -50,6 +50,12 @@ public:
 	int GetLevel();
 	//レベル上昇
 	void LevelUP(int i);
+
+	bool GetDeleteFlag();
+	//フラグをTRUEにする
+	void BreakFlagTRUE();
+	//敵を挟む
+	void Sandwich();
 private:
 	Sprite::SpriteData block[9];
 	XMFLOAT2 pos{ 900.0f,100.0f };
@@ -61,4 +67,10 @@ private:
 	int Status = 0;
 
 	int Level = 1;
+
+	//ブロックが挟むフラグ
+	bool  blockBreakFlag = false;
+	bool  DeleteFlag = false;
+	//敵を挟むまでの時間
+	int time = 20;
 };

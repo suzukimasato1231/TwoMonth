@@ -235,3 +235,39 @@ void ColorBlock::LevelUP(int i)
 		break;
 	}
 }
+bool ColorBlock::GetDeleteFlag()
+{
+	return DeleteFlag;
+}
+
+void ColorBlock::BreakFlagTRUE()
+{
+	blockBreakFlag = true;
+}
+
+void ColorBlock::Sandwich()
+{
+	if (blockBreakFlag == true)
+	{
+		switch (Status)
+		{
+		case UP:
+			pos.y += 7.5f;
+			break;
+		case Down:
+			pos.y -= 7.5f;
+			break;
+		case Left:
+			pos.x += 7.5f;
+			break;
+		case Right:
+			pos.x -= 7.5f;
+			break;
+		}
+		time--;
+		if (time <= 0)
+		{
+			DeleteFlag = true;
+		}
+	}
+}

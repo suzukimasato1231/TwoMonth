@@ -81,6 +81,8 @@ private:
 	void CountGamaeOverTime();
 	//ブロックがあふれたかどか
 	void Overflow();
+	//ブロックを消す
+	void SandwitchDelete();
 private:
 	std::vector<ColorBlock *>colorBlock;
 
