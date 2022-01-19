@@ -53,7 +53,9 @@ void GameSceneManager::Init()
 	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
 	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
 	BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
-	enemyGraph = sprite->SpriteCreate(L"Resources/enemy.png");
+	enemyGraph[0]= sprite->SpriteCreate(L"Resources/redenemy.png");
+	enemyGraph[1] = sprite->SpriteCreate(L"Resources/greennemy.png");
+	enemyGraph[2] = sprite->SpriteCreate(L"Resources/bluenemy.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	GameOverGraph = sprite->SpriteCreate(L"Resources/gameover.png");
@@ -341,7 +343,12 @@ void GameSceneManager::Draw(_DirectX directX)
 		block.Draw();
 
 		//“G‚Ì‰æ‘œ
-		sprite->Draw(enemyGraph, XMFLOAT2(window_width / 2 - 46, window_height / 2 - 46), 100, 100);
+		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
+		{ sprite->Draw(enemyGraph[0], XMFLOAT2(window_width / 2 - 133, 470), 250, 250); }
+		if (nowPhase == 1 || nowPhase == 4 || nowPhase == 7 || nowPhase == 10 || nowPhase == 13 || nowPhase == 16 || nowPhase == 19) 
+		{ sprite->Draw(enemyGraph[1], XMFLOAT2(window_width / 2 - 133, 470), 250, 250); }
+		if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17) 
+		{ sprite->Draw(enemyGraph[2], XMFLOAT2(window_width / 2 - 133, 470), 250, 250); }
 		//UI
 		sprite->Draw(UIGraph, XMFLOAT2(), 1920, 1080);
 
