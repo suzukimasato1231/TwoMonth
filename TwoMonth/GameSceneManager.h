@@ -67,7 +67,7 @@ private://’è‹`
 	Sprite::SpriteData BGGraph;
 	Sprite::SpriteData BG2Graph;
 
-	Sprite::SpriteData enemyGraph;///“G‰æ‘œ
+	Sprite::SpriteData enemyGraph[3];///“G‰æ‘œ
 	Sprite::SpriteData phaseGraph;///“G‰æ‘œ
 	Sprite::SpriteData titleGraph;///“G‰æ‘œ
 	Sprite::SpriteData GameOverGraph;///“G‰æ‘œ
