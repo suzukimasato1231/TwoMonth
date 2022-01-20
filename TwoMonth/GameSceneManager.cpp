@@ -301,7 +301,7 @@ void GameSceneManager::Update()
 		{
 			scene = GameClearInit;
 		}
-		if (playerHP <= 0 || block.GetGameOverFlag() == true)
+		if (playerHP <= 0 )//|| block.GetGameOverFlag() == true)
 		{
 			scene = GameOverInit;
 		}
@@ -359,7 +359,6 @@ void GameSceneManager::Draw(_DirectX directX)
 
 		table.Draw();
 
-		block.Draw();
 
 		//敵の画像
 		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
@@ -368,6 +367,8 @@ void GameSceneManager::Draw(_DirectX directX)
 		{ sprite->Draw(enemyGraph[1], XMFLOAT2(window_width / 2 - 133, 470), 250, 250); }
 		if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17) 
 		{ sprite->Draw(enemyGraph[2], XMFLOAT2(window_width / 2 - 133, 470), 250, 250); }
+		block.Draw();
+
 		//UI
 		sprite->Draw(UIGraph, XMFLOAT2(), 1920, 1080);
 
@@ -402,7 +403,7 @@ void GameSceneManager::Draw(_DirectX directX)
 			sprite->Draw(phaseGraph, XMFLOAT2(0, 0), 1920, 1080);
 		}
 
-		switch (table.GetStatus())
+	/*	switch (table.GetStatus())
 		{
 		case UP:
 			debugText.Print(1, 120, 2, "direction:UP");
@@ -416,7 +417,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		case Right:
 			debugText.Print(1, 120, 2, "direction:Right");
 			break;
-		}
+		}*/
 
 		debugText.Print(1, 30, 2, "AD:rotation");
 		debugText.Print(1, 60, 2, "yazirusi:position");
@@ -425,7 +426,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		debugText.Print(10, 180, 2, "    enemyHP :%d", enemyHP[nowPhase]);
 		//debugText.Print(1500, 980, 5, "      %d", nowPhase + 1);
 		//debugText.Print(1600, 550, 5, "%d", enemyAttackDelay[nowPhase] - enemyAttackCount);
-		debugText.Print(10, 300, 2, "         d  :%f", damage);
+		//debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");
 		//debugText.Print(10, 420, 2, "         d  :%f");
@@ -448,7 +449,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 200 + 9 * 40, 2, " color :%d %d %d %d", colorUp[9], colorDown[9], colorLeft[9], colorRight[9]);
 		//debugText.Print(10, 200 + 10 * 40, 2, " color :%d %d %d %d", colorUp[10], colorDown[10], colorLeft[10], colorRight[10]);
 
-		debugText.Print(10, 200 + 12 * 40, 2, " UPgameOverTime :%d", block.GetGameOverCount(0));
+		/*debugText.Print(10, 200 + 12 * 40, 2, " UPgameOverTime :%d", block.GetGameOverCount(0));
 		debugText.Print(10, 200 + 13 * 40, 2, "DowngameOverTime:%d", block.GetGameOverCount(1));
 		debugText.Print(10, 200 + 14 * 40, 2, " LeftgameOverTime:%d ", block.GetGameOverCount(2));
 		debugText.Print(10, 200 + 15 * 40, 2, " RightgameOverTime:%d ", block.GetGameOverCount(3));
@@ -456,7 +457,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		if (block.GetGameOverFlag() == TRUE)
 		{
 			debugText.Print(10, 200 + 16 * 40, 2, " GAMEOVER");
-		}
+		}*/
 		//デバックテキスト描画
 
 		break;
