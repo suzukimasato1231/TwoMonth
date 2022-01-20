@@ -437,10 +437,10 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 540, 2, " colorRight :%d", block.GetColorNumRight());
 		//debugText.Print(10, 120, 2, "            :%d", block.GetSandDelay());
 		debugText.Print(300, 840, 5, "      combo :%f", combo);
-		debugText.Print(10, 200 + 0 * 40, 2, " color :%f ", damageUpValue[0]);
+	/*	debugText.Print(10, 200 + 0 * 40, 2, " color :%f ", damageUpValue[0]);
 		debugText.Print(10, 200 + 1 * 40, 2, " color :%f ", damageUpValue[1]);
 		debugText.Print(10, 200 + 2 * 40, 2, " color :%f ", damageUpValue[2]);
-		debugText.Print(10, 200 + 3 * 40, 2, " color :%f ", damageUpValue[3]);
+		debugText.Print(10, 200 + 3 * 40, 2, " color :%f ", damageUpValue[3]);*/
 		//debugText.Print(10, 200 + 4 * 40, 2, " color :%d %d %d %d", colorUp[4], colorDown[4], colorLeft[4], colorRight[4]);
 		//debugText.Print(10, 200 + 5 * 40, 2, " color :%d %d %d %d", colorUp[5], colorDown[5], colorLeft[5], colorRight[5]);
 		//debugText.Print(10, 200 + 6 * 40, 2, " color :%d %d %d %d", colorUp[6], colorDown[6], colorLeft[6], colorRight[6]);
