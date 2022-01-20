@@ -60,6 +60,16 @@ void GameSceneManager::Init()
 	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	GameOverGraph = sprite->SpriteCreate(L"Resources/gameover.png");
 	titleGraph = sprite->SpriteCreate(L"Resources/1.png");
+	numGraph[0] = sprite->SpriteCreate(L"Resources/number/0.png");
+	numGraph[1] = sprite->SpriteCreate(L"Resources/number/1.png");
+	numGraph[2] = sprite->SpriteCreate(L"Resources/number/2.png");
+	numGraph[3] = sprite->SpriteCreate(L"Resources/number/3.png");
+	numGraph[4] = sprite->SpriteCreate(L"Resources/number/4.png");
+	numGraph[5] = sprite->SpriteCreate(L"Resources/number/5.png");
+	numGraph[6] = sprite->SpriteCreate(L"Resources/number/6.png");
+	numGraph[7] = sprite->SpriteCreate(L"Resources/number/7.png");
+	numGraph[8] = sprite->SpriteCreate(L"Resources/number/8.png");
+	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
 	//オブジェクト画像読み込み
 	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
 	//graph3 = object->LoadTexture(L"Resources/white.png");
@@ -228,6 +238,7 @@ void GameSceneManager::Update()
 			enemyIsAlive[nowPhase] = 0;
 			enemyAttackCount = -1;
 			nowPhase++;
+			phaseNum++;
 		}
 
 		if (block.GetCheckFlag() == true)
@@ -278,6 +289,12 @@ void GameSceneManager::Update()
 				damageLeftValue[i] = 0;
 				damageRightValue[i] = 0;
 			}
+		}
+		if (phaseNum == 10)
+		{
+			phaseNum2++;
+			phaseNum2Flag = true;
+			phaseNum = 0;
 		}
 
 		if (enemyHP[19] <= 0)
@@ -361,10 +378,22 @@ void GameSceneManager::Draw(_DirectX directX)
 			object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.0f,1.0f,1.0f }, XMFLOAT3{});
 		}
 
+		
 		//パーティクル描画
 		particleMan->Draw();
+		
+		sprite->Draw(numGraph[playerHP], XMFLOAT2(1530,740), 128, 128);
+		turnNum = enemyAttackDelay[nowPhase] - enemyAttackCount;
+		sprite->Draw(numGraph[turnNum], XMFLOAT2(1530, 450), 128, 128);
 
+		
 
+		sprite->Draw(numGraph[phaseNum], XMFLOAT2(1680, 900), 128, 128);
+
+		if (phaseNum2Flag == 1)
+		{
+			sprite->Draw(numGraph[phaseNum2], XMFLOAT2(1610, 900), 128, 128);
+		}
 		//前景描画
 		//sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
 
@@ -392,10 +421,10 @@ void GameSceneManager::Draw(_DirectX directX)
 		debugText.Print(1, 30, 2, "AD:rotation");
 		debugText.Print(1, 60, 2, "yazirusi:position");
 
-		debugText.Print(1600, 840, 5, "%d", playerHP);
+		//debugText.Print(1600, 840, 5, "%d", playerHP);
 		debugText.Print(10, 180, 2, "    enemyHP :%d", enemyHP[nowPhase]);
-		debugText.Print(1500, 980, 5, "      %d", nowPhase + 1);
-		debugText.Print(1600, 550, 5, "%d", enemyAttackDelay[nowPhase] - enemyAttackCount);
+		//debugText.Print(1500, 980, 5, "      %d", nowPhase + 1);
+		//debugText.Print(1600, 550, 5, "%d", enemyAttackDelay[nowPhase] - enemyAttackCount);
 		debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");

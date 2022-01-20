@@ -71,7 +71,7 @@ private://’è‹`
 	Sprite::SpriteData phaseGraph;///“G‰æ‘œ
 	Sprite::SpriteData titleGraph;///“G‰æ‘œ
 	Sprite::SpriteData GameOverGraph;///“G‰æ‘œ
-
+	Sprite::SpriteData numGraph[10];///”š‰æ‘œ
 
 
 	Sprite::SpriteData UIGraph;//UI‰æ‘œ
@@ -178,4 +178,8 @@ private://’è‹`
 
 
 	int scene = TitleInit;
+	int turnNum = 0;
+	int phaseNum = 1;
+	bool phaseNum2Flag = 1;
+	int phaseNum2 = 1;
 };
