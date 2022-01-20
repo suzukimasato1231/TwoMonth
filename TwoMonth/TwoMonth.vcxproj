@@ -231,6 +231,7 @@
     <ClInclude Include="collision\Collision.h" />
     <ClInclude Include="collision\CollisionPrimitive.h" />
     <ClInclude Include="ColorBlock.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="Input\Controller.h" />
     <ClInclude Include="Input\Input.h" />
@@ -253,6 +254,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="collision\Collision.cpp" />
     <ClCompile Include="ColorBlock.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Input\Controller.cpp" />
     <ClCompile Include="Input\Input.cpp" />
