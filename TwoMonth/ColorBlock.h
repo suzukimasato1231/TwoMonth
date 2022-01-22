@@ -1,5 +1,6 @@
 #pragma once
 #include"2d/Sprite.h"
+#include"3d/Object.h"
 #include"base/Safe_delete.h"
 #include"base/XMFLOATHelper.h"
 #include"Table.h"
@@ -14,28 +15,28 @@ enum BlockColor
 class ColorBlock
 {
 private:
-	Sprite *sprite = nullptr;
+	Object *object = nullptr;
 public:
 	ColorBlock();
 	~ColorBlock();
 
-	void Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3,
-		Sprite::SpriteData block4, Sprite::SpriteData block5, Sprite::SpriteData block6,
-		Sprite::SpriteData block7, Sprite::SpriteData block8, Sprite::SpriteData block9, Sprite *sprite, int color);
+	void Init(Object::ObjectData block, Object::ObjectData block2, Object::ObjectData block3,
+		Object::ObjectData block4, Object::ObjectData block5, Object::ObjectData block6,
+		Object::ObjectData block7, Object::ObjectData block8, Object::ObjectData block9, Object *object, int color, int redGraph, int yellowGraph, int blueGraph);
 	//更新
 	void Update();
 	//描画
 	void Draw();
 	//親クラスを取得
-	void GetSpriteParent(Sprite::SpriteData *parent);
+	void GetSpriteParent(Object::ObjectData *parent);
 	//押し戻し処理
 	void PushBack(int isHit, const float blockSize);
 
 	//ブロック加速
 	void SpeedUpdate();
-	XMFLOAT2 GetPos();
+	XMFLOAT3 GetPos();
 
-	XMFLOAT2 GetoldPos();
+	XMFLOAT3 GetoldPos();
 
 	bool GetFlag();
 	//マップチップ内の情報を保存、台の上での座標を入れる
@@ -60,9 +61,13 @@ public:
 
 	bool GetBreakFlag();
 private:
-	Sprite::SpriteData block[9];
-	XMFLOAT2 pos{ 920.0f,100.0f };
-	XMFLOAT2 oldPos{};
+	Object::ObjectData block[9];
+	int redGraph = 0; 
+	int yellowGraph = 0;
+	int blueGraph = 0; 
+	XMFLOAT3 pos{ 0.0f,400.0f,-51.0f };
+	XMFLOAT3 oldPos{};
+	XMFLOAT3 rotation{};
 	bool Flag = true;//台に乗ってるかどうか
 	int color = 0;//色
 	//マップチップの位置を保存

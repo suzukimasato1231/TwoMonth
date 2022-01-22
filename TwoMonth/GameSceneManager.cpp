@@ -44,7 +44,7 @@ void GameSceneManager::Init()
 	sound->SoundBGMPlayLoopWave(sound2, sound->BGM);*/
 
 	//カメラ
-	view->SetViewCamera(XMFLOAT3{ 0,0,-200 }, XMFLOAT3{ 0, 0, 0 }, XMFLOAT3{ 0, 1, 0 });
+	view->SetViewCamera(XMFLOAT3{ 0,0,-800 }, XMFLOAT3{ 0, 0, 0 }, XMFLOAT3{ 0, 1, 0 });
 
 	//ライト色を設定
 	light->SetLightColor({ 1,1,1 });
@@ -75,9 +75,9 @@ void GameSceneManager::Init()
 	//BossPolygon = object->CreateOBJ("sphere", true);
 
 	//台クラス初期化
-	table.Init(input, sprite);
+	table.Init(input, sprite, object);
 	//ブロッククラス
-	block.Init(input, sprite);
+	block.Init(input, sprite, object);
 
 	enemy.Init(sprite, object);
 }
@@ -161,7 +161,7 @@ void GameSceneManager::Update()
 		}
 		//パーティクル更新
 		//particleMan->ParticleAdd(pPos1);
-		particleMan->Update();
+		//particleMan->Update();
 		//ライト更新
 		light->Update();
 		break;
@@ -250,21 +250,21 @@ void GameSceneManager::Draw(_DirectX directX)
 			sprite->Draw(phaseGraph, XMFLOAT2(0, 0), 1920, 1080);
 		}
 
-		/*	switch (table.GetStatus())
-			{
-			case UP:
-				debugText.Print(1, 120, 2, "direction:UP");
-				break;
-			case Down:
-				debugText.Print(1, 120, 2, "direction:Down");
-				break;
-			case Left:
-				debugText.Print(1, 120, 2, "direction:Left");
-				break;
-			case Right:
-				debugText.Print(1, 120, 2, "direction:Right");
-				break;
-			}*/
+		switch (table.GetStatus())
+		{
+		case UP:
+			debugText.Print(1, 120, 2, "direction:UP");
+			break;
+		case Down:
+			debugText.Print(1, 120, 2, "direction:Down");
+			break;
+		case Left:
+			debugText.Print(1, 120, 2, "direction:Left");
+			break;
+		case Right:
+			debugText.Print(1, 120, 2, "direction:Right");
+			break;
+		}
 
 		debugText.Print(1, 30, 2, "AD:rotation");
 		debugText.Print(1, 60, 2, "yazirusi:position");

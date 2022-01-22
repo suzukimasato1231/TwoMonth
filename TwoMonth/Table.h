@@ -1,7 +1,7 @@
 #pragma once
 #include"2d/Sprite.h"
 #include"Input/Input.h"
-
+#include "3d/Object.h"
 
 enum Direction
 {
@@ -15,12 +15,13 @@ class Table
 private:
 	Sprite *sprite = nullptr;
 	Input *input = nullptr;
+	Object *object = nullptr;
 public:
 
 	Table();
 	~Table();
 
-	void Init(Input *input, Sprite *sprite);
+	void Init(Input *input, Sprite *sprite, Object *object);
 
 	void MainInit();
 
@@ -28,12 +29,12 @@ public:
 
 	void Draw();
 
-	XMFLOAT2 GetPos();
+	XMFLOAT3 GetPos();
 	//台の向き
 	int GetStatus();
 	//スプライトデータ
-	Sprite::SpriteData table;
-
+	Object::ObjectData table;
+	int graph = 0;
 	//シェイク更新
 	void ShakeUpdate();
 	//シェイクスタート/シェイク時間、シェイクの強さ
@@ -41,7 +42,8 @@ public:
 
 	bool ShakeGet(bool shakeFlag);
 private:
-	XMFLOAT2 pos{ 950.0f,600.0f };//座標
+	XMFLOAT3 pos{ 0.0f,0.0f ,0.0f };//座標
+	XMFLOAT3 rotation{};
 	//300/210
 	float width = 300.0f;
 

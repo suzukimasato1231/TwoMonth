@@ -1,5 +1,6 @@
 #include "Table.h"
 
+
 Table::Table()
 {
 }
@@ -8,15 +9,20 @@ Table::~Table()
 {
 }
 
-void Table::Init(Input *input, Sprite *sprite)
+void Table::Init(Input *input, Sprite *sprite, Object *object)
 {
 	assert(input);
 	this->input = input;
 	assert(sprite);
 	this->sprite = sprite;
+	assert(object);
+	this->object = object;
 
 	//table = sprite->SpriteCreate(L"Resources/texture2.jpg");
-	table = sprite->SpriteCreate(L"Resources/table.png");
+
+	graph = object->LoadTexture(L"Resources/table.png");
+	table = object->CreateSquare(300.0f, 300.0f, 100.0f);
+
 }
 
 
@@ -26,7 +32,7 @@ void Table::MainInit()
 	//回転してるかどうか
 	rotationFlag = false;
 	rotationMemory = 0;
-	table.rotation = 0;
+	rotation.z = 0;
 }
 
 void Table::Update()
@@ -34,7 +40,7 @@ void Table::Update()
 	//左回転
 	if ((input->KeybordTrigger(DIK_A) || input->KeybordTrigger(DIK_LEFT) || input->ControllerUp(ButtonLB)) && rotationFlag == false)
 	{
-		rotationMemory = table.rotation - 90.0f;
+		rotationMemory = rotation.z - 90.0f;
 		rotationFlag = true;
 		switch (Status)
 		{
@@ -55,7 +61,7 @@ void Table::Update()
 	//右回転
 	if ((input->KeybordTrigger(DIK_D) || input->KeybordTrigger(DIK_RIGHT) || input->ControllerUp(ButtonRB)) && rotationFlag == false)
 	{
-		rotationMemory = table.rotation + 90.0f;
+		rotationMemory = rotation.z + 90.0f;
 		rotationFlag = true;
 		switch (Status)
 		{
@@ -76,7 +82,7 @@ void Table::Update()
 	//半回転
 	if ((input->KeybordTrigger(DIK_S) || input->KeybordTrigger(DIK_DOWN) || input->KeybordTrigger(DIK_UP) || input->KeybordTrigger(DIK_W) || input->ControllerUp(ButtonY)) && rotationFlag == false)
 	{
-		rotationMemory = table.rotation + 180.0f;
+		rotationMemory = rotation.z + 180.0f;
 		rotationFlag = true;
 		switch (Status)
 		{
@@ -96,27 +102,27 @@ void Table::Update()
 	}
 	//回転中
 	//右回り
-	if (rotationFlag == true && rotationMemory > table.rotation)
+	if (rotationFlag == true && rotationMemory > rotation.z)
 	{
-		table.rotation += 5;
-		if (rotationMemory == table.rotation)
+		rotation.z += 5;
+		if (rotationMemory == rotation.z)
 		{
 			rotationFlag = false;
-			if (table.rotation == 360)
+			if (rotation.z == 360)
 			{//オーバーフロー対策
-				table.rotation -= 360.0f;
+				rotation.z -= 360.0f;
 			}
 		}
 	}//左回り
-	if (rotationFlag == true && rotationMemory < table.rotation)
+	if (rotationFlag == true && rotationMemory < rotation.z)
 	{
-		table.rotation -= 5;
-		if (rotationMemory == table.rotation)
+		rotation.z -= 5;
+		if (rotationMemory == rotation.z)
 		{
 			rotationFlag = false;
-			if (table.rotation == -360)
+			if (rotation.z == -360)
 			{//オーバーフロー対策
-				table.rotation += 360.0f;
+				rotation.z += 360.0f;
 			}
 		}
 	}
@@ -128,10 +134,11 @@ void Table::Update()
 
 void Table::Draw()
 {
-	sprite->Draw(table, XMFLOAT2(pos.x + shakeX, pos.y + shakeY), width, height, XMFLOAT2(0.5f, 0.5f));
+	object->Draw(table, XMFLOAT3(pos.x + shakeX, pos.y + shakeY, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), rotation,
+		XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), graph);
 }
 
-XMFLOAT2 Table::GetPos()
+XMFLOAT3 Table::GetPos()
 {
 	return pos;
 }

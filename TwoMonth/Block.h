@@ -1,5 +1,6 @@
 #pragma once
 #include"2d/Sprite.h"
+#include"3d/Object.h"
 #include"Input/Input.h"
 #include<vector>
 #include<time.h>
@@ -15,22 +16,23 @@ class Block
 private:
 	Input *input = nullptr;
 	Sprite *sprite = nullptr;
+	Object *object = nullptr;
 public:
 	Block();
 
 	~Block();
 
-	void Init(Input *input, Sprite *sprite);
+	void Init(Input *input, Sprite *sprite, Object *object);
 
 	void MainInit();
 
-	void Update(Sprite::SpriteData *table, int direction);
+	void Update(Object::ObjectData *table, int direction);
 
 	void Draw();
 
 	void DrawUI();
 	//ブロックと台の当たり判定
-	void ColBlock(Sprite::SpriteData *table,XMFLOAT2 tablePos,int direction);
+	void ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction);
 	//ダメージ
 	void Damege();
 
@@ -62,7 +64,7 @@ private:
 	//ブロック追加
 	void AddBlock(int direction);
 	//ブロック移動
-	void MoveBlock(Sprite::SpriteData *table, int direction);
+	void MoveBlock(Object::ObjectData *table, int direction);
 	/// <summary>
 	/// ブロックをずらす
 	/// </summary>
@@ -73,7 +75,7 @@ private:
 	//ハードドロップ
 	void HardDrop();
 	//回転時のブロックの処理
-	void BlockSetRot(Sprite::SpriteData *table, int direction);
+	void BlockSetRot(Object::ObjectData *table, int direction);
 	//ブロック結合
 	void BlockJoin();
 	//ゲームオーバーまでの時間を計測
@@ -88,7 +90,13 @@ private:
 private:
 	std::vector<ColorBlock *>colorBlock;
 
-	Sprite::SpriteData block[9];
+	Sprite::SpriteData blocknext[9];
+	Object::ObjectData block[9];
+	//画像
+	int blueGraph = 0;
+	int redGraph = 0;
+	int yellowGraph = 0;
+
 	//ブロックのマップチップ
 	int mapUP[mapNum];//上の状態
 	int mapDown[mapNum];//下の状態

@@ -281,11 +281,9 @@ void  Object::ConstantBuffer()
 }
 
 
-void  Object::MatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
+void  Object::MatWord(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
 {
 	HRESULT result;
-	//ワールド変換
-	XMMATRIX matWorld;
 	//ワールド変換：//スケーリング
 	XMMATRIX matScale;//スケーリング行列
 	//ワールド変換：//回転
@@ -300,26 +298,31 @@ void  Object::MatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFL
 	matRot *= XMMatrixRotationX(XMConvertToRadians(rotation.x));//X軸まわりに４５度回転
 	matRot *= XMMatrixRotationY(XMConvertToRadians(rotation.y));//Y軸まわりに４５度回転
 
-	matWorld = XMMatrixIdentity();//ワールド行列は毎フレームリセット
-	matWorld *= matScale;//ワールド行列にスケーリングを反映
-	matWorld *= matRot;//ワールド行列に回転を反映
-	matWorld *= matTrains;//ワールド行列に変更移動を反映
+	polygon.matWorld = XMMatrixIdentity();//ワールド行列は毎フレームリセット
+	polygon.matWorld *= matScale;//ワールド行列にスケーリングを反映
+	polygon.matWorld *= matRot;//ワールド行列に回転を反映
+	polygon.matWorld *= matTrains;//ワールド行列に変更移動を反映
 
 	ConstBufferData *constMap = nullptr;
 	//GPU上のバッファに対応した仮想メモリを取得
 	result = Object::objectBuffer[objNum]->constBuff->Map(0, nullptr, (void **)&constMap);
 	//行列の合成   ワールド変換行列 ＊ ビュー変換行列 ＊ 射影変換行列
-	constMap->mat = matWorld * view->GetMatView() * view->GetProjection();
+	if (polygon.parent == nullptr)
+	{
+		constMap->mat = polygon.matWorld * view->GetMatView() * view->GetProjection();
+	}
+	else
+	{
+		constMap->mat = polygon.matWorld * polygon.parent->matWorld * view->GetMatView() * view->GetProjection();
+	}
 	constMap->color = color;
 	Object::objectBuffer[objNum]->constBuff->Unmap(0, nullptr);
 }
 
 
-void  Object::OBJMatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
+void  Object::OBJMatWord(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
 {
 	HRESULT result;
-	//ワールド変換
-	XMMATRIX matWorld;
 	//ワールド変換：//スケーリング
 	XMMATRIX matScale;//スケーリング行列
 	//ワールド変換：//回転
@@ -334,19 +337,28 @@ void  Object::OBJMatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, X
 	matRot *= XMMatrixRotationX(XMConvertToRadians(rotation.x));//X軸まわりに４５度回転
 	matRot *= XMMatrixRotationY(XMConvertToRadians(rotation.y));//Y軸まわりに４５度回転
 
-	matWorld = XMMatrixIdentity();//ワールド行列は毎フレームリセット
-	matWorld *= matScale;//ワールド行列にスケーリングを反映
-	matWorld *= matRot;//ワールド行列に回転を反映
-	matWorld *= matTrains;//ワールド行列に変更移動を反映
+	polygon.matWorld = XMMatrixIdentity();//ワールド行列は毎フレームリセット
+	polygon.matWorld *= matScale;//ワールド行列にスケーリングを反映
+	polygon.matWorld *= matRot;//ワールド行列に回転を反映
+	polygon.matWorld *= matTrains;//ワールド行列に変更移動を反映
 
 	const XMMATRIX &matViewProjection = view->GetMatView() * view->GetProjection();
 	const XMFLOAT3 &cameraPos = view->GetEye();
 	//GPU上のバッファに対応した仮想メモリを取得
 	ConstBufferDataB0 *constMap = nullptr;
 	result = Object::OBJdata[OBJNum]->constBuffB0->Map(0, nullptr, (void **)&constMap);
+
+
 	//行列の合成   ワールド変換行列 ＊ ビュー変換行列 ＊ 射影変換行列
 	constMap->viewproj = matViewProjection;
-	constMap->world = matWorld;
+	if (polygon.parent == nullptr)
+	{
+		constMap->world = polygon.matWorld * view->GetMatView() * view->GetProjection();
+	}
+	else
+	{
+		constMap->world = polygon.matWorld * polygon.parent->matWorld * view->GetMatView() * view->GetProjection();
+	}
 	constMap->cameraPos = cameraPos;
 	Object::OBJdata[OBJNum]->constBuffB0->Unmap(0, nullptr);
 
@@ -359,6 +371,7 @@ void  Object::OBJMatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, X
 	constMap1->specular = material.specular;
 	constMap1->alpha = material.alpha;
 	Object::OBJdata[OBJNum]->constBuffB1->Unmap(0, nullptr);
+
 }
 
 void Object::PreDraw()
@@ -390,7 +403,7 @@ void Object::OBJConstantBuffer()
 		IID_PPV_ARGS(&Object::OBJdata[Object::OBJdata.size() - 1]->constBuffB1));
 }
 
-void  Object::Draw(Object::ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color, int graph)
+void  Object::Draw(Object::ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color, int graph)
 {
 	//プリミティブ形状の設定コマンド（三角形リスト）
 	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -404,7 +417,7 @@ void  Object::Draw(Object::ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale
 		ConstantBuffer();
 	}
 	//更新
-	MatWord(position, scale, matRot, color);
+	MatWord(polygon, position, scale, matRot, color);
 
 	cmdList->SetPipelineState(object3dPipelineSet.pipelinestate.Get());
 	cmdList->SetGraphicsRootSignature(object3dPipelineSet.rootsignature.Get());
@@ -429,7 +442,7 @@ void  Object::Draw(Object::ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale
 	objNum++;
 }
 
-void Object::OBJDraw(ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
+void Object::OBJDraw(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 rotation, XMFLOAT4 color)
 {
 	//プリミティブ形状の設定コマンド（三角形リスト）
 	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -443,7 +456,7 @@ void Object::OBJDraw(ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFL
 		OBJConstantBuffer();
 	}
 	//更新
-	OBJMatWord(position, scale, rotation, color);
+	OBJMatWord(polygon, position, scale, rotation, color);
 
 	cmdList->SetPipelineState(objPipelineSet.pipelinestate.Get());
 	cmdList->SetGraphicsRootSignature(objPipelineSet.rootsignature.Get());

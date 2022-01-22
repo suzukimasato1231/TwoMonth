@@ -4,9 +4,9 @@ ColorBlock::ColorBlock() {}
 
 ColorBlock::~ColorBlock() {}
 
-void ColorBlock::Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprite::SpriteData block3,
-	Sprite::SpriteData block4, Sprite::SpriteData block5, Sprite::SpriteData block6,
-	Sprite::SpriteData block7, Sprite::SpriteData block8, Sprite::SpriteData block9, Sprite *sprite, int color)
+void ColorBlock::Init(Object::ObjectData block, Object::ObjectData block2, Object::ObjectData block3,
+	Object::ObjectData block4, Object::ObjectData block5, Object::ObjectData block6,
+	Object::ObjectData block7, Object::ObjectData block8, Object::ObjectData block9, Object *object, int color, int redGraph, int yellowGraph, int blueGraph)
 {
 	this->block[0] = block;
 	this->block[1] = block2;
@@ -17,9 +17,12 @@ void ColorBlock::Init(Sprite::SpriteData block, Sprite::SpriteData block2, Sprit
 	this->block[6] = block7;
 	this->block[7] = block8;
 	this->block[8] = block9;
-	assert(sprite);
-	this->sprite = sprite;
-
+	assert(object);
+	this->object = object;
+	//色の画像をコピー
+	this->redGraph = redGraph;
+	this->yellowGraph = yellowGraph;
+	this->blueGraph = blueGraph;
 	this->color = color;
 }
 
@@ -29,7 +32,7 @@ void ColorBlock::Update()
 	if (Flag == true)
 	{
 		//pos.y += 1.0f;
-		pos.y += 0.1f;
+		pos.y -= 0.1f;
 	}
 }
 
@@ -38,17 +41,17 @@ void ColorBlock::Draw()
 	int ofsetY = 0, ofsetX = 0;
 	if (Status == Down)
 	{
-		ofsetY = 60 * (Level - 1);
+		ofsetY = -60 * (Level - 1) + 30 * (Level - 1);
 	}
 	if (Status == Left)
 	{
-		ofsetY = 30 * (Level - 1);
-		ofsetX = -30 * (Level - 1);
+		ofsetY = -30 * (Level - 1) + 15 * (Level - 1);
+		ofsetX = 30 * (Level - 1) - 15 * (Level - 1);
 	}
 	if (Status == Right)
 	{
-		ofsetY = 30 * (Level - 1);
-		ofsetX = 30 * (Level - 1);
+		ofsetY = -30 * (Level - 1) + 15 * (Level - 1);
+		ofsetX = -30 * (Level - 1) + 15 * (Level - 1);
 	}
 	switch (color)
 	{
@@ -56,13 +59,16 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			sprite->Draw(block[0], XMFLOAT2(pos.x - 120.0f, pos.y), 300.0f, 30.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[0], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		case 2:
-			sprite->Draw(block[1], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 30.0f + ofsetY), 300.0f, 60.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[1], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		case 3:
-			sprite->Draw(block[2], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 60.0f + ofsetY), 300.0f, 90.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[2], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		}
 		break;
@@ -70,13 +76,16 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			sprite->Draw(block[3], XMFLOAT2(pos.x - 120.0f, pos.y), 300.0f, 30.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[3], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 2:
-			sprite->Draw(block[4], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 30.0f + ofsetY), 300.0f, 60.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[4], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 3:
-			sprite->Draw(block[5], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 60.0f + ofsetY), 300.0f, 90.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[5], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		}
 		break;
@@ -84,20 +93,23 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			sprite->Draw(block[6], XMFLOAT2(pos.x - 120.0f, pos.y), 300.0f, 30.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[6], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 2:
-			sprite->Draw(block[7], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 30.0f + ofsetY), 300.0f, 60.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[7], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 3:
-			sprite->Draw(block[8], XMFLOAT2(pos.x - 120.0f + ofsetX, pos.y - 60.0f + ofsetY), 300.0f, 90.0f, XMFLOAT2(0.0f, 0.0f));
+			object->Draw(block[8], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		}
 		break;
 	}
 }
 
-void ColorBlock::GetSpriteParent(Sprite::SpriteData *parent)
+void ColorBlock::GetSpriteParent(Object::ObjectData *parent)
 {
 	assert(parent);
 	block[0].parent = parent;
@@ -128,16 +140,16 @@ void ColorBlock::SpeedUpdate()
 {
 	if (Flag == true)
 	{
-		pos.y += 10.0f;
+		pos.y -= 10.0f;
 	}
 }
 
-XMFLOAT2 ColorBlock::GetPos()
+XMFLOAT3 ColorBlock::GetPos()
 {
 	return pos;
 }
 
-XMFLOAT2 ColorBlock::GetoldPos()
+XMFLOAT3 ColorBlock::GetoldPos()
 {
 	return oldPos;
 }
@@ -152,31 +164,31 @@ void ColorBlock::Pos(int i, int j, int direction, const float blockSize)
 	switch (direction)
 	{
 	case UP:
-		pos.x = i * blockSize - 150;
-		pos.y = -150 - blockSize - j * blockSize;
+		pos.x = i * blockSize - 120;
+		pos.y = 150 + blockSize + j * blockSize;
 		break;
 	case Down:
-		pos.x = -i * blockSize + 420- blockSize;
-		pos.y = 180 + j * blockSize;
+		pos.x = -i * blockSize + 150 - blockSize;
+		pos.y = -180 - j * blockSize;
 		for (int i = 0; i < 9; i++)
 		{
-			block[i].rotation += 180.0f;
+			rotation.z += 180.0f;
 		}
 		break;
 	case Left:
-		pos.x = -j * blockSize - blockSize - 30;
-		pos.y = i * blockSize - blockSize + 60;
+		pos.x = j * blockSize - blockSize + 210;
+		pos.y = -i * blockSize + blockSize + 90;
 		for (int i = 0; i < 9; i++)
 		{
-			block[i].rotation -= 90.0f;
+			rotation.z -= 90.0f;
 		}
 		break;
 	case Right:
-		pos.x = j * blockSize + 300;
-		pos.y = i * blockSize - 270;
+		pos.x = -j * blockSize - 180;
+		pos.y = -i * blockSize + 120;
 		for (int i = 0; i < 9; i++)
 		{
-			block[i].rotation += 90.0f;
+			rotation.z += 90.0f;
 		}
 		break;
 	}
@@ -190,20 +202,20 @@ void ColorBlock::ShiftPos(int i, int j, int direction, const float blockSize)
 	switch (direction)
 	{
 	case UP:
-		pos.x = i * blockSize - 180;
-		pos.y = -150 - blockSize - j * blockSize;
+		pos.x = i * blockSize - 150;
+		pos.y = 150 + blockSize + j * blockSize;
 		break;
 	case Down:
-		pos.x = -i * blockSize + 450 - blockSize;
-		pos.y = 180 + j * blockSize;
+		pos.x = -i * blockSize + 180 - blockSize;
+		pos.y = -180 - j * blockSize;
 		break;
 	case Left:
-		pos.x = -j * blockSize - blockSize-30;
-		pos.y = i * blockSize - blockSize + 30;
+		pos.x = j * blockSize - blockSize + 210;
+		pos.y = -i * blockSize + blockSize + 120;
 		break;
 	case Right:
-		pos.x = j * blockSize + 300;
-		pos.y = i * blockSize - 300;
+		pos.x = -j * blockSize - 180;
+		pos.y = -i * blockSize + 150;
 		break;
 	}
 	//マップの位置を保存
@@ -260,16 +272,16 @@ void ColorBlock::Sandwich()
 		switch (Status)
 		{
 		case UP:
-			pos.y += 7.5f;
-			break;
-		case Down:
 			pos.y -= 7.5f;
 			break;
+		case Down:
+			pos.y += 7.5f;
+			break;
 		case Left:
-			pos.x += 7.5f;
+			pos.x -= 7.5f;
 			break;
 		case Right:
-			pos.x -= 7.5f;
+			pos.x += 7.5f;
 			break;
 		}
 		time--;

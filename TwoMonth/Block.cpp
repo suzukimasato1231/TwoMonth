@@ -13,24 +13,34 @@ Block::~Block()
 	}
 }
 
-void Block::Init(Input *input, Sprite *sprite)
+void Block::Init(Input *input, Sprite *sprite, Object *object)
 {
 	assert(input);
 	this->input = input;
 	assert(sprite);
 	this->sprite = sprite;
+	assert(object);
+	this->object = object;
+	redGraph = object->LoadTexture(L"Resources/red.png");
+	yellowGraph = object->LoadTexture(L"Resources/green.png");
+	blueGraph = object->LoadTexture(L"Resources/blue.png");
 
-	block[0] = sprite->SpriteCreate(L"Resources/red.png");
-	block[1] = sprite->SpriteCreate(L"Resources/red.png");
-	block[2] = sprite->SpriteCreate(L"Resources/red.png");
+	block[0] = object->CreateSquare(300.0f, 30.0f, 30.0f);
+	block[1] = object->CreateSquare(300.0f, 60.0f, 30.0f);
+	block[2] = object->CreateSquare(300.0f, 90.0f, 30.0f);
 
-	block[3] = sprite->SpriteCreate(L"Resources/green.png");
-	block[4] = sprite->SpriteCreate(L"Resources/green.png");
-	block[5] = sprite->SpriteCreate(L"Resources/green.png");
+	block[3] = object->CreateSquare(300.0f, 30.0f, 30.0f);
+	block[4] = object->CreateSquare(300.0f, 60.0f, 30.0f);
+	block[5] = object->CreateSquare(300.0f, 90.0f, 30.0f);
 
-	block[6] = sprite->SpriteCreate(L"Resources/blue.png");
-	block[7] = sprite->SpriteCreate(L"Resources/blue.png");
-	block[8] = sprite->SpriteCreate(L"Resources/blue.png");
+	block[6] = object->CreateSquare(300.0f, 30.0f, 30.0f);
+	block[7] = object->CreateSquare(300.0f, 60.0f, 30.0f);
+	block[8] = object->CreateSquare(300.0f, 90.0f, 30.0f);
+
+	blocknext[0] = sprite->SpriteCreate(L"Resources/red.png");
+	blocknext[3] = sprite->SpriteCreate(L"Resources/green.png");
+	blocknext[6] = sprite->SpriteCreate(L"Resources/blue.png");
+
 	for (int j = 0; j < mapNum; j++)
 	{
 		if (j == 0)
@@ -75,11 +85,8 @@ void Block::MainInit()
 	gameOverFlag = false;
 	comboCount = 0;
 }
-void Block::Update(Sprite::SpriteData *table, int direction)
+void Block::Update(Object::ObjectData *table, int direction)
 {
-
-	
-
 	AddBlock(direction);
 
 	MoveBlock(table, direction);
@@ -115,15 +122,15 @@ void Block::DrawUI()
 	switch (memoryColor)
 	{
 	case Red:
-		sprite->Draw(block[0], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[0], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Yellow:
-		sprite->Draw(block[3], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[3], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Blue:
-		sprite->Draw(block[6], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[6], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	}
@@ -156,12 +163,12 @@ void Block::AddBlock(int direction)
 	{
 		colorBlock.push_back(new ColorBlock);
 		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], block[3], block[4], block[5], block[6],
-			block[7], block[8], sprite, memoryColor);
+			block[7], block[8], object, memoryColor, redGraph, yellowGraph, blueGraph);
 		memoryColor = rand() % 3 + 1;//色のデータを決める
 	}
 }
 
-void Block::MoveBlock(Sprite::SpriteData *table, int direction)
+void Block::MoveBlock(Object::ObjectData *table, int direction)
 {
 	for (int i = 0; i < colorBlock.size(); i++)
 	{
@@ -176,11 +183,11 @@ void Block::MoveBlock(Sprite::SpriteData *table, int direction)
 }
 
 
-void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction)
+void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction)
 {
 	if (colorBlock.size() != 0)
 	{
-		XMFLOAT2 TablePos = { tablePos.x - 30 * 5,tablePos.y - 30 * 5 };
+		XMFLOAT2 TablePos = { tablePos.x ,tablePos.y };
 		for (int j = 0; j < mapNum; j++)
 		{
 			switch (direction)
@@ -188,10 +195,11 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 			case UP:
 				if (mapUP[j] > 0)
 				{
-					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y - blockSize * j };
+					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-						mapChipPos, 30.0f, 30.0f);
+					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
+						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
 						if (mapUP[j + 1] > 0)
@@ -210,10 +218,11 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 			case Down:
 				if (mapDown[j] > 0)
 				{
-					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y - blockSize * j };
+					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-						mapChipPos, blockSize, blockSize);
+					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
+						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
 						if (mapDown[j + 1] > 0)
@@ -232,10 +241,11 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 			case Left:
 				if (mapLeft[j] > 0)
 				{
-					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y - blockSize * j };
+					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-						mapChipPos, blockSize, blockSize);
+					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
+						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
 						if (mapLeft[j + 1] > 0)
@@ -254,10 +264,11 @@ void Block::ColBlock(Sprite::SpriteData *table, XMFLOAT2 tablePos, int direction
 			case Right:
 				if (mapRight[j] > 0)
 				{
-					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y - blockSize * j };
+					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(colorBlock[colorBlock.size() - 1]->GetPos(), colorBlock[colorBlock.size() - 1]->GetoldPos(), 30, 30,
-						mapChipPos, blockSize, blockSize);
+					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
+						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
 					{//台の上での座標をいれる
 						if (mapRight[j + 1] > 0)
@@ -328,12 +339,12 @@ void Block::Damege()
 			if (oldmapUP[j] == 0 && oldmapDown[j] > 0 && mapUP[j] > 0 && mapDown[j] > 0)
 			{
 				sandDelay = 0;
-     				comboCount++;
+				comboCount++;
 			}
 			if (oldmapUP[j] > 0 && oldmapDown[j] == 0 && mapUP[j] > 0 && mapDown[j] > 0)
 			{
 				sandDelay = 0;
- 				comboCount++;
+				comboCount++;
 			}
 		}
 	}
@@ -536,58 +547,10 @@ void Block::HardDrop()
 	{
 
 		colorBlock[colorBlock.size() - 1]->SpeedUpdate();
-		//for (int j = 1; j < mapNum; j++)
-		//{
-		//	bool breakFlag = false;
-		//	switch (direction)
-		//	{
-		//	case UP:
-		//		if (mapUP[j] == 0)
-		//		{//空いてるところに設置
-		//			colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-		//			colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
-		//			mapUP[j] = colorBlock[colorBlock.size() - 1]->GetColor();
-		//			breakFlag = true;
-		//		}
-		//		break;
-		//	case Down:
-		//		if (mapDown[j] == 0)
-		//		{//空いてるところに設置
-		//			colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-		//			colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
-		//			mapDown[j] = colorBlock[colorBlock.size() - 1]->GetColor();
-		//			breakFlag = true;
-		//		}
-		//		break;
-		//	case Left:
-		//		if (mapLeft[j] == 0)
-		//		{//空いてるところに設置
-		//			colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-		//			colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
-		//			mapLeft[j] = colorBlock[colorBlock.size() - 1]->GetColor();
-		//			breakFlag = true;
-		//		}
-		//		break;
-		//	case Right:
-		//		if (mapRight[j] == 0)
-		//		{//空いてるところに設置
-		//			colorBlock[colorBlock.size() - 1]->GetSpriteParent(table);
-		//			colorBlock[colorBlock.size() - 1]->Pos((blockX - 1), j - 1, direction, blockSize);
-		//			mapRight[j] = colorBlock[colorBlock.size() - 1]->GetColor();
-		//			breakFlag = true;
-		//		}
-		//		break;
-		//	}
-		//	//見つけたら抜ける
-		//	if (breakFlag == true)
-		//	{
-		//		break;
-		//	}
-		//}
 	}
 }
 
-void Block::BlockSetRot(Sprite::SpriteData *table, int direction)
+void Block::BlockSetRot(Object::ObjectData *table, int direction)
 {
 	switch (direction)
 	{

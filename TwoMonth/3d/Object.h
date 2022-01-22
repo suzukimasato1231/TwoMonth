@@ -47,10 +47,13 @@ public://構造体
 		D3D12_VERTEX_BUFFER_VIEW vbView{};
 		//インデックスバッファビューの作成
 		D3D12_INDEX_BUFFER_VIEW ibView{};
+		//ワールド行列
+		XMMATRIX matWorld;
 		//オブジェ読み込み用
 		int OBJTexture = 0;
 		//頂点法線スムージング用データ
 		std::unordered_map<unsigned short, std::vector<unsigned short>>smoothData;
+		ObjectData *parent = nullptr;
 	};
 
 	struct ConstBuffer
@@ -191,7 +194,7 @@ public://オブジェクト関連
 	//定数バッファ設定
 	void ConstantBuffer();
 	//オブジェクトのデータ更新
-	void MatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color);
+	void MatWord(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color);
 	//オブジェクト描画前
 	void PreDraw();
 	/// <summary>
@@ -203,7 +206,7 @@ public://オブジェクト関連
 	/// <param name="matRot">回転</param>
 	/// <param name="color">色</param>
 	/// <param name="graph">画像データ</param>
-	void Draw(ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3  matRot, XMFLOAT4 color, int graph = -1);
+	void Draw(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3  matRot, XMFLOAT4 color, int graph = -1);
 public://OBJ関連
 	int OBJLoadTexture(const std::string &directoryPath, const std::string &filename);
 	//マテリアル読み込み
@@ -213,7 +216,7 @@ public://OBJ関連
 	/// </summary>
 	/// <param name="indexPosition">座標インデックス</param>
 	/// <param name="indexVertex">頂点インデックス</param>
-	void AddSmoothData(ObjectData &polygon,unsigned short indexPosition, unsigned short indexVertex);
+	void AddSmoothData(ObjectData &polygon, unsigned short indexPosition, unsigned short indexVertex);
 
 	///<summary>
 	///平滑化された頂点法線の計算
@@ -236,7 +239,7 @@ public://OBJ関連
 	/// <param name="scale">大きさ</param>
 	/// <param name="matRot">回転</param>
 	/// <param name="color">色</param>
-	void OBJMatWord(XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color);
+	void OBJMatWord(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color);
 	/// <summary>
 	/// OBJ描画
 	/// </summary>
@@ -245,7 +248,7 @@ public://OBJ関連
 	/// <param name="scale">大きさ</param>
 	/// <param name="matRot">回転</param>
 	/// <param name="color">色</param>
-	void OBJDraw(ObjectData polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color = { 1,1,1,1 });
+	void OBJDraw(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale, XMFLOAT3 matRot, XMFLOAT4 color = { 1,1,1,1 });
 public:
 	size_t OBJNum = 0;//OBJ読み込みの数
 	size_t objNum = 0;//オブジェクトの数
