@@ -1,8 +1,6 @@
 #include "Block.h"
 
-Block::Block()
-{
-}
+Block::Block(){}
 
 Block::~Block()
 {
@@ -144,7 +142,7 @@ void Block::AddBlock(int direction)
 	addFlag = true;
 	for (int i = 0; i < colorBlock.size(); i++)
 	{//動かせるブロックがあるかどうか
-		if (colorBlock[i]->GetFlag() == true)
+		if (colorBlock[i]->GetMoveFlag() == true)
 		{
 			addFlag = false;
 			pushFlag = false;
@@ -172,7 +170,7 @@ void Block::MoveBlock(Object::ObjectData *table, int direction)
 {
 	for (int i = 0; i < colorBlock.size(); i++)
 	{
-		if (colorBlock[i]->GetFlag() == true)
+		if (colorBlock[i]->GetMoveFlag() == true)
 		{
 			colorBlock[i]->Update();
 			//スピードUP
@@ -197,10 +195,10 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 				{
 					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+					bool isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
 						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
 						300, blockSize, mapChipPos, blockSize, blockSize);
-					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
+					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
 						if (mapUP[j + 1] > 0)
 						{
@@ -220,10 +218,10 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 				{
 					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+					bool isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
 						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
 						300, blockSize, mapChipPos, blockSize, blockSize);
-					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
+					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
 						if (mapDown[j + 1] > 0)
 						{
@@ -243,10 +241,10 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 				{
 					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+					bool isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
 						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
 						300, blockSize, mapChipPos, blockSize, blockSize);
-					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
+					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
 						if (mapLeft[j + 1] > 0)
 						{
@@ -266,10 +264,10 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 				{
 					XMFLOAT2 mapChipPos{ TablePos.x + blockSize * (blockX - 1),TablePos.y + blockSize * j + 150 };
 
-					int isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
+					bool isHit = Collision::MapChipCollision(XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetPos().x, colorBlock[colorBlock.size() - 1]->GetPos().y),
 						XMFLOAT2(colorBlock[colorBlock.size() - 1]->GetoldPos().x, colorBlock[colorBlock.size() - 1]->GetoldPos().y),
 						300, blockSize, mapChipPos, blockSize, blockSize);
-					if (colorBlock[colorBlock.size() - 1]->GetFlag() && isHit == 1)
+					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
 						if (mapRight[j + 1] > 0)
 						{
@@ -311,7 +309,6 @@ void Block::Damege()
 					checkColorUp = colorBlock[n]->GetColor();
 				}
 			}
-
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
@@ -319,7 +316,6 @@ void Block::Damege()
 					checkColorDown = colorBlock[n]->GetColor();
 				}
 			}
-
 			for (int n = 0; n < colorBlock.size(); n++)
 			{
 				if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
@@ -416,6 +412,7 @@ void Block::Damege()
 		{
 			if (mapUP[j] > 0 && mapDown[j] > 0)
 			{
+				//該当するブロックを削除
 				for (int n = 0; n < colorBlock.size(); n++)
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
@@ -542,10 +539,9 @@ void Block::BlockShift(int i, int j)
 	}
 }
 void Block::HardDrop()
-{
+{//落とすスピードアップ
 	if (input->KeybordPush(DIK_SPACE) || input->ControllerPush(ButtonA))
 	{
-
 		colorBlock[colorBlock.size() - 1]->SpeedUpdate();
 	}
 }
@@ -608,7 +604,6 @@ void Block::BlockSetRot(Object::ObjectData *table, int direction)
 
 void Block::BlockJoin()
 {
-	//上
 	for (int i = 1; i < mapNum - 2; i++)
 	{
 		for (int color = Red; color < Foundation; color++)
@@ -624,6 +619,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(3);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -646,6 +642,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(2);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -669,6 +666,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(3);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -692,6 +690,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(2);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -714,6 +713,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(3);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -737,6 +737,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(2);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -759,6 +760,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(3);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -782,6 +784,7 @@ void Block::BlockJoin()
 					{
 						colorBlock[n]->LevelUP(2);
 						Flag = true;
+						break;
 					}
 				}
 				for (int n = 0; n < colorBlock.size(); n++)
@@ -790,6 +793,7 @@ void Block::BlockJoin()
 					{
 						delete colorBlock[n];
 						colorBlock.erase(colorBlock.begin() + n);
+						break;
 					}
 				}
 			}

@@ -1,5 +1,4 @@
 #pragma once
-#include"2d/Sprite.h"
 #include"3d/Object.h"
 #include"base/Safe_delete.h"
 #include"base/XMFLOATHelper.h"
@@ -31,54 +30,51 @@ public:
 	void GetSpriteParent(Object::ObjectData *parent);
 	//押し戻し処理
 	void PushBack(int isHit, const float blockSize);
-
 	//ブロック加速
 	void SpeedUpdate();
+	//現在の座標を取得
 	XMFLOAT3 GetPos();
-
+	//１つ前の座標を取得
 	XMFLOAT3 GetoldPos();
-
-	bool GetFlag();
+	//台に乗っているかのフラグを取得
+	bool GetMoveFlag();
 	//マップチップ内の情報を保存、台の上での座標を入れる
 	void Pos(int i, int j, int direction, const float blockSize);
 	//下にブロックがないときの座標を入れる
 	void ShiftPos(int i, int j, int direction, const float blockSize);
+	//マップチップ位置取得
 	XMFLOAT2 Getmap();
-
+	//上下左右のどれか取得
 	int GetStatus();
-
+	//色を取得
 	int GetColor();
-
+	//重なった数を取得
 	int GetLevel();
 	//レベル上昇
 	void LevelUP(int i);
-
+	//消えるかどうかのフラグを取得
 	bool GetDeleteFlag();
 	//フラグをTRUEにする
 	void BreakFlagTRUE();
 	//敵を挟む
 	void Sandwich();
-
+	//ブロックを挟むフラグを取得
 	bool GetBreakFlag();
 private:
-	Object::ObjectData block[9];
-	int redGraph = 0; 
-	int yellowGraph = 0;
-	int blueGraph = 0; 
-	XMFLOAT3 pos{ 0.0f,400.0f,-51.0f };
-	XMFLOAT3 oldPos{};
-	XMFLOAT3 rotation{};
-	bool Flag = true;//台に乗ってるかどうか
-	int color = 0;//色
-	//マップチップの位置を保存
-	XMFLOAT2 map = { -1,-1 };
-	int Status = 0;
+	Object::ObjectData block[9];		//ブロックのオブジェクトデータ
+	int redGraph = 0;					//赤のブロックの画像データ位置
+	int yellowGraph = 0;				//黄色のブロックの画像データ位置
+	int blueGraph = 0;					//青のブロックの画像データ位置
+	XMFLOAT3 pos{ 0.0f,400.0f,-51.0f };	//現在の座標
+	XMFLOAT3 oldPos{};					//1つ前の座標
+	XMFLOAT3 rotation{};				//回転位置
+	bool moveFlag = true;				//台に乗ってるかどうか
+	int color = 0;						//色
+	XMFLOAT2 map = { -1,-1 };			//マップチップのどの位置か
+	int Status = 0;						//上下左右のどこか
+	int Level = 1;						//重なってる数
 
-	int Level = 1;
-
-	//ブロックが挟むフラグ
-	bool  blockBreakFlag = false;
-	bool  DeleteFlag = false;
-	//敵を挟むまでの時間
-	int time = 20;
+	bool  blockBreakFlag = false;		//ブロックが挟むフラグ
+	bool  DeleteFlag = false;			//消えるかどうか
+	int time = 20;						//敵を挟むまでの時間
 };

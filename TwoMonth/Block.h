@@ -21,21 +21,21 @@ public:
 	Block();
 
 	~Block();
-
+	//初期化
 	void Init(Input *input, Sprite *sprite, Object *object);
-
+	//ゲームループの初期化
 	void MainInit();
-
+	//更新
 	void Update(Object::ObjectData *table, int direction);
-
+	//描画
 	void Draw();
-
+	//UI描画
 	void DrawUI();
 	//ブロックと台の当たり判定
 	void ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction);
 	//ダメージ
 	void Damege();
-
+	//ブロックとマップチップ初期化
 	void DeleteBlock();
 
 	bool GetDameFlag();

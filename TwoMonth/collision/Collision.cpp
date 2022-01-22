@@ -140,7 +140,7 @@ bool Collision::CheckRay2Plane(const Ray &ray, const Plane &plane, float *distan
 	return true;
 }
 
-int  Collision::MapChipCollision(XMFLOAT2 pos1,XMFLOAT2 oldPos, float width1, float height1, XMFLOAT2 pos2, float width2, float height2)
+bool Collision::MapChipCollision(XMFLOAT2 pos1,XMFLOAT2 oldPos, float width1, float height1, XMFLOAT2 pos2, float width2, float height2)
 {
 	//xとyはそれぞれ中心座標として計算する
 	if (pos1.x - (width1 - 1) / 2 < pos2.x + width2 / 2
@@ -148,22 +148,10 @@ int  Collision::MapChipCollision(XMFLOAT2 pos1,XMFLOAT2 oldPos, float width1, fl
 		&& pos1.y - height1 / 2 < pos2.y + height2 / 2
 		&& pos2.y - height2 / 2 < pos1.y + height1 / 2)
 	{
-		float MoveX = pos1.x - oldPos.x;
-		float MoveY = pos1.y - oldPos.y;
-		//右
-		if (MoveX > 0)
-		{
-			return 2;
-		}
-		//左
-		if (MoveX < 0)
-		{
-			return 3;
-		}
-		return 1;
+		return TRUE;
 	}
 	else
 	{
-		return 0;
+		return false;
 	}
 }

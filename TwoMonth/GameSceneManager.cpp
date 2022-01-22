@@ -205,24 +205,18 @@ void GameSceneManager::Draw(_DirectX directX)
 		sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 		sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 
-
-		//ƒIƒuƒWƒFƒNƒg
-		//object->OBJDraw(Polygon, pPos1, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
-		//object->OBJDraw(Polygon, pPos2, XMFLOAT3{ 1.0f,1.0f,1.0f }, angle, XMFLOAT4{ 1.0f,1.0f,1.0f ,1.0f });
-
-
+		//‘ä‚Ì•`‰æ
 		table.Draw();
 
 
 		//“G‚Ì‰æ‘œ
 		enemy.Draw();
-
+		//ƒuƒƒbƒN‚Ì•`‰æ
 		block.Draw();
 
 		//UI
 		sprite->Draw(UIGraph, XMFLOAT2(), 1920, 1080);
 
-		block.DrawUI();
 
 		//“G‚ÌUŒ‚•`‰æ
 		enemy.AttackDraw();
@@ -231,10 +225,11 @@ void GameSceneManager::Draw(_DirectX directX)
 		//ƒp[ƒeƒBƒNƒ‹•`‰æ
 		particleMan->Draw();
 
+		//UI•`‰æ
+		block.DrawUI();
+
 		sprite->Draw(numGraph[playerHP], XMFLOAT2(1530, 740), 128, 128);
 		sprite->Draw(numGraph[turnNum], XMFLOAT2(1530, 450), 128, 128);
-
-
 
 		sprite->Draw(numGraph[phaseNum], XMFLOAT2(1680, 900), 128, 128);
 
@@ -242,8 +237,6 @@ void GameSceneManager::Draw(_DirectX directX)
 		{
 			sprite->Draw(numGraph[phaseNum2], XMFLOAT2(1610, 900), 128, 128);
 		}
-		//‘OŒi•`‰æ
-		//sprite->Draw(spriteGraph, XMFLOAT2(0, 0), 100, 100);
 
 		if (enemy.GetphaseFlag() == TRUE)
 		{

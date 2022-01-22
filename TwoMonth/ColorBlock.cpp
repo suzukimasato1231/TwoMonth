@@ -29,7 +29,7 @@ void ColorBlock::Init(Object::ObjectData block, Object::ObjectData block2, Objec
 void ColorBlock::Update()
 {
 	oldPos = pos;
-	if (Flag == true)
+	if (moveFlag == true)
 	{
 		//pos.y += 1.0f;
 		pos.y -= 0.1f;
@@ -112,16 +112,11 @@ void ColorBlock::Draw()
 void ColorBlock::GetSpriteParent(Object::ObjectData *parent)
 {
 	assert(parent);
-	block[0].parent = parent;
-	block[1].parent = parent;
-	block[2].parent = parent;
-	block[3].parent = parent;
-	block[4].parent = parent;
-	block[5].parent = parent;
-	block[6].parent = parent;
-	block[7].parent = parent;
-	block[8].parent = parent;
-	Flag = false;
+	for (int i = 0; i < 9; i++)
+	{
+		block[i].parent = parent;
+	}
+	moveFlag = false;
 }
 
 void ColorBlock::PushBack(int isHit, const float blockSize)
@@ -138,7 +133,7 @@ void ColorBlock::PushBack(int isHit, const float blockSize)
 
 void ColorBlock::SpeedUpdate()
 {
-	if (Flag == true)
+	if (moveFlag == true)
 	{
 		pos.y -= 10.0f;
 	}
@@ -154,9 +149,9 @@ XMFLOAT3 ColorBlock::GetoldPos()
 	return oldPos;
 }
 
-bool ColorBlock::GetFlag()
+bool ColorBlock::GetMoveFlag()
 {
-	return Flag;
+	return moveFlag;
 }
 
 void ColorBlock::Pos(int i, int j, int direction, const float blockSize)
@@ -203,15 +198,15 @@ void ColorBlock::ShiftPos(int i, int j, int direction, const float blockSize)
 	{
 	case UP:
 		pos.x = i * blockSize - 150;
-		pos.y = 135 + blockSize + j * blockSize;
+		pos.y = 165 + j * blockSize;
 		break;
 	case Down:
-		pos.x = -i * blockSize + 180 - blockSize;
+		pos.x = -i * blockSize + 150;
 		pos.y = -165 - j * blockSize;
 		break;
 	case Left:
-		pos.x = j * blockSize - blockSize + 195;
-		pos.y = -i * blockSize + blockSize + 120;
+		pos.x = j * blockSize + 165;
+		pos.y = -i * blockSize + 150;
 		break;
 	case Right:
 		pos.x = -j * blockSize - 165;
@@ -269,19 +264,20 @@ void ColorBlock::Sandwich()
 {
 	if (blockBreakFlag == true)
 	{
+		float speed = 7.5f;
 		switch (Status)
 		{
 		case UP:
-			pos.y -= 7.5f;
+			pos.y -= speed;
 			break;
 		case Down:
-			pos.y += 7.5f;
+			pos.y += speed;
 			break;
 		case Left:
-			pos.x -= 7.5f;
+			pos.x -= speed;
 			break;
 		case Right:
-			pos.x += 7.5f;
+			pos.x += speed;
 			break;
 		}
 		time--;
