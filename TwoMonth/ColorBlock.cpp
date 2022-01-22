@@ -59,15 +59,15 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			object->Draw(block[0], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[0], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		case 2:
-			object->Draw(block[1], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[1], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		case 3:
-			object->Draw(block[2], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[2], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
 			break;
 		}
@@ -76,15 +76,15 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			object->Draw(block[3], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[3], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 2:
-			object->Draw(block[4], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[4], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 3:
-			object->Draw(block[5], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[5], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		}
@@ -93,15 +93,15 @@ void ColorBlock::Draw()
 		switch (Level)
 		{
 		case 1:
-			object->Draw(block[6], XMFLOAT3(pos.x, pos.y, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[6], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 2:
-			object->Draw(block[7], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[7], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 3:
-			object->Draw(block[8], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+			object->Draw(block[8], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
 				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		}
@@ -165,18 +165,18 @@ void ColorBlock::Pos(int i, int j, int direction, const float blockSize)
 	{
 	case UP:
 		pos.x = i * blockSize - 120;
-		pos.y = 150 + blockSize + j * blockSize;
+		pos.y = 135 + blockSize + j * blockSize;
 		break;
 	case Down:
 		pos.x = -i * blockSize + 150 - blockSize;
-		pos.y = -180 - j * blockSize;
+		pos.y = -165 - j * blockSize;
 		for (int i = 0; i < 9; i++)
 		{
 			rotation.z += 180.0f;
 		}
 		break;
 	case Left:
-		pos.x = j * blockSize - blockSize + 210;
+		pos.x = j * blockSize - blockSize + 195;
 		pos.y = -i * blockSize + blockSize + 90;
 		for (int i = 0; i < 9; i++)
 		{
@@ -184,7 +184,7 @@ void ColorBlock::Pos(int i, int j, int direction, const float blockSize)
 		}
 		break;
 	case Right:
-		pos.x = -j * blockSize - 180;
+		pos.x = -j * blockSize - 165;
 		pos.y = -i * blockSize + 120;
 		for (int i = 0; i < 9; i++)
 		{
@@ -203,18 +203,18 @@ void ColorBlock::ShiftPos(int i, int j, int direction, const float blockSize)
 	{
 	case UP:
 		pos.x = i * blockSize - 150;
-		pos.y = 150 + blockSize + j * blockSize;
+		pos.y = 135 + blockSize + j * blockSize;
 		break;
 	case Down:
 		pos.x = -i * blockSize + 180 - blockSize;
-		pos.y = -180 - j * blockSize;
+		pos.y = -165 - j * blockSize;
 		break;
 	case Left:
-		pos.x = j * blockSize - blockSize + 210;
+		pos.x = j * blockSize - blockSize + 195;
 		pos.y = -i * blockSize + blockSize + 120;
 		break;
 	case Right:
-		pos.x = -j * blockSize - 180;
+		pos.x = -j * blockSize - 165;
 		pos.y = -i * blockSize + 150;
 		break;
 	}
