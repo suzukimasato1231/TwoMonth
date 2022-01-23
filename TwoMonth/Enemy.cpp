@@ -149,6 +149,7 @@ void Enemy::Draw()
 void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight)
 {
+	//HpBar = 1180 * ((enemyHP[nowPhase] /enemyHPKeep[nowPhase]));
 	if (phaseFlag == 1)
 	{
 		phaseDelay++;
@@ -191,7 +192,7 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 
 	DamegeCal(DamegeFlag);
 }
-
+ 
 void Enemy::DamegeCal(bool DamegeFlag)
 {
 	if (DamegeFlag == true)
@@ -211,6 +212,7 @@ void Enemy::DamegeCal(bool DamegeFlag)
 			damageRightValue[i] = 0;
 		}
 	}
+
 }
 int Enemy::GetAttackCount()
 {
@@ -224,10 +226,22 @@ int Enemy::GetEnemyHP()
 {
 	return enemyHP[nowPhase];
 }
+
+int Enemy::GetConstEnemyHP()
+{
+	return enemyHPKeep[nowPhase];
+}
+
 int Enemy::GetCombo()
 {
 	return combo;
 }
+
+int Enemy::GetHpBar()
+{
+	return HpBar;
+}
+
 void Enemy::ShakeUpdate()
 {
 	//シェイク初期化

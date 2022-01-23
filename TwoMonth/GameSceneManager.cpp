@@ -67,6 +67,7 @@ void GameSceneManager::Init()
 	numGraph[7] = sprite->SpriteCreate(L"Resources/number/7.png");
 	numGraph[8] = sprite->SpriteCreate(L"Resources/number/8.png");
 	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
+	EnemyHpGraph = sprite->SpriteCreate(L"Resources/EnemyHP.png");
 	//オブジェクト画像読み込み
 	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
 	//graph3 = object->LoadTexture(L"Resources/white.png");
@@ -134,7 +135,7 @@ void GameSceneManager::Update()
 
 			enemy.Update(playerHP, block.GetDameFlag(), block.GetComboCount());
 		}
-		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetDameFlag(), block.GetComboCount(),
+		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetSandEndFlag(), block.GetComboCount(),
 			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight());
 
 		if (enemy.GetPhaseDelay() > 120)
@@ -153,7 +154,7 @@ void GameSceneManager::Update()
 		}
 		//ターン数字更新
 		turnNum = enemy.GetAttackDelay() - enemy.GetAttackCount();
-
+		
 		if (enemy.GetEnemyLastHP() <= 0)
 		{
 			scene = GameClearInit;
@@ -168,7 +169,14 @@ void GameSceneManager::Update()
 		//ライト更新
 		light->Update();
 		break;
-	case GameOverInit:
+	case GameOverInit:table.MainInit();
+		block.MainInit();
+		//プレイヤーステータス
+		playerHP = 3;///体力
+		playerIsAlive = 1;///存在するか
+
+		enemy.MainInit();
+		scene = Title;
 		scene = GameOver;
 	case GameOver:
 		if (input->KeybordTrigger(DIK_SPACE))
@@ -177,6 +185,14 @@ void GameSceneManager::Update()
 		}
 		break;
 	case GameClearInit:
+		table.MainInit();
+		block.MainInit();
+		//プレイヤーステータス
+		playerHP = 3;///体力
+		playerIsAlive = 1;///存在するか
+
+		enemy.MainInit();
+		scene = Title;
 		scene = GameClear;
 	case GameClear:
 		if (input->KeybordTrigger(DIK_SPACE))
@@ -244,7 +260,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		{
 			sprite->Draw(phaseGraph, XMFLOAT2(0, 0), 1920, 1080);
 		}
-
+		//sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40), enemy.GetHpBar(), 64);
 		switch (table.GetStatus())
 		{
 		case UP:
@@ -272,7 +288,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");
 		//debugText.Print(10, 420, 2, "         d  :%f");
-		//debugText.Print(10, 380, 2, "      combo :%d", block.GetComboCount());
+		debugText.Print(10, 380, 2, "      comboa :%d", block.GetSandEndFlag());
 		//debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
 		//debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());
 		//debugText.Print(10, 500, 2, "  colorLeft :%d", block.GetColorNumLeft());

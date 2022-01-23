@@ -46,7 +46,11 @@ public:
 
 	int GetEnemyHP();
 
+	int GetConstEnemyHP();
+
 	int GetCombo();
+	
+	int GetHpBar();
 
 	XMFLOAT2 GetShakePos();
 private:
@@ -113,7 +117,7 @@ private:
 	int phaseDelay = 0;
 	bool phaseFlag = 0;
 
-
+	int HpBar = 0;
 
 	//エネミー攻撃オブジェクト関連
 	XMFLOAT3 eAttackPos{ 0.0f,0.0f,0.0f };

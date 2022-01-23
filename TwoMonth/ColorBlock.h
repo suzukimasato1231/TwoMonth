@@ -50,6 +50,7 @@ public:
 	int GetColor();
 	//重なった数を取得
 	int GetLevel();
+	bool GetSandEndFlag();
 	//レベル上昇
 	void LevelUP(int i);
 	//消えるかどうかのフラグを取得
@@ -77,4 +78,6 @@ private:
 	bool  blockBreakFlag = false;		//ブロックが挟むフラグ
 	bool  DeleteFlag = false;			//消えるかどうか
 	int time = 20;						//敵を挟むまでの時間
+	
+	bool sandEndFlag = false;
 };

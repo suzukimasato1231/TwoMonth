@@ -60,6 +60,8 @@ public:
 	bool GetGameOverFlag();
 
 	bool GetShakeFlag();
+
+	bool GetSandEndFlag();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -87,6 +89,7 @@ private:
 
 	//挟まったマップチップの位置を０にする
 	void MapDelete();
+
 private:
 	std::vector<ColorBlock *>colorBlock;
 

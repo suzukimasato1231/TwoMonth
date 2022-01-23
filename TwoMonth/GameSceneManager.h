@@ -64,7 +64,7 @@ private://定義
 	Sprite::SpriteData titleGraph;///敵画像
 	Sprite::SpriteData GameOverGraph;///敵画像
 	Sprite::SpriteData numGraph[10];///数字画像
-
+	Sprite::SpriteData EnemyHpGraph;///数字画像
 
 	Sprite::SpriteData UIGraph;//UI画像
 	//オブジェクトの形

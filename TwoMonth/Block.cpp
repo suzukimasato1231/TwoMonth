@@ -971,6 +971,18 @@ void Block::MapDelete()
 	}
 }
 
+bool Block::GetSandEndFlag()
+{
+	for (int n = 0; n < colorBlock.size(); n++)
+	{
+		if (colorBlock[n]->GetSandEndFlag() == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Block::GetDameFlag()
 {
 	return DamegeFlag;
