@@ -131,9 +131,13 @@ private:
 
 	time_t start_time[4], end_time[4];//時間計測
 	bool blockOverFlag[4] = {};//ブロックをオーバーしたかどうか
+	int gameOverCount[4] = { 0,0,0,0 };	//ゲームオーバータイムカウント
 	bool gameOverFlag = false;//ゲームーオーバー
 	const int gameOverTimeMax = 5;//オーバータイム（５ｓ）
-	int gameOverCount[4] = { 0,0,0,0 };	//ゲームオーバータイムカウント
+
+	Sprite::SpriteData warningNumber[9];//ブロック置きすぎ警告数字
+	Sprite::SpriteData warningWall;		//警告の赤いシート
+
 
 	bool ShakeFlag = false;//シェイクフラグ
 };

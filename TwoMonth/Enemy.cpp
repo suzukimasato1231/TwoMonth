@@ -170,7 +170,7 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	if (eAttackFlag == true)
 	{
 		eAttackTime--;
-		eAttackPos.z -= 5.0f;
+		eAttackPos.z -= 10.0f;
 		if (eAttackTime <= 0)
 		{
 			eAttackFlag = false;

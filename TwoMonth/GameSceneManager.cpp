@@ -96,7 +96,6 @@ void GameSceneManager::Update()
 		playerIsAlive = 1;///存在するか
 
 		enemy.MainInit();
-
 		scene = Title;
 	case Title:
 		if (input->KeybordTrigger(DIK_SPACE))
@@ -107,6 +106,10 @@ void GameSceneManager::Update()
 	case MainInit:
 		table.MainInit();
 		block.MainInit();
+		turnNum = 0;
+		phaseNum = 1;			//フェーズ数１桁目
+		phaseNum2Flag = false;	//２桁目に入ったか
+		phaseNum2 = 0;			//フェーズ数２桁目
 		scene = Main;
 	case Main:
 		if (input->KeybordPush(DIK_R))
@@ -141,7 +144,7 @@ void GameSceneManager::Update()
 			enemy.FlagChenge();
 		}
 
-		//フォント数字
+		//フェーズ二桁目の数字更新
 		if (phaseNum == 10)
 		{
 			phaseNum2++;
@@ -232,7 +235,6 @@ void GameSceneManager::Draw(_DirectX directX)
 		sprite->Draw(numGraph[turnNum], XMFLOAT2(1530, 450), 128, 128);
 
 		sprite->Draw(numGraph[phaseNum], XMFLOAT2(1680, 900), 128, 128);
-
 		if (phaseNum2Flag == TRUE)
 		{
 			sprite->Draw(numGraph[phaseNum2], XMFLOAT2(1610, 900), 128, 128);

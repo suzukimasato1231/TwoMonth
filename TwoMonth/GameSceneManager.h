@@ -98,7 +98,7 @@ private://定義
 
 	int scene = TitleInit;
 	int turnNum = 0;
-	int phaseNum = 1;
-	bool phaseNum2Flag = 1;
-	int phaseNum2 = 1;
+	int phaseNum = 1;			//フェーズ数１桁目
+	bool phaseNum2Flag = false;	//２桁目に入ったか
+	int phaseNum2 = 0;			//フェーズ数２桁目
 };
