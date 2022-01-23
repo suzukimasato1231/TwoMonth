@@ -44,7 +44,7 @@ void GameSceneManager::Init()
 	sound->SoundBGMPlayLoopWave(sound2, sound->BGM);*/
 
 	//カメラ
-	view->SetViewCamera(XMFLOAT3{ 0,0,-800 }, XMFLOAT3{ 0, 0, 0 }, XMFLOAT3{ 0, 1, 0 });
+	view->SetViewCamera(XMFLOAT3{ 0,0,-1000 }, XMFLOAT3{ 0, 0, 0 }, XMFLOAT3{ 0, 1, 0 });
 
 	//ライト色を設定
 	light->SetLightColor({ 1,1,1 });
