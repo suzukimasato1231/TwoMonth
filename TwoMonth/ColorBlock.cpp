@@ -238,6 +238,11 @@ int ColorBlock::GetLevel()
 	return Level;
 }
 
+bool ColorBlock::GetSandEndFlag()
+{
+	return sandEndFlag;
+}
+
 void ColorBlock::LevelUP(int i)
 {
 	switch (i)
@@ -262,6 +267,10 @@ void ColorBlock::BreakFlagTRUE()
 
 void ColorBlock::Sandwich()
 {
+	if (blockBreakFlag == false)
+	{
+		sandEndFlag = false;
+	}
 	if (blockBreakFlag == true)
 	{
 		float speed = 7.5f;
@@ -283,6 +292,7 @@ void ColorBlock::Sandwich()
 		time--;
 		if (time <= 0)
 		{
+			sandEndFlag = true;
 			DeleteFlag = true;
 		}
 	}
