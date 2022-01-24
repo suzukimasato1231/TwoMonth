@@ -182,3 +182,13 @@ bool Table::ShakeGet(bool shakeFlag)
 {
 	return this->shakeFlag = shakeFlag;
 }
+
+bool Table::GetShakeFlag()
+{
+	return shakeFlag;
+}
+
+int Table::GetShakeTime()
+{
+	return shakeTime;
+}

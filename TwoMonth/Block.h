@@ -62,6 +62,9 @@ public:
 	bool GetShakeFlag();
 
 	bool GetSandEndFlag();
+
+	//ブロックを消す
+	void SandwitchDelete();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -84,8 +87,6 @@ private:
 	void CountGamaeOverTime();
 	//ブロックがあふれたかどか
 	void Overflow();
-	//ブロックを消す
-	void SandwitchDelete();
 
 	//挟まったマップチップの位置を０にする
 	void MapDelete();

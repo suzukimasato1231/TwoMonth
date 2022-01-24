@@ -290,7 +290,6 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 void Block::Damege()
 {
 	DamegeFlag = false;
-	ShakeFlag = false;
 	checkFlag = 0;
 	checkColorUp = 0;
 	checkColorDown = 0;
@@ -879,6 +878,7 @@ void Block::Overflow()
 
 void Block::SandwitchDelete()
 {
+	ShakeFlag = false;
 	for (int n = 0; n < colorBlock.size(); n++)
 	{
 		if (colorBlock[n]->GetDeleteFlag())

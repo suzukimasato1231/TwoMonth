@@ -101,7 +101,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout)
 {
 	if (enemyHP[nowPhase] < 0 && enemyIsAlive[nowPhase] == 1)
 	{
-		phaseFlag = 1;
+		phaseFlag = true;
 	}
 	if (enemyIsAlive[nowPhase] == true)
 	{
@@ -150,11 +150,11 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight)
 {
 	//HpBar = 1180 * ((enemyHP[nowPhase] /enemyHPKeep[nowPhase]));
-	if (phaseFlag == 1)
+	if (phaseFlag == true)
 	{
 		phaseDelay++;
 	}
-	else if (phaseFlag == 0)
+	else if (phaseFlag == false)
 	{
 		phaseDelay = 0;
 	}

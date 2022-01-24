@@ -115,7 +115,7 @@ private:
 	//フェーズ
 	int nowPhase = 0;
 	int phaseDelay = 0;
-	bool phaseFlag = 0;
+	bool phaseFlag = false;
 
 	int HpBar = 0;
 

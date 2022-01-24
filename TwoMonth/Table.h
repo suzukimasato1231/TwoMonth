@@ -41,6 +41,10 @@ public:
 	void ShakeStart(float shakeTime, int shakeString);
 
 	bool ShakeGet(bool shakeFlag);
+
+	bool GetShakeFlag();
+
+	int GetShakeTime();
 private:
 	XMFLOAT3 pos{ 0.0f,0.0f ,0.0f };//ç¿ïW
 	XMFLOAT3 rotation{};

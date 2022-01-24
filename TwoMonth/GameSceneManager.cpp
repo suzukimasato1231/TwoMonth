@@ -119,11 +119,11 @@ void GameSceneManager::Update()
 			block.MainInit();
 			//プレイヤーステータス
 			playerHP = 3;///体力
-			playerIsAlive = 1;///存在するか
+			playerIsAlive = true;///存在するか
 			//エネミー
 			enemy.MainInit();
 		}
-		if (enemy.GetphaseFlag() == 0)
+		if (enemy.GetphaseFlag() == false)
 		{
 			table.Update();
 
@@ -134,6 +134,13 @@ void GameSceneManager::Update()
 			table.ShakeGet(block.GetShakeFlag());
 
 			enemy.Update(playerHP, block.GetDameFlag(), block.GetComboCount());
+		}
+		else
+		{//フェーズクリア後も攻撃処理を行うため
+			block.SandwitchDelete();
+			table.ShakeGet(block.GetShakeFlag());
+			table.ShakeStart(10.0f, 10);
+			table.ShakeUpdate();
 		}
 		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetSandEndFlag(), block.GetComboCount(),
 			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight());
@@ -154,7 +161,7 @@ void GameSceneManager::Update()
 		}
 		//ターン数字更新
 		turnNum = enemy.GetAttackDelay() - enemy.GetAttackCount();
-		
+
 		if (enemy.GetEnemyLastHP() <= 0)
 		{
 			scene = GameClearInit;
