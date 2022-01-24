@@ -166,7 +166,7 @@ void GameSceneManager::Update()
 		{
 			scene = GameClearInit;
 		}
-		if (playerHP <= 0)//|| block.GetGameOverFlag() == true)
+		if (playerHP <= 0|| block.GetGameOverFlag() == true)
 		{
 			scene = GameOverInit;
 		}
@@ -230,7 +230,8 @@ void GameSceneManager::Draw(_DirectX directX)
 		//”wŒi•`‰æ
 		sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 		sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
-
+		//ƒuƒƒbƒNÅ‘å”‚ð‰ÂŽ‹‰»
+		block.WallningDraw();
 		//‘ä‚Ì•`‰æ
 		table.Draw();
 
@@ -253,7 +254,8 @@ void GameSceneManager::Draw(_DirectX directX)
 
 		//UI•`‰æ
 		block.DrawUI();
-
+		//ƒQ[ƒ€ƒI[ƒo[‚Ü‚Å‚ÌƒJƒEƒ“ƒg•`‰æ
+		block.DrawGameOverCount();
 		sprite->Draw(numGraph[playerHP], XMFLOAT2(1530, 740), 128, 128);
 		sprite->Draw(numGraph[turnNum], XMFLOAT2(1530, 450), 128, 128);
 

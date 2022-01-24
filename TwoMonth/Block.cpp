@@ -39,6 +39,20 @@ void Block::Init(Input *input, Sprite *sprite, Object *object)
 	blocknext[3] = sprite->SpriteCreate(L"Resources/green.png");
 	blocknext[6] = sprite->SpriteCreate(L"Resources/blue.png");
 
+
+	warningWall = object->CreateRect(300.0f + blockSize * (mapoverY + 1) * 2, 300.0f + blockSize * (mapoverY + 1) * 2);
+	warningGraph = object->LoadTexture(L"Resources/warning.png");
+
+	outWarningWall = object->CreateRect(320.0f + blockSize * (mapoverY + 7) * 2, 320.0f + blockSize * (mapoverY + 7) * 2);
+	outWarningGraph = object->LoadTexture(L"Resources/warningOutside.png");
+
+	warningNumber = object->CreateRect(100.0f, 100.0f);
+	warningNumberGraph[5] = object->LoadTexture(L"Resources//number/0.png");
+	warningNumberGraph[4] = object->LoadTexture(L"Resources//number/1.png");
+	warningNumberGraph[3] = object->LoadTexture(L"Resources//number/2.png");
+	warningNumberGraph[2] = object->LoadTexture(L"Resources//number/3.png");
+	warningNumberGraph[1] = object->LoadTexture(L"Resources//number/4.png");
+	warningNumberGraph[0] = object->LoadTexture(L"Resources//number/5.png");
 	for (int j = 0; j < mapNum; j++)
 	{
 		if (j == 0)
@@ -889,6 +903,48 @@ void Block::SandwitchDelete()
 		}
 	}
 }
+
+void Block::WallningDraw()
+{
+	//点滅用の処理
+	outWarningTime++;
+	if (outWarningTime == 200)
+	{
+		outWarningTime = 0;
+	}
+
+	if ((blockOverFlag[0] || blockOverFlag[1] || blockOverFlag[2] || blockOverFlag[3]))
+	{//はみ出していたら
+		if (outWarningTime % 40 > 20)
+		{//外側の赤い警告
+			object->Draw(outWarningWall, XMFLOAT3(0.0f, 0.0f, 101.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+				XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), outWarningGraph);
+		}
+	}
+	//はみ出していけない枠を可視化
+	object->Draw(warningWall, XMFLOAT3(0.0f, 0.0f, 100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+		XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), warningGraph);
+}
+void Block::DrawGameOverCount()
+{
+	if ((blockOverFlag[0] || blockOverFlag[1] || blockOverFlag[2] || blockOverFlag[3]))
+	{
+		int texNumber = 0;
+		for (int i = 0; i < 4; i++)
+		{//ゲームオーバーまでのカウント数字
+			if (gameOverCount[i] > -1 && gameOverCount[i] < 6)
+			{//最大数を入れる
+				if (texNumber < gameOverCount[i])
+				{
+					texNumber = gameOverCount[i];
+				}
+			}
+		}
+		object->Draw(warningNumber, XMFLOAT3(0.0f, 450.0f, -100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+			XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), warningNumberGraph[texNumber]);
+	}
+}
+
 //該当のマップチップを０にする
 void Block::MapDelete()
 {

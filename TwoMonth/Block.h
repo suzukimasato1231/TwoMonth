@@ -65,6 +65,11 @@ public:
 
 	//ブロックを消す
 	void SandwitchDelete();
+
+	//ブロック置きすぎの警告を描画する
+	void WallningDraw();
+	//ゲームオーバーまでのカウントの描画
+	void DrawGameOverCount();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -133,14 +138,20 @@ private:
 	int checkColorLeft = 0;
 	int checkColorRight = 0;
 
+	const int mapoverY = 8;				//おけるブロックの最大数
 	time_t start_time[4], end_time[4];//時間計測
 	bool blockOverFlag[4] = {};//ブロックをオーバーしたかどうか
 	int gameOverCount[4] = { 0,0,0,0 };	//ゲームオーバータイムカウント
 	bool gameOverFlag = false;//ゲームーオーバー
 	const int gameOverTimeMax = 5;//オーバータイム（５ｓ）
 
-	Sprite::SpriteData warningNumber[9];//ブロック置きすぎ警告数字
-	Sprite::SpriteData warningWall;		//警告の赤いシート
+	Object::ObjectData warningNumber;//ブロック置きすぎ警告数字
+	int warningNumberGraph[9];
+	Object::ObjectData warningWall;		//警告の赤いシート
+	int warningGraph = 0;//赤い枠画像
+	Object::ObjectData outWarningWall;
+	int outWarningGraph = 0;//赤いシート画像外側
+	int outWarningTime = 0;
 
 
 	bool ShakeFlag = false;//シェイクフラグ
