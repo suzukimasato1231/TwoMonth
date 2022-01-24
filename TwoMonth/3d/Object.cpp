@@ -353,11 +353,11 @@ void  Object::OBJMatWord(ObjectData &polygon, XMFLOAT3 position, XMFLOAT3 scale,
 	constMap->viewproj = matViewProjection;
 	if (polygon.parent == nullptr)
 	{
-		constMap->world = polygon.matWorld * view->GetMatView() * view->GetProjection();
+		constMap->world = polygon.matWorld ;
 	}
 	else
 	{
-		constMap->world = polygon.matWorld * polygon.parent->matWorld * view->GetMatView() * view->GetProjection();
+		constMap->world = polygon.matWorld * polygon.parent->matWorld ;
 	}
 	constMap->cameraPos = cameraPos;
 	Object::OBJdata[OBJNum]->constBuffB0->Unmap(0, nullptr);

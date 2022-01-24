@@ -171,7 +171,7 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	if (eAttackFlag == true)
 	{
 		eAttackTime--;
-		eAttackPos.z -= 10.0f;
+		eAttackPos.z -= 20.0f;
 		if (eAttackTime <= 0)
 		{
 			eAttackFlag = false;
@@ -309,7 +309,7 @@ void Enemy::AttackDraw()
 	//ƒGƒlƒ~[UŒ‚•`‰æêŠ
 	if (eAttackFlag == true)
 	{
-		object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.0f,1.0f,1.0f }, XMFLOAT3{});
+		object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.2f,1.2f,1.2f }, XMFLOAT3{});
 	}
 }
 
