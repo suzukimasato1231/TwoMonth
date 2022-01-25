@@ -25,8 +25,6 @@ public:
 	void PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount, int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight);
 	//ダメージ計算
 	void DamegeCal(bool DamegeFlag);
-	//ダメージチェック
-	void ColorDamageCheck();
 	//色情報初期化
 	void ColorInformationInit();
 	//フェーズフラグ取得
@@ -133,4 +131,8 @@ private:
 	void ShakeUpdate();
 	//シェイクスタート/シェイク時間、シェイクの強さ
 	void ShakeStart(float shakeTime, int shakeString);
+
+	bool enemyDameDirecting = false;
+	int enemyDameTime = 0;//ダメージ食らったときの演出
+
 };

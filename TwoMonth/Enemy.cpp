@@ -133,24 +133,40 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout)
 	{
 		ColorInformationInit();
 	}
+	//ダメージ食らったときの点滅
+	if (enemyDameDirecting == true)
+	{
+		enemyDameTime++;
+		if (enemyDameTime >= 100)
+		{
+			enemyDameDirecting = false;
+		}
+	}
+	else
+	{
+		enemyDameTime = 0;
+	}
 }
 
 void Enemy::Draw()
 {
-	if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
+	if (enemyDameTime % 10 == 0)
 	{
-		object->Draw(enemyPolygon[0], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-			XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[0]);
-	}
-	if (nowPhase == 1 || nowPhase == 4 || nowPhase == 7 || nowPhase == 10 || nowPhase == 13 || nowPhase == 16 || nowPhase == 19)
-	{
-		object->Draw(enemyPolygon[1], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-			XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[1]);
-	}
-	if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17)
-	{
-		object->Draw(enemyPolygon[2], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-			XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[2]);
+		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
+		{
+			object->Draw(enemyPolygon[0], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[0]);
+		}
+		if (nowPhase == 1 || nowPhase == 4 || nowPhase == 7 || nowPhase == 10 || nowPhase == 13 || nowPhase == 16 || nowPhase == 19)
+		{
+			object->Draw(enemyPolygon[1], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[1]);
+		}
+		if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17)
+		{
+			object->Draw(enemyPolygon[2], XMFLOAT3(-80.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[2]);
+		}
 	}
 }
 
@@ -161,6 +177,9 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	if (phaseFlag == true)
 	{
 		phaseDelay++;
+		//フェーズが変わったら点滅しない
+		enemyDameDirecting = false;
+		enemyDameTime = 0;
 	}
 	else if (phaseFlag == false)
 	{
@@ -220,6 +239,7 @@ void Enemy::DamegeCal(bool DamegeFlag)
 			damageLeftValue[i] = 0;
 			damageRightValue[i] = 0;
 		}
+		enemyDameDirecting = true;
 	}
 
 }
