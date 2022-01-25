@@ -106,4 +106,5 @@ private://’è‹`
 
 
 	float wi = 0;
+	float hpRatio = 0;
 };
