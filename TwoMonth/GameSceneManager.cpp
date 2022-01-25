@@ -81,6 +81,8 @@ void GameSceneManager::Init()
 	block.Init(input, sprite, object);
 
 	enemy.Init(sprite, object);
+
+	sceneChange.Init(sprite);
 }
 
 void GameSceneManager::Update()
@@ -100,6 +102,10 @@ void GameSceneManager::Update()
 		scene = Title;
 	case Title:
 		if (input->KeybordTrigger(DIK_SPACE))
+		{
+			sceneChange.Start();
+		}
+		if (sceneChange.Change())
 		{
 			scene = MainInit;
 		}
@@ -144,7 +150,15 @@ void GameSceneManager::Update()
 		}
 		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetSandEndFlag(), block.GetComboCount(),
 			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight());
-
+		//フェーズクリアイージング
+		if (enemy.GetphaseFlag() == true)
+		{
+			sceneChange.phaseEasingStart(XMFLOAT3{ 0.0f,-200.0f,0.0f }, XMFLOAT3{ 0.0f,0.0f,0.0f }, 100);
+		}
+		else
+		{
+			sceneChange.ChangePhaseFlag();
+		}
 		if (enemy.GetPhaseDelay() > 120)
 		{
 			block.DeleteBlock();
@@ -166,7 +180,7 @@ void GameSceneManager::Update()
 		{
 			scene = GameClearInit;
 		}
-		if (playerHP <= 0|| block.GetGameOverFlag() == true)
+		if (playerHP <= 0 || block.GetGameOverFlag() == true)
 		{
 			scene = GameOverInit;
 		}
@@ -183,10 +197,15 @@ void GameSceneManager::Update()
 		playerIsAlive = 1;///存在するか
 
 		enemy.MainInit();
-		scene = Title;
+		sceneChange.gameoverasingStart(XMFLOAT3(0.0f, -window_height, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), 100);
+		sceneChange.ChangePhasegameoverFlag();
 		scene = GameOver;
 	case GameOver:
 		if (input->KeybordTrigger(DIK_SPACE))
+		{
+			sceneChange.Start();
+		}
+		if (sceneChange.Change())
 		{
 			scene = TitleInit;
 		}
@@ -199,16 +218,19 @@ void GameSceneManager::Update()
 		playerIsAlive = 1;///存在するか
 
 		enemy.MainInit();
-		scene = Title;
 		scene = GameClear;
 	case GameClear:
 		if (input->KeybordTrigger(DIK_SPACE))
+		{
+			sceneChange.Start();
+		}
+		if (sceneChange.Change())
 		{
 			scene = TitleInit;
 		}
 		break;
 	}
-
+	sceneChange.Update();
 }
 
 void GameSceneManager::Draw(_DirectX directX)
@@ -227,6 +249,8 @@ void GameSceneManager::Draw(_DirectX directX)
 		break;
 	case MainInit:
 	case Main:
+	case GameOverInit:
+	case GameOver:
 		//背景描画
 		sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 		sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
@@ -267,9 +291,11 @@ void GameSceneManager::Draw(_DirectX directX)
 
 		if (enemy.GetphaseFlag() == TRUE)
 		{
-			sprite->Draw(phaseGraph, XMFLOAT2(0, 0), 1920, 1080);
+			sceneChange.DrawPhase();
 		}
-		//sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40), enemy.GetHpBar(), 64);
+		
+		//sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40), wi, 64);
+#if _DEBUG
 		switch (table.GetStatus())
 		{
 		case UP:
@@ -326,17 +352,18 @@ void GameSceneManager::Draw(_DirectX directX)
 				debugText.Print(10, 200 + 16 * 40, 2, " GAMEOVER");
 			}*/
 			//デバックテキスト描画
-
-		break;
-	case GameOverInit:
-	case GameOver:
-		sprite->Draw(GameOverGraph, XMFLOAT2(), 1920, 1080);
+#endif
+		if (scene == GameOver)
+		{
+			sceneChange.DrawGameOver();
+		}
 		break;
 	case GameClearInit:
 	case GameClear:
 		break;
 	}
-
+	//シーンチェンジの黒描画
+	sceneChange.Draw();
 	debugText.
 		DrawAll();
 }

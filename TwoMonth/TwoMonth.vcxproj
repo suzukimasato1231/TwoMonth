@@ -238,6 +238,7 @@
     <ClInclude Include="Input\Keybord.h" />
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Pipeline\Pipeline.h" />
+    <ClInclude Include="SceneChange.h" />
     <ClInclude Include="Sound\Sound.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>
@@ -262,6 +263,7 @@
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pipeline\Pipeline.cpp" />
+    <ClCompile Include="SceneChange.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
     <ClCompile Include="Table.cpp" />
   </ItemGroup>

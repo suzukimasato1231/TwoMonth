@@ -10,6 +10,7 @@
 #include"Table.h"
 #include"Block.h"
 #include"Enemy.h"
+#include"SceneChange.h"
 extern const int window_width;
 extern const int window_height;
 
@@ -91,7 +92,8 @@ private://定義
 
 	//敵
 	Enemy enemy;
-
+	//シーンチェンジクラス
+	SceneChange sceneChange;
 	//プレイヤーステータス
 	int playerHP = 3;///体力
 	bool playerIsAlive = 1;///存在するか
@@ -101,4 +103,7 @@ private://定義
 	int phaseNum = 1;			//フェーズ数１桁目
 	bool phaseNum2Flag = false;	//２桁目に入ったか
 	int phaseNum2 = 0;			//フェーズ数２桁目
+
+
+	float wi = 0;
 };
