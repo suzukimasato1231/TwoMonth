@@ -140,6 +140,7 @@ void GameSceneManager::Update()
 			table.ShakeGet(block.GetShakeFlag());
 
 			enemy.Update(playerHP, block.GetDameFlag(), block.GetComboCount());
+			block.RockUpdate();
 		}
 		else
 		{//フェーズクリア後も攻撃処理を行うため
@@ -147,6 +148,7 @@ void GameSceneManager::Update()
 			table.ShakeGet(block.GetShakeFlag());
 			table.ShakeStart(10.0f, 10);
 			table.ShakeUpdate();
+			block.RockUpdate();
 		}
 		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetSandEndFlag(), block.GetComboCount(),
 			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight());
@@ -264,7 +266,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		enemy.Draw();
 		//ブロックの描画
 		block.Draw();
-
+		block.RockDraw();
 		//UI
 		sprite->Draw(UIGraph, XMFLOAT2(), 1920, 1080);
 

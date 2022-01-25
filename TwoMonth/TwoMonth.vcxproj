@@ -237,6 +237,7 @@
     <ClInclude Include="Input\Input.h" />
     <ClInclude Include="Input\Keybord.h" />
     <ClInclude Include="Input\Mouse.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="Pipeline\Pipeline.h" />
     <ClInclude Include="SceneChange.h" />
     <ClInclude Include="Sound\Sound.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="Input\Keybord.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pipeline\Pipeline.cpp" />
     <ClCompile Include="SceneChange.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />

@@ -8,6 +8,7 @@
 #include"base/Safe_delete.h"
 #include"collision/Collision.h"
 #include"Table.h"
+#include"Particle.h"
 time_t time(time_t *);
 const int mapNum = 20;
 
@@ -70,6 +71,10 @@ public:
 	void WallningDraw();
 	//ゲームオーバーまでのカウントの描画
 	void DrawGameOverCount();
+	//挟んだ時の演出の更新
+	void RockUpdate();
+	//挟んだ時の演出の描画
+	void RockDraw();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -155,4 +160,9 @@ private:
 
 
 	bool ShakeFlag = false;//シェイクフラグ
+
+	//ブロックが壊れるパーティクル
+	vector<Particle *>rock;
+	Object::ObjectData rockPolygon;
+	int rockGraph;
 };

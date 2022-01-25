@@ -9,6 +9,11 @@ Block::~Block()
 		delete colorBlock[i];
 		colorBlock.erase(colorBlock.begin() + i);
 	}
+	for (int i = (int)rock.size() - 1; i >= 0; i--)
+	{
+		delete rock[i];
+		rock.erase(rock.begin() + i);
+	}
 }
 
 void Block::Init(Input *input, Sprite *sprite, Object *object)
@@ -53,6 +58,10 @@ void Block::Init(Input *input, Sprite *sprite, Object *object)
 	warningNumberGraph[2] = object->LoadTexture(L"Resources//number/3.png");
 	warningNumberGraph[1] = object->LoadTexture(L"Resources//number/4.png");
 	warningNumberGraph[0] = object->LoadTexture(L"Resources//number/5.png");
+
+	//壊れる岩
+	rockPolygon = object->CreateSquare(10.0f, 10.0f, 10.0f);
+	rockGraph = object->LoadTexture(L"Resources/white.png");
 	for (int j = 0; j < mapNum; j++)
 	{
 		if (j == 0)
@@ -78,6 +87,11 @@ void Block::MainInit()
 	{
 		delete colorBlock[i];
 		colorBlock.erase(colorBlock.begin() + i);
+	}
+	for (int i = (int)rock.size() - 1; i >= 0; i--)
+	{
+		delete rock[i];
+		rock.erase(rock.begin() + i);
 	}
 	//マップチップ初期化
 	for (int j = 0; j < mapNum; j++)
@@ -897,6 +911,31 @@ void Block::SandwitchDelete()
 	{
 		if (colorBlock[n]->GetDeleteFlag())
 		{
+			for (int i = 0; i < 20; i++)
+			{//挟んだ時の岩を追加
+				XMFLOAT3 pos = colorBlock[n]->GetPos();
+				pos.x -= 30.0f;
+				XMFLOAT3 speed = {};
+				speed.x = rand() % 10 - 5;
+				speed.y = rand() % 10 - 5;
+				speed.z = rand() % 10 - 5;
+				XMFLOAT3 scale{ 1.0f,1.0f,1.0f };
+				XMFLOAT4 color{};
+				switch (colorBlock[n]->GetColor())
+				{
+				case Red:
+					color = { 1.0f,0.0f,0.0f,1.0f };
+					break;
+				case Yellow:
+					color = { 0.0f,1.0f,0.0f,1.0f };
+					break;
+				case Blue:
+					color = { 0.0f,0.0f,1.0f,1.0f };
+					break;
+				}
+				float time = 80.0f;
+				rock.push_back(new Particle(pos, speed, scale, color, time));
+			}
 			ShakeFlag = true;
 			delete colorBlock[n];
 			colorBlock.erase(colorBlock.begin() + n);
@@ -944,7 +983,32 @@ void Block::DrawGameOverCount()
 			XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), warningNumberGraph[texNumber]);
 	}
 }
+void Block::RockUpdate()
+{
+	for (int i = 0; i < rock.size(); i++)
+	{
 
+		rock[i]->pos = rock[i]->pos + rock[i]->speed;
+		rock[i]->time--;
+
+	}
+	for (int i = (int)rock.size() - 1; i >= 0; i--)
+	{
+		if (rock[i]->time <= 0)
+		{
+			delete rock[i];
+			rock.erase(rock.begin() + i);
+		}
+	}
+}
+
+void Block::RockDraw()
+{
+	for (int i = 0; i < rock.size(); i++)
+	{
+		object->Draw(rockPolygon, rock[i]->pos, rock[i]->scale, XMFLOAT3(), rock[i]->color, rockGraph);
+	}
+}
 //該当のマップチップを０にする
 void Block::MapDelete()
 {
