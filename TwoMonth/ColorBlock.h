@@ -66,7 +66,7 @@ private:
 	int redGraph = 0;					//赤のブロックの画像データ位置
 	int yellowGraph = 0;				//黄色のブロックの画像データ位置
 	int blueGraph = 0;					//青のブロックの画像データ位置
-	XMFLOAT3 pos{ 0.0f,550.0f,-51.0f };	//現在の座標
+	XMFLOAT3 pos{ -80.0f,550.0f,-51.0f };	//現在の座標
 	XMFLOAT3 oldPos{};					//1つ前の座標
 	XMFLOAT3 rotation{};				//回転位置
 	bool moveFlag = true;				//台に乗ってるかどうか

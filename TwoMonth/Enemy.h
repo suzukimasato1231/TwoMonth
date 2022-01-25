@@ -54,7 +54,8 @@ public:
 
 	XMFLOAT2 GetShakePos();
 private:
-	Sprite::SpriteData enemyGraph[3];///敵画像
+	Object::ObjectData enemyPolygon[3];///敵画像
+	int enemyGraph[3];
 	Object::ObjectData Polygon;
 	//敵ステータス
 	static const int enemy_Num = 20;//敵の数
@@ -120,7 +121,7 @@ private:
 	int HpBar = 0;
 
 	//エネミー攻撃オブジェクト関連
-	XMFLOAT3 eAttackPos{ 0.0f,0.0f,0.0f };
+	XMFLOAT3 eAttackPos{ -80.0f,0.0f,0.0f };
 	bool eAttackFlag = false;//アタック描画
 	int  eAttackTime = 50;//アタックHP
 	//いずれクラス内に入れるエネミー攻撃シェイク用変数
