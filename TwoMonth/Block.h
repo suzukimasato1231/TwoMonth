@@ -64,6 +64,7 @@ public:
 
 	bool GetSandEndFlag();
 
+	bool GetPutFlag();
 	//ブロックを消す
 	void SandwitchDelete();
 
@@ -165,4 +166,7 @@ private:
 	vector<Particle *>rock;
 	Object::ObjectData rockPolygon;
 	int rockGraph;
+
+	//設置フラグ
+	bool putFlag = false;
 };

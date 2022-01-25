@@ -119,6 +119,7 @@ void GameSceneManager::Update()
 		phaseNum2 = 0;			//フェーズ数２桁目
 		scene = Main;
 	case Main:
+		table.ShakeGet(block.GetPutFlag());
 		if (input->KeybordPush(DIK_R))
 		{
 			table.MainInit();
@@ -186,6 +187,7 @@ void GameSceneManager::Update()
 		{
 			scene = GameOverInit;
 		}
+		hpRatio = enemy.GetEnemyHP() / enemy.GetConstEnemyHP();
 		//パーティクル更新
 		//particleMan->ParticleAdd(pPos1);
 		//particleMan->Update();
@@ -296,7 +298,13 @@ void GameSceneManager::Draw(_DirectX directX)
 			sceneChange.DrawPhase();
 		}
 		
-		//sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40), wi, 64);
+		
+		//敵HPゲージ
+		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40),1180 * hpRatio, 64);
+
+		//コンボ終了までのゲージ
+		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);
+
 #if _DEBUG
 		switch (table.GetStatus())
 		{
@@ -318,14 +326,14 @@ void GameSceneManager::Draw(_DirectX directX)
 		debugText.Print(1, 60, 2, "yazirusi:position");
 
 		//debugText.Print(1600, 840, 5, "%d", playerHP);
-		debugText.Print(10, 180, 2, "    enemyHP :%d", enemy.GetEnemyHP());
+		//debugText.Print(10, 180, 2, "    enemyHP :%f", enemy.GetEnemyHP());
 		//debugText.Print(1500, 980, 5, "      %d", nowPhase + 1);
 		//debugText.Print(1600, 550, 5, "%d", enemyAttackDelay[nowPhase] - enemyAttackCount);
 		//debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");
 		//debugText.Print(10, 420, 2, "         d  :%f");
-		debugText.Print(10, 380, 2, "      comboa :%d", block.GetSandEndFlag());
+		//debugText.Print(10, 380, 2, "      comboa :%f", a);
 		//debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
 		//debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());
 		//debugText.Print(10, 500, 2, "  colorLeft :%d", block.GetColorNumLeft());

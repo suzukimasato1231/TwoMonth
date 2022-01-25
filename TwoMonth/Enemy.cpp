@@ -251,12 +251,12 @@ int Enemy::GetAttackDelay()
 {
 	return enemyAttackDelay[nowPhase];
 }
-int Enemy::GetEnemyHP()
+float Enemy::GetEnemyHP()
 {
 	return enemyHP[nowPhase];
 }
 
-int Enemy::GetConstEnemyHP()
+float Enemy::GetConstEnemyHP()
 {
 	return enemyHPKeep[nowPhase];
 }
@@ -266,7 +266,7 @@ int Enemy::GetCombo()
 	return combo;
 }
 
-int Enemy::GetHpBar()
+double Enemy::GetHpBar()
 {
 	return HpBar;
 }

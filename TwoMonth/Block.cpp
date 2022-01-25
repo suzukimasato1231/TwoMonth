@@ -168,6 +168,7 @@ void Block::AddBlock(int direction)
 	int pushFlag = true;
 	const int mapY = 12;//おけなくなるブロックの高さ
 	addFlag = true;
+	putFlag = false;
 	for (int i = 0; i < colorBlock.size(); i++)
 	{//動かせるブロックがあるかどうか
 		if (colorBlock[i]->GetMoveFlag() == true)
@@ -187,6 +188,7 @@ void Block::AddBlock(int direction)
 	if (pushFlag == true && ((direction == UP && mapUP[mapY] == 0) || (direction == Down && mapDown[mapY] == 0) ||
 		(direction == Left && mapLeft[mapY] == 0) || (direction == Right && mapRight[mapY] == 0)))
 	{
+		putFlag = true;
 		colorBlock.push_back(new ColorBlock);
 		colorBlock[colorBlock.size() - 1]->Init(block[0], block[1], block[2], block[3], block[4], block[5], block[6],
 			block[7], block[8], object, memoryColor, redGraph, yellowGraph, blueGraph);
@@ -1101,6 +1103,11 @@ bool Block::GetSandEndFlag()
 		}
 	}
 	return false;
+}
+
+bool Block::GetPutFlag()
+{
+	return putFlag;
 }
 
 bool Block::GetDameFlag()
