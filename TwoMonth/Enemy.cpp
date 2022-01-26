@@ -102,7 +102,7 @@ void Enemy::MainInit()
 	}
 }
 
-void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout)
+void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime)
 {
 	if (enemyHP[nowPhase] < 0 && enemyIsAlive[nowPhase] == 1)
 	{
@@ -110,7 +110,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout)
 	}
 	if (enemyIsAlive[nowPhase] == true)
 	{
-		if (DamegeFlag == true)
+		if (DamegeFlag == true && eAttackFlag == false && pTime < 11)
 		{
 			enemyAttackCount++;
 		}
@@ -288,6 +288,11 @@ void Enemy::ShakeUpdate()
 XMFLOAT2 Enemy::GetShakePos()
 {
 	return shakePos;
+}
+
+bool Enemy::GeteAttackFlag()
+{
+	return eAttackFlag;
 }
 
 void Enemy::ColorInformationInit()

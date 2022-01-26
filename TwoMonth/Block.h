@@ -22,6 +22,12 @@ public:
 	Block();
 
 	~Block();
+
+	//プレイヤーが置ける秒数
+	time_t start_player, end_player;//時間計測
+	bool playerTimeFlag = false;//プレイヤーターンフラグ
+
+
 	//初期化
 	void Init(Input *input, Sprite *sprite, Object *object);
 	//ゲームループの初期化
@@ -76,6 +82,10 @@ public:
 	void RockUpdate();
 	//挟んだ時の演出の描画
 	void RockDraw();
+
+	bool GetPlayerTimeFlag();
+
+	int GetPTime();
 private:
 	//ブロック追加
 	void AddBlock(int direction);
@@ -102,6 +112,7 @@ private:
 	//挟まったマップチップの位置を０にする
 	void MapDelete();
 
+	void PlayerTime();
 private:
 	std::vector<ColorBlock *>colorBlock;
 

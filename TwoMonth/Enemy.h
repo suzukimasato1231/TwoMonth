@@ -16,7 +16,7 @@ public:
 
 	void MainInit();
 
-	void Update(int &playerHP, bool DamegeFlag, bool ComboCout);
+	void Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime);
 
 	void Draw();
 
@@ -47,10 +47,12 @@ public:
 	float GetConstEnemyHP();
 
 	int GetCombo();
-	
+
 	double GetHpBar();
 
 	XMFLOAT2 GetShakePos();
+
+	bool GeteAttackFlag();
 private:
 	Object::ObjectData enemyPolygon[3];///“G‰æ‘œ
 	int enemyGraph[3];

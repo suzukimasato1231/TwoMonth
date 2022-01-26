@@ -59,9 +59,9 @@ private:
 	bool rotationFlag = false;
 	float rotationMemory = 0;
 
-	float shakeX, shakeY;	//シェイクした分の大きさ
-	float shakeTime;		//シェイク時間
-	int  shakeString;		//シェイクの強さ
-	float shkeStringTime;	//減衰
-	bool shakeFlag;			//シェイクフラグ
+	float shakeX = 0.0f, shakeY = 0.0f;	//シェイクした分の大きさ
+	float shakeTime = 0.0f;				//シェイク時間
+	int  shakeString = 0;				//シェイクの強さ
+	float shkeStringTime = 0.0f;		//減衰
+	bool shakeFlag = false;				//シェイクフラグ
 };

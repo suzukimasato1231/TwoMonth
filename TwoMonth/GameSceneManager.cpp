@@ -140,7 +140,14 @@ void GameSceneManager::Update()
 
 			table.ShakeGet(block.GetShakeFlag());
 
-			enemy.Update(playerHP, block.GetDameFlag(), block.GetComboCount());
+			enemy.Update(playerHP, block.playerTimeFlag, block.GetComboCount(),block.GetPTime());
+
+			if (block.playerTimeFlag && enemy.GeteAttackFlag() == false)
+			{
+				block.start_player = time(NULL);
+				block.playerTimeFlag = false;
+			}
+
 			block.RockUpdate();
 		}
 		else
@@ -321,7 +328,7 @@ void GameSceneManager::Draw(_DirectX directX)
 			debugText.Print(1, 120, 2, "direction:Right");
 			break;
 		}
-
+		debugText.Print(1, 200, 2, "playerTime:%d", block.GetPTime());
 		debugText.Print(1, 30, 2, "AD:rotation");
 		debugText.Print(1, 60, 2, "yazirusi:position");
 

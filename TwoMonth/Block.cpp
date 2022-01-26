@@ -1,6 +1,6 @@
 #include "Block.h"
 
-Block::Block(){}
+Block::Block() {}
 
 Block::~Block()
 {
@@ -110,13 +110,18 @@ void Block::MainInit()
 	}
 	gameOverFlag = false;
 	comboCount = 0;
+	start_player = time(NULL);
+	playerTimeFlag = false;
 }
 void Block::Update(Object::ObjectData *table, int direction)
 {
-	AddBlock(direction);
+	if (playerTimeFlag == false)
+	{
+		AddBlock(direction);
 
-	MoveBlock(table, direction);
-
+		MoveBlock(table, direction);
+	}
+	PlayerTime();
 	BlockJoin();
 
 	Damege();
@@ -1011,6 +1016,14 @@ void Block::RockDraw()
 		object->Draw(rockPolygon, rock[i]->pos, rock[i]->scale, XMFLOAT3(), rock[i]->color, rockGraph);
 	}
 }
+bool Block::GetPlayerTimeFlag()
+{
+	return playerTimeFlag;
+}
+int Block::GetPTime()
+{
+	return end_player - start_player;
+}
 //該当のマップチップを０にする
 void Block::MapDelete()
 {
@@ -1092,7 +1105,18 @@ void Block::MapDelete()
 		}
 	}
 }
-
+void Block::PlayerTime()
+{
+	if (playerTimeFlag == false)
+	{
+		end_player = time(NULL);
+		int time = end_player - start_player;
+		if (time >= 10)
+		{
+			playerTimeFlag = true;
+		}
+	}
+}
 bool Block::GetSandEndFlag()
 {
 	for (int n = 0; n < colorBlock.size(); n++)
