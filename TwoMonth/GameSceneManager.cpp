@@ -300,7 +300,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		
 		
 		//敵HPゲージ
-		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 40),1180 * hpRatio, 64);
+		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 930),1180 * hpRatio, 64);
 
 		//コンボ終了までのゲージ
 		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);
