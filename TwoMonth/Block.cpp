@@ -1116,6 +1116,10 @@ void Block::PlayerTime()
 			playerTimeFlag = true;
 		}
 	}
+	else
+	{
+		end_player = time(NULL);
+	}
 }
 bool Block::GetSandEndFlag()
 {
