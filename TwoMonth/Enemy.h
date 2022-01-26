@@ -121,9 +121,9 @@ private:
 	double HpBar = 0;
 
 	//エネミー攻撃オブジェクト関連
-	XMFLOAT3 eAttackPos{ -80.0f,0.0f,0.0f };
+	XMFLOAT3 eAttackPos{ 0.0f,0.0f,0.0f };
 	bool eAttackFlag = false;//アタック描画
-	int  eAttackTime = 50;//アタックHP
+	int  eAttackTime = 50;//アタックタイム
 	//いずれクラス内に入れるエネミー攻撃シェイク用変数
 	XMFLOAT2 shakePos = {};
 	float shakeTime;		//シェイク時間

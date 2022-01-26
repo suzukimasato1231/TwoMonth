@@ -100,6 +100,8 @@ void Enemy::MainInit()
 
 		damageValue[i] = 0;
 	}
+	eAttackFlag = false;
+	shakeTime = 0;
 }
 
 void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime)
@@ -121,11 +123,14 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime)
 		if (enemyIsAttack[nowPhase] == true)
 		{
 			enemyAttackCount = 0;
-			playerHP--;
 			enemyIsAttack[nowPhase] = false;
 			eAttackFlag = true;
 			eAttackPos = { 0.0f,0.0f,0.0f };
-			eAttackTime = 50;
+			eAttackTime = 100;
+		}
+		if (eAttackFlag == true && eAttackTime <= 1)
+		{
+			playerHP--;
 		}
 	}
 
@@ -198,8 +203,7 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	if (eAttackFlag == true)
 	{
 		eAttackTime--;
-		eAttackPos.z -= 20.0f;
-		eAttackPos.x += 1.6;
+		eAttackPos.z -= 10.0f;
 		if (eAttackTime <= 0)
 		{
 			eAttackFlag = false;
