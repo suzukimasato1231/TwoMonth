@@ -963,12 +963,12 @@ void Block::WallningDraw()
 	{//‚Í‚Ýo‚µ‚Ä‚¢‚½‚ç
 		if (outWarningTime % 40 > 20)
 		{//ŠO‘¤‚ÌÔ‚¢Œx
-			object->Draw(outWarningWall, XMFLOAT3(-80.0f, 0.0f, 101.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+			object->Draw(outWarningWall, XMFLOAT3(0.0f, 0.0f, 101.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
 				XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), outWarningGraph);
 		}
 	}
 	//‚Í‚Ýo‚µ‚Ä‚¢‚¯‚È‚¢˜g‚ð‰ÂŽ‹‰»
-	object->Draw(warningWall, XMFLOAT3(-90.0f, 0.0f, 100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+	object->Draw(warningWall, XMFLOAT3(-10.0f, 0.0f, 100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
 		XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), warningGraph);
 }
 void Block::DrawGameOverCount()
@@ -986,7 +986,7 @@ void Block::DrawGameOverCount()
 				}
 			}
 		}
-		object->Draw(warningNumber, XMFLOAT3(-80.0f, 450.0f, -100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
+		object->Draw(warningNumber, XMFLOAT3(0.0f, 450.0f, -100.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
 			XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), warningNumberGraph[texNumber]);
 	}
 }

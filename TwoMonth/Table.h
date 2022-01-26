@@ -46,7 +46,7 @@ public:
 
 	int GetShakeTime();
 private:
-	XMFLOAT3 pos{ -80.0f,0.0f ,0.0f };//ç¿ïW
+	XMFLOAT3 pos{ 0.0f,0.0f ,0.0f };//ç¿ïW
 	XMFLOAT3 rotation{};
 	//300/210
 	float width = 300.0f;
