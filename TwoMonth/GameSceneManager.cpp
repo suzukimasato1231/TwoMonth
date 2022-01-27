@@ -159,7 +159,7 @@ void GameSceneManager::Update()
 			block.RockUpdate();
 		}
 		enemy.PhaseUpdate(block.GetCheckFlag(), block.GetSandEndFlag(), block.GetComboCount(),
-			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight());
+			block.GetColorNumUp(), block.GetColorNumDown(), block.GetColorNumLeft(), block.GetColorNumRight(), table.GetStatus());
 		//フェーズクリアイージング
 		if (enemy.GetphaseFlag() == true)
 		{
@@ -347,6 +347,10 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 540, 2, " colorRight :%d", block.GetColorNumRight());
 		//debugText.Print(10, 120, 2, "            :%d", block.GetSandDelay());
 		debugText.Print(300, 840, 5, "      combo :%d", enemy.GetCombo());
+		debugText.Print(10, 200 + 0 * 40, 2, " color :%d %d %d %d", enemy.GetDamegeValue(0, 0), enemy.GetDamegeValue(0, 1), enemy.GetDamegeValue(0, 2), enemy.GetDamegeValue(0, 3));
+		debugText.Print(10, 200 + 1 * 40, 2, " color :%d %d %d %d", enemy.GetDamegeValue(1, 0), enemy.GetDamegeValue(1, 1), enemy.GetDamegeValue(1, 2), enemy.GetDamegeValue(1, 3));
+		debugText.Print(10, 200 + 2 * 40, 2, " color :%d %d %d %d", enemy.GetDamegeValue(2, 0), enemy.GetDamegeValue(2, 1), enemy.GetDamegeValue(2, 2), enemy.GetDamegeValue(2, 3));
+		debugText.Print(10, 200 + 3 * 40, 2, " color :%d %d %d %d", enemy.GetDamegeValue(3, 0), enemy.GetDamegeValue(3, 1), enemy.GetDamegeValue(3, 2), enemy.GetDamegeValue(3, 3));
 		/*	debugText.Print(10, 200 + 0 * 40, 2, " color :%f ", damageUpValue[0]);
 			debugText.Print(10, 200 + 1 * 40, 2, " color :%f ", damageUpValue[1]);
 			debugText.Print(10, 200 + 2 * 40, 2, " color :%f ", damageUpValue[2]);
