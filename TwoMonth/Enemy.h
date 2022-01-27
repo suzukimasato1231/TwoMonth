@@ -22,7 +22,7 @@ public:
 
 	void AttackDraw();
 
-	void PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount, int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight);
+	void PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount, int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight, int direction);
 	//ダメージ計算
 	void DamegeCal(bool DamegeFlag);
 	//色情報初期化
@@ -31,6 +31,10 @@ public:
 	bool GetphaseFlag();
 
 	void betaDamageCheck(int ComboCount);
+
+	void DamageCheck(int ComboCount, int direction);
+
+	int GetDamegeValue(int i, int angle);
 
 	int GetEnemyLastHP();
 

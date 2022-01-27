@@ -115,6 +115,7 @@ void Block::MainInit()
 }
 void Block::Update(Object::ObjectData *table, int direction)
 {
+	angle = direction;
 	if (playerTimeFlag == false)
 	{
 		AddBlock(direction);
@@ -330,10 +331,26 @@ void Block::Damege()
 	checkColorDown = 0;
 	checkColorLeft = 0;
 	checkColorRight = 0;
-
+	for (int j = 1; j < mapNum; j++)
+	{
+		if (mapUP[j] > 0 && mapDown[j] > 0)
+		{
+			nextFlag[comboCount] = true;
+			if (oldmapUP[j] == 0 && oldmapDown[j] > 0 && mapUP[j] > 0 && mapDown[j] > 0)
+			{
+				sandDelay = 0;
+				comboCount++;
+			}
+			if (oldmapUP[j] > 0 && oldmapDown[j] == 0 && mapUP[j] > 0 && mapDown[j] > 0)
+			{
+				sandDelay = 0;
+				comboCount++;
+			}
+		}
+	}
 	for (int j = 1; j < mapNum; j++)
 	{//‹²‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
-		if (mapUP[j] > 0 && mapDown[j] > 0)
+		if (mapUP[j] > 0 && mapDown[j] > 0 && angle == 0 && nextFlag[comboCount] == false || mapUP[j] > 0 && mapDown[j] > 0 && angle == 1 && nextFlag[comboCount] == false)
 		{
 			sandFlag = true;
 			for (int n = 0; n < colorBlock.size(); n++)
@@ -366,12 +383,21 @@ void Block::Damege()
 			}
 			checkFlag = 1;
 			//comboCount++;
-			if (oldmapUP[j] == 0 && oldmapDown[j] > 0 && mapUP[j] > 0 && mapDown[j] > 0)
+			//nextFlag[comboCount] = true;
+		}
+	}
+
+	for (int k = 1; k < mapNum; k++)
+	{
+		if (mapLeft[k] > 0 && mapRight[k] > 0)
+		{
+			nextFlag[comboCount] = true;
+			if (oldmapLeft[k] == 0 && oldmapRight[k] > 0 && mapLeft[k] > 0 && mapRight[k] > 0)
 			{
 				sandDelay = 0;
 				comboCount++;
 			}
-			if (oldmapUP[j] > 0 && oldmapDown[j] == 0 && mapUP[j] > 0 && mapDown[j] > 0)
+			if (oldmapLeft[k] > 0 && oldmapRight[k] == 0 && mapLeft[k] > 0 && mapRight[k] > 0)
 			{
 				sandDelay = 0;
 				comboCount++;
@@ -380,7 +406,7 @@ void Block::Damege()
 	}
 	for (int k = 1; k < mapNum; k++)
 	{//‹²‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
-		if (mapLeft[k] > 0 && mapRight[k] > 0)
+		if (mapLeft[k] > 0 && mapRight[k] > 0 && angle == 2 && nextFlag[comboCount] == false || mapLeft[k] > 0 && mapRight[k] > 0 && angle == 3 && nextFlag[comboCount] == false)
 		{
 			sandFlag = true;
 			for (int n = 0; n < colorBlock.size(); n++)
@@ -415,7 +441,8 @@ void Block::Damege()
 
 			checkFlag = 1;
 			//comboCount++;
-			if (oldmapLeft[k] == 0 && oldmapRight[k] > 0 && mapLeft[k] > 0 && mapRight[k] > 0)
+
+			/*if (oldmapLeft[k] == 0 && oldmapRight[k] > 0 && mapLeft[k] > 0 && mapRight[k] > 0)
 			{
 				sandDelay = 0;
 				comboCount++;
@@ -425,6 +452,7 @@ void Block::Damege()
 				sandDelay = 0;
 				comboCount++;
 			}
+			nextFlag[comboCount] = true;*/
 		}
 	}
 	for (int j = 1; j < mapNum; j++)
@@ -437,6 +465,10 @@ void Block::Damege()
 	}
 	if (sandDelay > 150 && sandFlag == true)
 	{
+		for (int i = 0; i < 100; i++)
+		{
+			nextFlag[i] = false;
+		}
 		DamegeFlag = true;
 		sandFlag = 0;
 		addFlag = true;
@@ -451,7 +483,7 @@ void Block::Damege()
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == UP)
 					{
-						checkColorUp = colorBlock[n]->GetColor();
+						//checkColorUp = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
 					}
 				}
@@ -459,7 +491,7 @@ void Block::Damege()
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Down)
 					{
-						checkColorDown = colorBlock[n]->GetColor();
+						//checkColorDown = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
 					}
 				}
@@ -471,7 +503,7 @@ void Block::Damege()
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Left)
 					{
-						checkColorLeft = colorBlock[n]->GetColor();
+						//checkColorLeft = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
 					}
 				}
@@ -479,7 +511,7 @@ void Block::Damege()
 				{
 					if (colorBlock[n]->Getmap().y == j && colorBlock[n]->GetStatus() == Right)
 					{
-						checkColorRight = colorBlock[n]->GetColor();
+						//checkColorRight = colorBlock[n]->GetColor();
 						colorBlock[n]->BreakFlagTRUE();
 					}
 				}

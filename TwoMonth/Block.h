@@ -170,6 +170,8 @@ private:
 	int outWarningGraph = 0;//赤いシート画像外側
 	int outWarningTime = 0;
 
+	bool nextFlag[100];
+	int angle = 0;
 
 	bool ShakeFlag = false;//シェイクフラグ
 
