@@ -16,7 +16,7 @@ public:
 
 	void MainInit();
 
-	void Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime);
+	void Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime,bool tutorialFlag);
 
 	void Draw();
 

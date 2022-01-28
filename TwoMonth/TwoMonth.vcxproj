@@ -242,6 +242,7 @@
     <ClInclude Include="SceneChange.h" />
     <ClInclude Include="Sound\Sound.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2d\DebugText.cpp" />
@@ -268,6 +269,7 @@
     <ClCompile Include="SceneChange.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
     <ClCompile Include="Table.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

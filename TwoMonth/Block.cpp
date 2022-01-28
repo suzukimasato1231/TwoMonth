@@ -1153,6 +1153,10 @@ void Block::PlayerTime()
 		end_player = time(NULL);
 	}
 }
+void Block::ChangeGameOverFlag()
+{
+	gameOverFlag = false;
+}
 bool Block::GetSandEndFlag()
 {
 	for (int n = 0; n < colorBlock.size(); n++)

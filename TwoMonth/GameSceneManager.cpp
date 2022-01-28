@@ -83,6 +83,8 @@ void GameSceneManager::Init()
 	enemy.Init(sprite, object);
 
 	sceneChange.Init(sprite);
+
+	tutorial.Init(input, sprite);
 }
 
 void GameSceneManager::Update()
@@ -114,9 +116,10 @@ void GameSceneManager::Update()
 		table.MainInit();
 		block.MainInit();
 		turnNum = 0;
-		phaseNum = 1;			//フェーズ数１桁目
+		phaseNum = 0;			//フェーズ数１桁目
 		phaseNum2Flag = false;	//２桁目に入ったか
 		phaseNum2 = 0;			//フェーズ数２桁目
+		tutorial.MainInit();
 		scene = Main;
 	case Main:
 		table.ShakeGet(block.GetPutFlag());
@@ -140,7 +143,8 @@ void GameSceneManager::Update()
 
 			table.ShakeGet(block.GetShakeFlag());
 
-			enemy.Update(playerHP, block.playerTimeFlag, block.GetComboCount(),block.GetPTime());
+			enemy.Update(playerHP, block.playerTimeFlag, block.GetComboCount()
+				,block.GetPTime(), tutorial.GetTutorialFlag());
 
 			if (block.playerTimeFlag && enemy.GeteAttackFlag() == false)
 			{
@@ -175,6 +179,38 @@ void GameSceneManager::Update()
 			phaseNum++;
 			enemy.FlagChenge();
 		}
+
+		tutorial.Update();
+		if ((input->KeybordPush(DIK_E) || tutorial.GetTutorialEndFlag()) && tutorial.GetTutorialFlag() == true)
+		{//チュートリアルを抜ける
+			if (tutorial.Longpress() == true || tutorial.GetTutorialEndFlag())
+			{//２秒長押ししたらシーンチェンジスタート
+				sceneChange.Start();
+			}
+		}
+		else
+		{
+			tutorial.NotLongpress();
+		}
+		if (sceneChange.Change())
+		{//チュートリアルからメインへのシーンチェンジ（演出）
+			phaseNum++;
+			enemy.FlagChenge();
+			tutorial.TutorialFlagChange();
+			block.DeleteBlock();
+			block.ChangeGameOverFlag();
+		}
+
+		//チュートリアル中にゲームオーバーにならないようにする
+		if (tutorial.GetTutorialFlag() == true)
+		{
+			playerHP = 3;
+
+ 			block.ChangeGameOverFlag();
+		}
+		
+
+
 
 		//フェーズ二桁目の数字更新
 		if (phaseNum == 10)
@@ -311,7 +347,7 @@ void GameSceneManager::Draw(_DirectX directX)
 
 		//コンボ終了までのゲージ
 		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);
-
+		tutorial.Draw();
 #if _DEBUG
 		switch (table.GetStatus())
 		{

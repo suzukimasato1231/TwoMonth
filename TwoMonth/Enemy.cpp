@@ -81,7 +81,7 @@ void Enemy::MainInit()
 		enemyColorBottomR[i] = enemyColorBottomRKeep[i];
 	}
 	enemyAttackCount = 0;///攻撃のカウント用
-
+	nowPhase = 0;
 	/*for (int i = 0; i < 100; i++)
 	{
 		colorUp[i] = 0;
@@ -104,9 +104,9 @@ void Enemy::MainInit()
 	shakeTime = 0;
 }
 
-void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime)
+void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bool tutorialFlag)
 {
-	if (enemyHP[nowPhase] < 0 && enemyIsAlive[nowPhase] == 1)
+	if (enemyHP[nowPhase] < 0 && enemyIsAlive[nowPhase] == 1 && tutorialFlag == false)
 	{
 		phaseFlag = true;
 	}
@@ -796,7 +796,7 @@ int Enemy::GetEnemyLastHP()
 
 void Enemy::FlagChenge()
 {
-	phaseFlag = 0;
+	phaseFlag = false;
 	enemyIsAlive[nowPhase] = 0;
 	enemyAttackCount = -1;
 	nowPhase++;

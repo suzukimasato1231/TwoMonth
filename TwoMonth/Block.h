@@ -86,6 +86,8 @@ public:
 	bool GetPlayerTimeFlag();
 
 	int GetPTime();
+
+	void ChangeGameOverFlag();
 private:
 	//ÉuÉçÉbÉNí«â¡
 	void AddBlock(int direction);
@@ -113,6 +115,7 @@ private:
 	void MapDelete();
 
 	void PlayerTime();
+
 private:
 	std::vector<ColorBlock *>colorBlock;
 
