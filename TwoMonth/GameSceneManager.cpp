@@ -119,7 +119,9 @@ void GameSceneManager::Update()
 		phaseNum = 0;			//フェーズ数１桁目
 		phaseNum2Flag = false;	//２桁目に入ったか
 		phaseNum2 = 0;			//フェーズ数２桁目
+		playerIsAlive = 1;///存在するか
 		tutorial.MainInit();
+		enemy.MainInit();
 		scene = Main;
 	case Main:
 		table.ShakeGet(block.GetPutFlag());
@@ -237,13 +239,7 @@ void GameSceneManager::Update()
 		//ライト更新
 		light->Update();
 		break;
-	case GameOverInit:table.MainInit();
-		block.MainInit();
-		//プレイヤーステータス
-		playerHP = 3;///体力
-		playerIsAlive = 1;///存在するか
-
-		enemy.MainInit();
+	case GameOverInit:
 		sceneChange.gameoverasingStart(XMFLOAT3(0.0f, -window_height, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), 100);
 		sceneChange.ChangePhasegameoverFlag();
 		scene = GameOver;
