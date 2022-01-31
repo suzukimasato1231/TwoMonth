@@ -62,35 +62,35 @@ void Tutorial::Update()
 			}
 			break;
 		case THREE:
-			if (tutorialTime <= 0)
+			if (tutorialTime + 50 <= 0)
 			{
 				tutorialScene = FOUR;
 				tutorialTime = timeMax;
 			}
 			break;
 		case FOUR:
-			if (tutorialTime <= 0)
+			if (tutorialTime + 50 <= 0)
 			{
 				tutorialScene = FIVE;
 				tutorialTime = timeMax;
 			}
 			break;
 		case FIVE:
-			if (tutorialTime <= 0)
+			if (tutorialTime + 50 <= 0)
 			{
 				tutorialScene = SIX;
 				tutorialTime = timeMax;
 			}
 			break;
 		case SIX:
-			if (tutorialTime <= 0)
+			if (tutorialTime + 50 <= 0)
 			{
 				tutorialScene = SEVEN;
 				tutorialTime = timeMax;
 			}
 			break;
 		case SEVEN:
-			if (tutorialTime <= 0)
+			if (tutorialTime + 100 <= 0)
 			{
 				tutorialScene = EIGHT;
 				tutorialTime = timeMax;

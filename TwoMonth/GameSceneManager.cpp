@@ -321,7 +321,8 @@ void GameSceneManager::Draw(_DirectX directX)
 
 		//パーティクル描画
 		particleMan->Draw();
-
+		//ダメージ表現
+		enemy.DrawDamege();
 		//UI描画
 		block.DrawUI();
 		//ゲームオーバーまでのカウント描画

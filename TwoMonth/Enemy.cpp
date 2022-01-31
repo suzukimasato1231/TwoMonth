@@ -46,24 +46,10 @@ void Enemy::Init(Sprite *sprite, Object *object)
 	}
 	enemyAttackCount = 0;///攻撃のカウント用
 
-	/*for (int i = 0; i < 100; i++)
-	{
-		colorUp[i] = 0;
-		colorDown[i] = 0;
-		colorLeft[i] = 0;
-		colorRight[i] = 0;
+	damege = sprite->SpriteCreate(L"Resources/damege.png");
 
-		damageValueUpL[i] = 0;
-		damageValueUpR[i] = 0;
-		damageValueDownL[i] = 0;
-		damageValueDownR[i] = 0;
-		damageValueLeftL[i] = 0;
-		damageValueLeftR[i] = 0;
-		damageValueRightL[i] = 0;
-		damageValueRightR[i] = 0;
-
-		damageValue[i] = 0;
-	}*/
+	damegeHitFlag = false;
+	damegeColor = { 1.0f,1.0f,1.0f,0.0f };
 }
 
 void Enemy::MainInit()
@@ -82,26 +68,12 @@ void Enemy::MainInit()
 	}
 	enemyAttackCount = 0;///攻撃のカウント用
 	nowPhase = 0;
-	/*for (int i = 0; i < 100; i++)
-	{
-		colorUp[i] = 0;
-		colorDown[i] = 0;
-		colorLeft[i] = 0;
-		colorRight[i] = 0;
 
-		damageValueUpL[i] = 0;
-		damageValueUpR[i] = 0;
-		damageValueDownL[i] = 0;
-		damageValueDownR[i] = 0;
-		damageValueLeftL[i] = 0;
-		damageValueLeftR[i] = 0;
-		damageValueRightL[i] = 0;
-		damageValueRightR[i] = 0;
-
-		damageValue[i] = 0;
-	}*/
 	eAttackFlag = false;
 	shakeTime = 0;
+
+	damegeHitFlag = false;
+	damegeColor = { 1.0f,1.0f,1.0f,0.0f };
 }
 
 void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bool tutorialFlag)
@@ -126,7 +98,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bo
 			enemyIsAttack[nowPhase] = false;
 			eAttackFlag = true;
 			eAttackPos = { 0.0f,0.0f,0.0f };
-			eAttackTime = 100;
+			eAttackTime = 125;
 		}
 		if (eAttackFlag == true && eAttackTime <= 1)
 		{
@@ -203,9 +175,10 @@ void Enemy::PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount,
 	if (eAttackFlag == true)
 	{
 		eAttackTime--;
-		eAttackPos.z -= 10.0f;
+		eAttackPos.z -= 8.0f;
 		if (eAttackTime <= 0)
 		{
+			damegeHitFlag = true;
 			eAttackFlag = false;
 			ShakeStart(20.0f, 20);
 		}
@@ -352,10 +325,25 @@ void Enemy::AttackDraw()
 	//エネミー攻撃描画場所
 	if (eAttackFlag == true)
 	{
-		object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.2f,1.2f,1.2f }, XMFLOAT3{});
+		object->OBJDraw(Polygon, eAttackPos, XMFLOAT3{ 1.4f,1.4f,1.4f }, XMFLOAT3{});
 	}
 }
 
+
+void Enemy::DrawDamege()
+{
+	if (damegeHitFlag == true)
+	{
+		damegeHitFlag = false;
+		damegeColor = { 1.0f,1.0f,1.0f,0.8f };
+	}
+	if (damegeColor.w > 0.0f)
+	{
+		damegeColor.w -= 0.01f;
+	}
+	sprite->Draw(damege, XMFLOAT2{}, window_width, window_height, XMFLOAT2(), damegeColor);
+
+}
 void Enemy::betaDamageCheck(int ComboCount)
 {
 	if (enemyColor[nowPhase] == Red)

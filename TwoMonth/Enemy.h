@@ -22,6 +22,8 @@ public:
 
 	void AttackDraw();
 
+	void DrawDamege();//ダメージ表現
+
 	void PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount, int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight, int direction);
 	//ダメージ計算
 	void DamegeCal(bool DamegeFlag);
@@ -61,6 +63,8 @@ private:
 	Object::ObjectData enemyPolygon[3];///敵画像
 	int enemyGraph[3];
 	Object::ObjectData Polygon;
+
+	Sprite::SpriteData damege;
 	//敵ステータス
 	static const int enemy_Num = 20;//敵の数
 	float enemyHP[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000, 9000, 3000, 5000, 5000, 3000, 3000, 3000, 5000, 5000 };///体力
@@ -141,4 +145,7 @@ private:
 	bool enemyDameDirecting = false;
 	int enemyDameTime = 0;//ダメージ食らったときの演出
 
+
+	bool damegeHitFlag = false;//ダメージ表現用フラグ
+	XMFLOAT4 damegeColor = { 1.0f,1.0f,1.0f,1.0f };
 };
