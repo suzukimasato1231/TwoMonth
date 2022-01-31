@@ -50,13 +50,13 @@ void GameSceneManager::Init()
 	light->SetLightColor({ 1,1,1 });
 
 	//スプライト画像読み込み
-	//spriteGraph = sprite->SpriteCreate(L"Resources/text2.jpg");
 	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
 	BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	GameOverGraph = sprite->SpriteCreate(L"Resources/gameover.png");
-	titleGraph = sprite->SpriteCreate(L"Resources/1.png");
+	titleGraph = sprite->SpriteCreate(L"Resources/title.png");
+	spaceGraph = sprite->SpriteCreate(L"Resources/space.png");
 	numGraph[0] = sprite->SpriteCreate(L"Resources/number/0.png");
 	numGraph[1] = sprite->SpriteCreate(L"Resources/number/1.png");
 	numGraph[2] = sprite->SpriteCreate(L"Resources/number/2.png");
@@ -68,12 +68,6 @@ void GameSceneManager::Init()
 	numGraph[8] = sprite->SpriteCreate(L"Resources/number/8.png");
 	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
 	EnemyHpGraph = sprite->SpriteCreate(L"Resources/EnemyHP.png");
-	//オブジェクト画像読み込み
-	//graph1 = object->LoadTexture(L"Resources/texture2.jpg");
-	//graph3 = object->LoadTexture(L"Resources/white.png");
-
-	//オブジェクト生成
-	//BossPolygon = object->CreateOBJ("sphere", true);
 
 	//台クラス初期化
 	table.Init(input, sprite, object);
@@ -99,10 +93,15 @@ void GameSceneManager::Update()
 		//プレイヤーステータス
 		playerHP = 3;///体力
 		playerIsAlive = 1;///存在するか
-
+		titleTime = 0;
 		enemy.MainInit();
 		scene = Title;
 	case Title:
+		titleTime++;
+		if (titleTime == 5000)
+		{//メモリを超えないように
+			titleTime = 0;
+		}
 		if (input->KeybordTrigger(DIK_SPACE))
 		{
 			sceneChange.Start();
@@ -146,7 +145,7 @@ void GameSceneManager::Update()
 			table.ShakeGet(block.GetShakeFlag());
 
 			enemy.Update(playerHP, block.playerTimeFlag, block.GetComboCount()
-				,block.GetPTime(), tutorial.GetTutorialFlag());
+				, block.GetPTime(), tutorial.GetTutorialFlag());
 
 			if (block.playerTimeFlag && enemy.GeteAttackFlag() == false)
 			{
@@ -208,9 +207,9 @@ void GameSceneManager::Update()
 		{
 			playerHP = 3;
 
- 			block.ChangeGameOverFlag();
+			block.ChangeGameOverFlag();
 		}
-		
+
 
 
 
@@ -288,7 +287,11 @@ void GameSceneManager::Draw(_DirectX directX)
 	case TitleInit:
 		scene = Title;
 	case Title:
-		sprite->Draw(titleGraph, XMFLOAT2(), 1920, 1080);
+		sprite->Draw(titleGraph, XMFLOAT2(), window_width, window_height);
+		if (titleTime % 60 >= 25)
+		{
+			sprite->Draw(spaceGraph, XMFLOAT2(), window_width, window_height);
+		}
 		break;
 	case MainInit:
 	case Main:
@@ -336,10 +339,10 @@ void GameSceneManager::Draw(_DirectX directX)
 		{
 			sceneChange.DrawPhase();
 		}
-		
-		
+
+
 		//敵HPゲージ
-		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 930),1180 * hpRatio, 64);
+		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 930), 1180 * hpRatio, 64);
 
 		//コンボ終了までのゲージ
 		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);

@@ -62,29 +62,15 @@ private://定義
 	Sprite::SpriteData BGGraph;
 	Sprite::SpriteData BG2Graph;
 
-	Sprite::SpriteData phaseGraph;///敵画像
-	Sprite::SpriteData titleGraph;///敵画像
-	Sprite::SpriteData GameOverGraph;///敵画像
+	Sprite::SpriteData phaseGraph;//フェーズ画像
+	Sprite::SpriteData titleGraph;//タイトル画像
+	Sprite::SpriteData spaceGraph;//タイトルのスペース
+	Sprite::SpriteData GameOverGraph;//ゲームオーバー画像
 	Sprite::SpriteData numGraph[10];///数字画像
 	Sprite::SpriteData EnemyHpGraph;///数字画像
 
 	Sprite::SpriteData UIGraph;//UI画像
-	//オブジェクトの形
-	Object::ObjectData rayPolygon;
-	Object::ObjectData BossPolygon;
-
-	//オブジェクト画像
-	int graph1;
-	int graph2;
-	int graph3;
-
-	//座標
-	XMFLOAT3 pPos1 = { 1.0f,1.0f,-100.0f };
-
-	XMFLOAT3 pPos2 = { 2.0f,4.0f,5.0f };
-
-	XMFLOAT3 angle = { 0.0f,0.0f,0.0f };
-
+	
 	//台クラス
 	Table table;
 
@@ -108,4 +94,6 @@ private://定義
 	int phaseNum2 = 0;			//フェーズ数２桁目
 
 	float hpRatio = 0;
+
+	int titleTime = 0;//スペースボタンを点滅させるための時間
 };
