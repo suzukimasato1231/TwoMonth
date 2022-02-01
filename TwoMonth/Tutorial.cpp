@@ -22,7 +22,7 @@ void Tutorial::Init(Input *input, Sprite *sprite)
 	Explanation8 = this->sprite->SpriteCreate(L"Resources/tutorial/tutorial8.png");
 
 
-	//SkipTutorialGraph = this->sprite->SpriteCreate(L"");
+	SkipTutorialGraph = this->sprite->SpriteCreate(L"Resources/skip.png");
 	tutorialFlag = true;	//チュートリアルをしているかどうか
 	tutorialScene = ONE;	//チュートリアル説明最初
 	timeFlag = false;		//時間フラグ初期化
@@ -119,7 +119,7 @@ void Tutorial::Draw()
 	if (tutorialFlag == true)
 	{
 		//チュートリアルを飛ばすボタン表示
-		//sprite->Draw(SkipTutorialGraph,XMFLOAT2(),100.0f,100.0f);
+		sprite->Draw(SkipTutorialGraph, XMFLOAT2(), window_width, window_height);
 		switch (tutorialScene)
 		{
 		case ONE:

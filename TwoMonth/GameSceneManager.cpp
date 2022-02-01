@@ -51,7 +51,6 @@ void GameSceneManager::Init()
 
 	//スプライト画像読み込み
 	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
-	//BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	GameOverGraph = sprite->SpriteCreate(L"Resources/gameover.png");
@@ -68,7 +67,7 @@ void GameSceneManager::Init()
 	numGraph[8] = sprite->SpriteCreate(L"Resources/number/8.png");
 	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
 	EnemyHpGraph = sprite->SpriteCreate(L"Resources/EnemyHP.png");
-
+	clearGraph = sprite->SpriteCreate(L"Resources/gameclear.png");
 	//台クラス初期化
 	table.Init(input, sprite, object);
 	//ブロッククラス
@@ -224,7 +223,7 @@ void GameSceneManager::Update()
 		//ターン数字更新
 		turnNum = enemy.GetAttackDelay() - enemy.GetAttackCount();
 
-		if (enemy.GetEnemyLastHP() <= 0)
+		if (enemy.GetEnemyLastHP() <= 0 && enemy.GetPhaseDelay() > 120)
 		{
 			scene = GameClearInit;
 		}
@@ -304,7 +303,6 @@ void GameSceneManager::Draw(_DirectX directX)
 	case GameOver:
 		//背景描画
 		sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
-		//sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 		//ブロック最大数を可視化
 		block.WallningDraw();
 		//台の描画
@@ -410,6 +408,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		break;
 	case GameClearInit:
 	case GameClear:
+		sprite->Draw(clearGraph, XMFLOAT2(), window_width, window_height);
 		break;
 	}
 	//シーンチェンジの黒描画

@@ -66,7 +66,7 @@ void Enemy::MainInit()
 		enemyColorBottomR[i] = enemyColorBottomRKeep[i];
 	}
 	enemyAttackCount = 0;///攻撃のカウント用
-	nowPhase = 0;
+	nowPhase =18;
 
 	eAttackFlag = false;
 	shakeTime = 0;

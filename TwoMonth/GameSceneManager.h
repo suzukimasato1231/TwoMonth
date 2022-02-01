@@ -60,12 +60,12 @@ private://定義
 	//スプライト画像
 	Sprite::SpriteData spriteGraph;
 	Sprite::SpriteData BGGraph;
-	//Sprite::SpriteData BG2Graph;
 
 	Sprite::SpriteData phaseGraph;//フェーズ画像
 	Sprite::SpriteData titleGraph;//タイトル画像
 	Sprite::SpriteData spaceGraph;//タイトルのスペース
 	Sprite::SpriteData GameOverGraph;//ゲームオーバー画像
+	Sprite::SpriteData clearGraph;//クリア画像
 	Sprite::SpriteData numGraph[10];///数字画像
 	Sprite::SpriteData EnemyHpGraph;///数字画像
 
