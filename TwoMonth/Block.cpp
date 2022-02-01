@@ -16,7 +16,7 @@ Block::~Block()
 	}
 }
 
-void Block::Init(Input *input, Sprite *sprite, Object *object)
+void Block::Init(Input *input, Sprite *sprite, Object *object,Sound *sound)
 {
 	assert(input);
 	this->input = input;
@@ -24,6 +24,11 @@ void Block::Init(Input *input, Sprite *sprite, Object *object)
 	this->sprite = sprite;
 	assert(object);
 	this->object = object;
+	assert(sound);
+	this->sound = sound;
+	Soundput = Sound::SoundLoadWave("Resources/Sound/Put.wav");
+	SoundSandwitch = Sound::SoundLoadWave("Resources/Sound/Sandwitch.wav");
+
 	redGraph = object->LoadTexture(L"Resources/red.png");
 	yellowGraph = object->LoadTexture(L"Resources/green.png");
 	blueGraph = object->LoadTexture(L"Resources/blue.png");
@@ -236,6 +241,7 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
+						sound->SoundSEPlayWave(Soundput);
 						if (mapUP[j + 1] > 0)
 						{
 							BlockSetRot(table, direction);
@@ -259,6 +265,7 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
+						sound->SoundSEPlayWave(Soundput);
 						if (mapDown[j + 1] > 0)
 						{
 							BlockSetRot(table, direction);
@@ -282,6 +289,7 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
+						sound->SoundSEPlayWave(Soundput);
 						if (mapLeft[j + 1] > 0)
 						{
 							BlockSetRot(table, direction);
@@ -305,6 +313,7 @@ void Block::ColBlock(Object::ObjectData *table, XMFLOAT3 tablePos, int direction
 						300, blockSize, mapChipPos, blockSize, blockSize);
 					if (colorBlock[colorBlock.size() - 1]->GetMoveFlag() && isHit == TRUE)
 					{//台の上での座標をいれる
+						sound->SoundSEPlayWave(Soundput);
 						if (mapRight[j + 1] > 0)
 						{
 							BlockSetRot(table, direction);
@@ -946,10 +955,13 @@ void Block::Overflow()
 void Block::SandwitchDelete()
 {
 	ShakeFlag = false;
-	for (int n = 0; n < colorBlock.size(); n++)
+	int num = 0;
+	
+	for (int n = (int)colorBlock.size() - 1; n >= 0; n--)
 	{
 		if (colorBlock[n]->GetDeleteFlag())
 		{
+			num++;
 			for (int i = 0; i < 20; i++)
 			{//挟んだ時の岩を追加
 				XMFLOAT3 pos = colorBlock[n]->GetPos();
@@ -978,6 +990,11 @@ void Block::SandwitchDelete()
 			ShakeFlag = true;
 			delete colorBlock[n];
 			colorBlock.erase(colorBlock.begin() + n);
+
+			if (num == 1)
+			{
+				sound->SoundSEPlayWave(SoundSandwitch);
+			}
 		}
 	}
 }

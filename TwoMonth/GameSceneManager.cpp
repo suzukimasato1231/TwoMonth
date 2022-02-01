@@ -14,7 +14,10 @@ GameSceneManager::~GameSceneManager()
 	//XAudio2解放
 	sound->xAudio2.Reset();
 	//音データ解放
-	Sound::SoundUnload(&sound1);
+	//音データ解放
+	Sound::SoundUnload(&soundDecision);
+	Sound::SoundUnload(&block.Soundput);
+	Sound::SoundUnload(&block.SoundSandwitch);
 	Sound::SoundUnload(&sound2);
 	safe_delete(sound);
 }
@@ -38,9 +41,8 @@ void GameSceneManager::Initialize(Input *input, _DirectX *directX)
 
 void GameSceneManager::Init()
 {
-	/*sound1 = Sound::SoundLoadWave("Resources/i.wav");
-	sound2 = Sound::SoundLoadWave("Resources/BGM.wav");
-	sound->SoundSEPlayWave(sound1);
+	soundDecision = Sound::SoundLoadWave("Resources/Sound/Decision.wav");
+	/*sound2 = Sound::SoundLoadWave("Resources/BGM.wav");
 	sound->SoundBGMPlayLoopWave(sound2, sound->BGM);*/
 
 	//カメラ
@@ -77,7 +79,7 @@ void GameSceneManager::Init()
 	//台クラス初期化
 	table.Init(input, sprite, object);
 	//ブロッククラス
-	block.Init(input, sprite, object);
+	block.Init(input, sprite, object,sound);
 
 	enemy.Init(sprite, object);
 
@@ -111,6 +113,7 @@ void GameSceneManager::Update()
 		if (input->KeybordTrigger(DIK_SPACE))
 		{
 			sceneChange.Start();
+			sound->SoundSEPlayWave(soundDecision);
 		}
 		if (sceneChange.Change())
 		{
@@ -259,6 +262,7 @@ void GameSceneManager::Update()
 		if (input->KeybordTrigger(DIK_SPACE))
 		{
 			sceneChange.Start();
+			sound->SoundSEPlayWave(soundDecision);
 		}
 		if (sceneChange.Change())
 		{
@@ -278,6 +282,7 @@ void GameSceneManager::Update()
 		if (input->KeybordTrigger(DIK_SPACE))
 		{
 			sceneChange.Start();
+			sound->SoundSEPlayWave(soundDecision);
 		}
 		if (sceneChange.Change())
 		{

@@ -54,7 +54,7 @@ private:
 private://定義
 
 	//音データ
-	Sound::SoundData sound1;
+	Sound::SoundData soundDecision;//決定音
 	Sound::SoundData sound2;
 
 	//スプライト画像

@@ -9,6 +9,7 @@
 #include"collision/Collision.h"
 #include"Table.h"
 #include"Particle.h"
+#include"Sound/Sound.h"
 time_t time(time_t *);
 const int mapNum = 20;
 
@@ -18,6 +19,7 @@ private:
 	Input *input = nullptr;
 	Sprite *sprite = nullptr;
 	Object *object = nullptr;
+	Sound *sound = nullptr;
 public:
 	Block();
 
@@ -29,7 +31,7 @@ public:
 
 
 	//初期化
-	void Init(Input *input, Sprite *sprite, Object *object);
+	void Init(Input *input, Sprite *sprite, Object *object, Sound *sound);
 	//ゲームループの初期化
 	void MainInit();
 	//更新
@@ -185,4 +187,7 @@ private:
 
 	//設置フラグ
 	bool putFlag = false;
+public:
+	Sound::SoundData Soundput;//ブロックを置くときの音
+	Sound::SoundData SoundSandwitch;//ブロックを挟むときの音
 };
