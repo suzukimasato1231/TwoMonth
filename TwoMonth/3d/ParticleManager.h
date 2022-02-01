@@ -106,6 +106,11 @@ public: // 静的メンバ関数
 		float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
 
 	void ParticleAdd(XMFLOAT3 Pos);
+	void EnemyRParticleAdd(XMFLOAT3 Pos);
+	void EnemyGParticleAdd(XMFLOAT3 Pos);
+	void EnemyBParticleAdd(XMFLOAT3 Pos);
+
+	void PowerUpParticleAdd(XMFLOAT3 Pos, int combo,bool explosion);
 
 private: // 静的メンバ変数
 	// デバイス

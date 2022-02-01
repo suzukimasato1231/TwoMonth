@@ -954,6 +954,7 @@ void Block::Overflow()
 
 void Block::SandwitchDelete()
 {
+	sandEndFlag = false;
 	ShakeFlag = false;
 	int num = 0;
 	
@@ -994,6 +995,7 @@ void Block::SandwitchDelete()
 			if (num == 1)
 			{
 				sound->SoundSEPlayWave(SoundSandwitch);
+				sandEndFlag = true;
 			}
 		}
 	}
@@ -1187,14 +1189,7 @@ void Block::ChangeGameOverFlag()
 }
 bool Block::GetSandEndFlag()
 {
-	for (int n = 0; n < colorBlock.size(); n++)
-	{
-		if (colorBlock[n]->GetSandEndFlag() == true)
-		{
-			return true;
-		}
-	}
-	return false;
+	return sandEndFlag;
 }
 
 bool Block::GetPutFlag()
