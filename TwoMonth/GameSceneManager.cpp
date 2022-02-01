@@ -68,6 +68,12 @@ void GameSceneManager::Init()
 	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
 	EnemyHpGraph = sprite->SpriteCreate(L"Resources/EnemyHP.png");
 	clearGraph = sprite->SpriteCreate(L"Resources/gameclear.png");
+
+	playerHPGraph[0] = sprite->SpriteCreate(L"Resources/playerHP/playerlife4.png");
+	playerHPGraph[1] = sprite->SpriteCreate(L"Resources/playerHP/playerlife3.png");
+	playerHPGraph[2] = sprite->SpriteCreate(L"Resources/playerHP/playerlife2.png");
+	playerHPGraph[3] = sprite->SpriteCreate(L"Resources/playerHP/playerlife1.png");
+
 	//台クラス初期化
 	table.Init(input, sprite, object);
 	//ブロッククラス
@@ -118,12 +124,14 @@ void GameSceneManager::Update()
 		phaseNum = 0;			//フェーズ数１桁目
 		phaseNum2Flag = false;	//２桁目に入ったか
 		phaseNum2 = 0;			//フェーズ数２桁目
+		playerHP = 3;///体力
 		playerIsAlive = 1;///存在するか
 		tutorial.MainInit();
 		enemy.MainInit();
 		scene = Main;
 	case Main:
 		table.ShakeGet(block.GetPutFlag());
+#if _DEBUG
 		if (input->KeybordPush(DIK_R))
 		{
 			table.MainInit();
@@ -134,6 +142,7 @@ void GameSceneManager::Update()
 			//エネミー
 			enemy.MainInit();
 		}
+#endif
 		if (enemy.GetphaseFlag() == false)
 		{
 			table.Update();
@@ -330,7 +339,8 @@ void GameSceneManager::Draw(_DirectX directX)
 		block.DrawUI();
 		//ゲームオーバーまでのカウント描画
 		block.DrawGameOverCount();
-		sprite->Draw(numGraph[playerHP], XMFLOAT2(1710, 750), 128, 128);
+		//プレイヤーHP
+		sprite->Draw(playerHPGraph[playerHP], XMFLOAT2(), window_width, window_height);
 		sprite->Draw(numGraph[turnNum], XMFLOAT2(230, 340), 128, 128);
 
 		sprite->Draw(numGraph[block.GetPTime()], XMFLOAT2(390, 340), 128, 128);

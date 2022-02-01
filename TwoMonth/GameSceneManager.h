@@ -70,7 +70,7 @@ private://定義
 	Sprite::SpriteData EnemyHpGraph;///数字画像
 
 	Sprite::SpriteData UIGraph;//UI画像
-	
+	Sprite::SpriteData playerHPGraph[4];//プレイヤーHP
 	//台クラス
 	Table table;
 
