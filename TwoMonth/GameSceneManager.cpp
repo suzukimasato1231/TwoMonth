@@ -51,7 +51,7 @@ void GameSceneManager::Init()
 
 	//スプライト画像読み込み
 	BGGraph = sprite->SpriteCreate(L"Resources/background.png");
-	BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
+	//BG2Graph = sprite->SpriteCreate(L"Resources/background2.png");
 	phaseGraph = sprite->SpriteCreate(L"Resources/phaseclear.png");
 	UIGraph = sprite->SpriteCreate(L"Resources/UI1.png");
 	GameOverGraph = sprite->SpriteCreate(L"Resources/gameover.png");
@@ -79,6 +79,7 @@ void GameSceneManager::Init()
 	sceneChange.Init(sprite);
 
 	tutorial.Init(input, sprite);
+
 }
 
 void GameSceneManager::Update()
@@ -232,6 +233,10 @@ void GameSceneManager::Update()
 			scene = GameOverInit;
 		}
 		hpRatio = enemy.GetEnemyHP() / enemy.GetConstEnemyHP();
+		if (hpRatio < 0)
+		{
+			hpRatio = 0.0f;
+		}
 		//パーティクル更新
 		//particleMan->ParticleAdd(pPos1);
 		//particleMan->Update();
@@ -299,7 +304,7 @@ void GameSceneManager::Draw(_DirectX directX)
 	case GameOver:
 		//背景描画
 		sprite->Draw(BGGraph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
-		sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
+		//sprite->Draw(BG2Graph, XMFLOAT2{ 0.0f + enemy.GetShakePos().x,0.0f + enemy.GetShakePos().y }, window_width, window_height);
 		//ブロック最大数を可視化
 		block.WallningDraw();
 		//台の描画
@@ -327,13 +332,15 @@ void GameSceneManager::Draw(_DirectX directX)
 		block.DrawUI();
 		//ゲームオーバーまでのカウント描画
 		block.DrawGameOverCount();
-		sprite->Draw(numGraph[playerHP], XMFLOAT2(1530, 740), 128, 128);
-		sprite->Draw(numGraph[turnNum], XMFLOAT2(1530, 450), 128, 128);
+		sprite->Draw(numGraph[playerHP], XMFLOAT2(1710, 750), 128, 128);
+		sprite->Draw(numGraph[turnNum], XMFLOAT2(230, 340), 128, 128);
 
-		sprite->Draw(numGraph[phaseNum], XMFLOAT2(1680, 900), 128, 128);
+		sprite->Draw(numGraph[block.GetPTime()], XMFLOAT2(390, 340), 128, 128);
+
+		sprite->Draw(numGraph[phaseNum], XMFLOAT2(1710, 580), 128, 128);
 		if (phaseNum2Flag == TRUE)
 		{
-			sprite->Draw(numGraph[phaseNum2], XMFLOAT2(1610, 900), 128, 128);
+			sprite->Draw(numGraph[phaseNum2], XMFLOAT2(1640, 580), 128, 128);
 		}
 
 		if (enemy.GetphaseFlag() == TRUE)
@@ -343,7 +350,7 @@ void GameSceneManager::Draw(_DirectX directX)
 
 
 		//敵HPゲージ
-		sprite->Draw(EnemyHpGraph, XMFLOAT2(40, 930), 1180 * hpRatio, 64);
+		sprite->Draw(EnemyHpGraph, XMFLOAT2(130, 730), 330 * hpRatio, 40);
 
 		//コンボ終了までのゲージ
 		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);
@@ -367,10 +374,6 @@ void GameSceneManager::Draw(_DirectX directX)
 		debugText.Print(1, 200, 2, "playerTime:%d", block.GetPTime());
 		debugText.Print(1, 30, 2, "AD:rotation");
 		debugText.Print(1, 60, 2, "yazirusi:position");
-
-		//debugText.Print(1600, 840, 5, "%d", playerHP);
-		//debugText.Print(10, 180, 2, "    enemyHP :%f", enemy.GetEnemyHP());
-		//debugText.Print(1500, 980, 5, "      %d", nowPhase + 1);
 		//debugText.Print(1600, 550, 5, "%d", enemyAttackDelay[nowPhase] - enemyAttackCount);
 		//debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
@@ -398,16 +401,6 @@ void GameSceneManager::Draw(_DirectX directX)
 			//debugText.Print(10, 200 + 8 * 40, 2, " color :%d %d %d %d", colorUp[8], colorDown[8], colorLeft[8], colorRight[8]);
 			//debugText.Print(10, 200 + 9 * 40, 2, " color :%d %d %d %d", colorUp[9], colorDown[9], colorLeft[9], colorRight[9]);
 			//debugText.Print(10, 200 + 10 * 40, 2, " color :%d %d %d %d", colorUp[10], colorDown[10], colorLeft[10], colorRight[10]);
-
-			/*debugText.Print(10, 200 + 12 * 40, 2, " UPgameOverTime :%d", block.GetGameOverCount(0));
-			debugText.Print(10, 200 + 13 * 40, 2, "DowngameOverTime:%d", block.GetGameOverCount(1));
-			debugText.Print(10, 200 + 14 * 40, 2, " LeftgameOverTime:%d ", block.GetGameOverCount(2));
-			debugText.Print(10, 200 + 15 * 40, 2, " RightgameOverTime:%d ", block.GetGameOverCount(3));
-
-			if (block.GetGameOverFlag() == TRUE)
-			{
-				debugText.Print(10, 200 + 16 * 40, 2, " GAMEOVER");
-			}*/
 			//デバックテキスト描画
 #endif
 		if (scene == GameOver)

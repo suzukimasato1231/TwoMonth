@@ -60,7 +60,9 @@ private:
 	Sprite::SpriteData Explanation8;//説明画像8
 
 
-	XMFLOAT2 position = { -330.0f, 0.0f };//座標
+	Sprite::SpriteData numGraph[10];
+
+	XMFLOAT2 position = { 0.0f, 180.0f };//座標
 
 	//チュートリアルを飛ばすボタンの表示
 	Sprite::SpriteData SkipTutorialGraph;

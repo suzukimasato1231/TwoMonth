@@ -154,15 +154,15 @@ void Block::DrawUI()
 	switch (memoryColor)
 	{
 	case Red:
-		sprite->Draw(blocknext[0], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[0], XMFLOAT2(1400.0f, 320.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Yellow:
-		sprite->Draw(blocknext[3], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[3], XMFLOAT2(1400.0f, 320.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	case Blue:
-		sprite->Draw(blocknext[6], XMFLOAT2(1450.0f, 250.0f), 300.0f, 30.0f,
+		sprite->Draw(blocknext[6], XMFLOAT2(1400.0f, 320.0f), 300.0f, 30.0f,
 			XMFLOAT2(0.0f, 0.0f));
 		break;
 	}
@@ -1054,7 +1054,14 @@ bool Block::GetPlayerTimeFlag()
 }
 int Block::GetPTime()
 {
-	return end_player - start_player;
+	int num = end_player - start_player;
+	if (num < 0)
+	{
+		num = 0;
+	}
+	int i = 9 - num;
+
+	return i;
 }
 //該当のマップチップを０にする
 void Block::MapDelete()

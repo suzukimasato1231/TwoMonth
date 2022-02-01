@@ -60,7 +60,7 @@ private://定義
 	//スプライト画像
 	Sprite::SpriteData spriteGraph;
 	Sprite::SpriteData BGGraph;
-	Sprite::SpriteData BG2Graph;
+	//Sprite::SpriteData BG2Graph;
 
 	Sprite::SpriteData phaseGraph;//フェーズ画像
 	Sprite::SpriteData titleGraph;//タイトル画像
