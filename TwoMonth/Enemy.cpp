@@ -66,7 +66,7 @@ void Enemy::MainInit()
 		enemyColorBottomR[i] = enemyColorBottomRKeep[i];
 	}
 	enemyAttackCount = 0;///攻撃のカウント用
-	nowPhase =18;
+	nowPhase = 0;
 
 	eAttackFlag = false;
 	shakeTime = 0;
@@ -105,9 +105,9 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bo
 		}
 	}
 
-	
-		
-	
+
+
+
 	//ダメージ食らったときの点滅
 	if (enemyDameDirecting == true)
 	{
