@@ -71,6 +71,7 @@ void GameSceneManager::Init()
 	numGraph[8] = sprite->SpriteCreate(L"Resources/number/8.png");
 	numGraph[9] = sprite->SpriteCreate(L"Resources/number/9.png");
 	EnemyHpGraph = sprite->SpriteCreate(L"Resources/EnemyHP.png");
+	EnemyHp2Graph = sprite->SpriteCreate(L"Resources/Hpbar.png");
 	clearGraph = sprite->SpriteCreate(L"Resources/gameclear.png");
 
 	playerHPGraph[0] = sprite->SpriteCreate(L"Resources/playerHP/playerlife4.png");
@@ -224,8 +225,10 @@ void GameSceneManager::Update()
 			block.ChangeGameOverFlag();
 		}
 
-
-
+		if (input->KeybordPush(DIK_B))
+		{
+			input->KeybordPush(DIK_B);
+		}
 
 		//フェーズ二桁目の数字更新
 		if (phaseNum == 10)
@@ -236,6 +239,24 @@ void GameSceneManager::Update()
 		}
 		//ターン数字更新
 		turnNum = enemy.GetAttackDelay() - enemy.GetAttackCount();
+		particleMan->PowerUpParticleAdd({ 0,0,0 }, enemy.GetCombo(), enemy.GetEnemyDeadFlag() == true);
+		if (enemy.GetEnemyDeadFlag() == true && particleTime < 60)
+		{
+			particleTime++;
+			for (int i = 0; i < 4; i++)
+			{
+				if (enemy.GetEnemyColor(i) == Red) {
+					particleMan->EnemyRParticleAdd({ 0,0,-50 }); }
+				if (enemy.GetEnemyColor(i) == Yellow) { 
+					particleMan->EnemyGParticleAdd({ 0,0,-50 }); }
+				if (enemy.GetEnemyColor(i) == Blue) { 
+					particleMan->EnemyBParticleAdd({ 0,0,-50 }); }
+			}
+		}
+		else if (enemy.GetEnemyDeadFlag() == false)
+		{
+			particleTime = 0;
+		}
 
 		if (enemy.GetEnemyLastHP() <= 0 && enemy.GetPhaseDelay() > 120)
 		{
@@ -252,7 +273,7 @@ void GameSceneManager::Update()
 		}
 		//パーティクル更新
 		//particleMan->ParticleAdd(pPos1);
-		//particleMan->Update();
+		particleMan->Update();
 		//ライト更新
 		light->Update();
 		break;
@@ -365,8 +386,11 @@ void GameSceneManager::Draw(_DirectX directX)
 
 
 		//敵HPゲージ
-		sprite->Draw(EnemyHpGraph, XMFLOAT2(130, 730), 330 * hpRatio, 40);
-
+		if (enemy.GetEnemyHP() >= 0)
+		{
+			sprite->Draw(EnemyHpGraph, XMFLOAT2(130, 730), 330 * hpRatio, 40);
+		}
+		sprite->Draw(EnemyHp2Graph, XMFLOAT2(129, 730), 332, 40);
 		//コンボ終了までのゲージ
 		//sprite->Draw(EnemyHpGraph, XMFLOAT2(620, 600), block.GetSandDelay(), 20);
 		tutorial.Draw();
@@ -393,7 +417,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");
-		//debugText.Print(10, 420, 2, "         d  :%f");
+		debugText.Print(10, 420, 2, "         HP  :%f",enemy.GetEnemyHP());
 		//debugText.Print(10, 380, 2, "      comboa :%f", a);
 		//debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
 		//debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());

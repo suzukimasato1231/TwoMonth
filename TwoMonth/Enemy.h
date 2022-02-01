@@ -38,6 +38,8 @@ public:
 
 	void DamageCheck(int ComboCount, int direction);
 
+	int GetEnemyColor(int parts);
+
 	int GetDamegeValue(int i, int angle);
 
 	int GetEnemyLastHP();
@@ -53,6 +55,8 @@ public:
 	float GetEnemyHP();
 
 	float GetConstEnemyHP();
+
+	bool GetEnemyDeadFlag();
 
 	int GetCombo();
 
@@ -75,20 +79,20 @@ private:
 	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };///存在するか
 	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///攻撃しているか
 	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 };///攻撃するまでの時間
-	int enemyColorTopL[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorTopR[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorBottomL[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorBottomR[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	int enemyColorTop[enemy_Num] = { 1, 2, 3, 1, 3, 1, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	int enemyColorDown[enemy_Num] = { 1, 2, 3, 1, 3, 1, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	int enemyColorLeft[enemy_Num] = { 1, 2, 3, 3, 2, 2, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	int enemyColorRight[enemy_Num] = { 1, 2, 3, 3, 2, 2, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
 	int enemyColor[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
 	//初期化用
 	const float enemyHPKeep[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000, 9000, 3000, 5000, 5000, 3000, 3000, 3000, 5000, 5000 };///体力
 	const bool enemyIsAliveKeep[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };///存在するか
 	const bool enemyIsAttackKeep[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///攻撃しているか
 	const int enemyAttackDelayKeep[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 };///攻撃するまでの時間
-	const int enemyColorTopLKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorTopRKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorBottomLKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorBottomRKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	const int enemyColorTopKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	const int enemyColorDownKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	const int enemyColorLeftKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	const int enemyColorRightKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
 	const int enemyColorKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
 
 	int enemyAttackCount = 0;///攻撃のカウント用
@@ -100,15 +104,10 @@ private:
 	int colorLeft[100];
 	int colorRight[100];
 
-	float damageValueUpL[100];
-	float damageValueUpR[100];
-	float damageValueDownL[100];
-	float damageValueDownR[100];
-	float damageValueLeftL[100];
-	float damageValueLeftR[100];
-	float damageValueRightL[100];
-	float damageValueRightR[100];
-
+	float damageValueUp[100];
+	float damageValueDown[100];
+	float damageValueLeft[100];
+	float damageValueRight[100];
 
 	float damageUpValue[100];
 	float damageDownValue[100];
@@ -149,6 +148,7 @@ private:
 	bool enemyDameDirecting = false;
 	int enemyDameTime = 0;//ダメージ食らったときの演出
 
+	bool enemyDeadFlag = false;
 
 	bool damegeHitFlag = false;//ダメージ表現用フラグ
 	XMFLOAT4 damegeColor = { 1.0f,1.0f,1.0f,1.0f };

@@ -135,6 +135,119 @@ void ParticleManager::ParticleAdd(XMFLOAT3 Pos)
 	}
 }
 
+void ParticleManager::EnemyRParticleAdd(XMFLOAT3 Pos)
+{
+	for (int i = 0; i < 2; i++)
+	{
+		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
+		const float md_pos = 20.0f;
+		XMFLOAT3 pos = Pos;
+		pos.x += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.y += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.z += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		////X,Y,Z全て{-0.05f,+0.05f}でランダムに分布
+		const float md_vel = 50.0f;
+		XMFLOAT3 vel{};
+		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.z = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		//重力に見立ててYのみ{-0.001f,0}でランダム分布
+		XMFLOAT3 acc{};
+		const float md_acc = -0.2f;
+		acc.y = (float)rand() / RAND_MAX * md_acc;
+
+		XMFLOAT4 start_color = { 1.0f,0.0f,0.0f,1.0f };
+		XMFLOAT4 end_color = { 0.1f,0.0f,0.0f,1.0f };
+		//追加
+		Add(60, pos, vel, acc, 40.0f, 0.2f, start_color, end_color);
+	}
+}
+
+void ParticleManager::EnemyGParticleAdd(XMFLOAT3 Pos)
+{
+	for (int i = 0; i < 2; i++)
+	{
+		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
+		const float md_pos = 20.0f;
+		XMFLOAT3 pos = Pos;
+		pos.x += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.y += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.z += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		////X,Y,Z全て{-0.05f,+0.05f}でランダムに分布
+		const float md_vel = 50.0f;
+		XMFLOAT3 vel{};
+		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.z = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		//重力に見立ててYのみ{-0.001f,0}でランダム分布
+		XMFLOAT3 acc{};
+		const float md_acc = -0.2f;
+		acc.y = (float)rand() / RAND_MAX * md_acc;
+
+		XMFLOAT4 start_color = { 0.0f,1.0f,0.0f,1.0f };
+		XMFLOAT4 end_color = { 0.0f,0.1f,0.0f,1.0f };
+		//追加
+		Add(60, pos, vel, acc, 40.0f, 0.2f, start_color, end_color);
+	}
+}
+
+void ParticleManager::EnemyBParticleAdd(XMFLOAT3 Pos)
+{
+	for (int i = 0; i < 2; i++)
+	{
+		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
+		const float md_pos = 20.0f;
+		XMFLOAT3 pos = Pos;
+		pos.x += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.y += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.z += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		////X,Y,Z全て{-0.05f,+0.05f}でランダムに分布
+		const float md_vel = 50.0f;
+		XMFLOAT3 vel{};
+		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.z = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		//重力に見立ててYのみ{-0.001f,0}でランダム分布
+		XMFLOAT3 acc{};
+		const float md_acc = -0.2f;
+		acc.y = (float)rand() / RAND_MAX * md_acc;
+
+		XMFLOAT4 start_color = { 0.0f,0.0f,1.0f,1.0f };
+		XMFLOAT4 end_color = { 0.0f,0.0f,0.1f,1.0f };
+		//追加
+		Add(60, pos, vel, acc, 40.0f, 0.2f, start_color, end_color);
+	}
+}
+
+void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo , bool explosion)
+{
+	for (int i = 0; i < combo; i++)
+	{
+		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
+		const float md_pos = 0.0f;
+		XMFLOAT3 pos = Pos;
+		pos.x += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.y += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		pos.z += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
+		////X,Y,Z全て{-0.05f,+0.05f}でランダムに分布
+		float md_vel = 8.0 + (1 *combo);
+		XMFLOAT3 vel{};
+		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
+		vel.z = 0/*(float)rand() / RAND_MAX * md_vel - md_vel / 2.0f*/;
+		//重力に見立ててYのみ{-0.001f,0}でランダム分布
+		XMFLOAT3 acc{};
+		const float md_acc = +0.0f;
+		acc.y = (float)rand() / RAND_MAX * md_acc;
+
+		XMFLOAT4 start_color = { 0.5f,0.5f,0.5f,1.0f };
+		XMFLOAT4 end_color = { 0.1f,0.1f,0.1f,1.0f };
+		//追加
+		float b = 450;
+		Add(60, pos, vel, acc, b, b/5, start_color, end_color);
+	}
+}
+
 bool ParticleManager::InitializeDescriptorHeap()
 {
 	HRESULT result = S_FALSE;

@@ -68,6 +68,7 @@ private://定義
 	Sprite::SpriteData clearGraph;//クリア画像
 	Sprite::SpriteData numGraph[10];///数字画像
 	Sprite::SpriteData EnemyHpGraph;///数字画像
+	Sprite::SpriteData EnemyHp2Graph;///数字画像
 
 	Sprite::SpriteData UIGraph;//UI画像
 	Sprite::SpriteData playerHPGraph[4];//プレイヤーHP
@@ -96,4 +97,5 @@ private://定義
 	float hpRatio = 0;
 
 	int titleTime = 0;//スペースボタンを点滅させるための時間
+	int particleTime = 0;//敵が死んでからのタイマー
 };

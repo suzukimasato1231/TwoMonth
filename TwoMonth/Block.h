@@ -187,6 +187,8 @@ private:
 
 	//設置フラグ
 	bool putFlag = false;
+
+	bool sandEndFlag = false;
 public:
 	Sound::SoundData Soundput;//ブロックを置くときの音
 	Sound::SoundData SoundSandwitch;//ブロックを挟むときの音
