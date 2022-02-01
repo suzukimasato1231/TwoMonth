@@ -1059,6 +1059,10 @@ int Block::GetPTime()
 	{
 		num = 0;
 	}
+	if (num > 9)
+	{
+		num = 0;
+	}
 	int i = 9 - num;
 
 	return i;
