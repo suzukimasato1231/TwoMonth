@@ -60,8 +60,8 @@ public:
 
 	bool GeteAttackFlag();
 private:
-	Object::ObjectData enemyPolygon[3];///“G‰æ‘œ
-	int enemyGraph[3];
+	Object::ObjectData enemyPolygon[6];///“G‰æ‘œ
+	
 	Object::ObjectData Polygon;
 
 	Sprite::SpriteData damege;

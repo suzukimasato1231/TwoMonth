@@ -22,13 +22,12 @@ void Enemy::Init(Sprite *sprite, Object *object)
 	}
 	this->object = object;
 
-	enemyPolygon[0] = object->CreateRect(300.0f, 300.0f);
-	enemyPolygon[1] = object->CreateRect(300.0f, 300.0f);
-	enemyPolygon[2] = object->CreateRect(300.0f, 300.0f);
-
-	enemyGraph[0] = object->LoadTexture(L"Resources/redenemy.png");
-	enemyGraph[1] = object->LoadTexture(L"Resources/greennemy.png");
-	enemyGraph[2] = object->LoadTexture(L"Resources/bluenemy.png");
+	enemyPolygon[0] = object->CreateOBJ("redenemy");
+	enemyPolygon[1] = object->CreateOBJ("greenenemy");
+	enemyPolygon[2] = object->CreateOBJ("bluenemy");
+	enemyPolygon[3] = object->CreateOBJ("redblue_enemy");
+	enemyPolygon[4] = object->CreateOBJ("greenblue_enemy");
+	enemyPolygon[5] = object->CreateOBJ("greenred_enemy");
 
 	//“G‚ÌUŒ‚“Ç‚Ýž‚Ý
 	Polygon = object->CreateOBJ("sphere");
@@ -130,18 +129,18 @@ void Enemy::Draw()
 	{
 		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
 		{
-			object->Draw(enemyPolygon[0], XMFLOAT3(0.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[0]);
+			object->OBJDraw(enemyPolygon[0], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 		if (nowPhase == 1 || nowPhase == 4 || nowPhase == 7 || nowPhase == 10 || nowPhase == 13 || nowPhase == 16 || nowPhase == 19)
 		{
-			object->Draw(enemyPolygon[1], XMFLOAT3(0.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[1]);
+			object->OBJDraw(enemyPolygon[1], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 		if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17)
 		{
-			object->Draw(enemyPolygon[2], XMFLOAT3(0.0f, 0.0f, -51.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), enemyGraph[2]);
+			object->OBJDraw(enemyPolygon[2], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 	}
 }
