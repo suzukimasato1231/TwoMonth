@@ -2,7 +2,7 @@
 #include"2d/Sprite.h"
 #include"Input/Input.h"
 #include "3d/Object.h"
-
+#include"Sound/Sound.h"
 enum Direction
 {
 	UP,
@@ -16,12 +16,13 @@ private:
 	Sprite *sprite = nullptr;
 	Input *input = nullptr;
 	Object *object = nullptr;
+	Sound *sound = nullptr;
 public:
 
 	Table();
 	~Table();
 
-	void Init(Input *input, Sprite *sprite, Object *object);
+	void Init(Input *input, Sprite *sprite, Object *object, Sound *Sound);
 
 	void MainInit();
 
@@ -34,6 +35,7 @@ public:
 	int GetStatus();
 	//スプライトデータ
 	Object::ObjectData table;
+	Sound::SoundData SoundTable;
 	int graph = 0;
 	//シェイク更新
 	void ShakeUpdate();

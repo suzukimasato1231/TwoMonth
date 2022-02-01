@@ -9,7 +9,7 @@ Table::~Table()
 {
 }
 
-void Table::Init(Input *input, Sprite *sprite, Object *object)
+void Table::Init(Input *input, Sprite *sprite, Object *object, Sound *sound)
 {
 	assert(input);
 	this->input = input;
@@ -17,7 +17,10 @@ void Table::Init(Input *input, Sprite *sprite, Object *object)
 	this->sprite = sprite;
 	assert(object);
 	this->object = object;
+	assert(sound);
+	this->sound = sound;
 
+	SoundTable = Sound::SoundLoadWave("Resources/Sound/table.wav");
 	//table = sprite->SpriteCreate(L"Resources/texture2.jpg");
 
 	graph = object->LoadTexture(L"Resources/table.png");
@@ -40,6 +43,7 @@ void Table::Update()
 	//¶‰ñ“]
 	if ((input->KeybordTrigger(DIK_A) || input->KeybordTrigger(DIK_LEFT) || input->ControllerUp(ButtonLB)) && rotationFlag == false)
 	{
+		sound->SoundSEPlayWave(SoundTable);
 		rotationMemory = rotation.z - 90.0f;
 		rotationFlag = true;
 		switch (Status)
@@ -61,6 +65,7 @@ void Table::Update()
 	//‰E‰ñ“]
 	if ((input->KeybordTrigger(DIK_D) || input->KeybordTrigger(DIK_RIGHT) || input->ControllerUp(ButtonRB)) && rotationFlag == false)
 	{
+		sound->SoundSEPlayWave(SoundTable);
 		rotationMemory = rotation.z + 90.0f;
 		rotationFlag = true;
 		switch (Status)
@@ -82,6 +87,7 @@ void Table::Update()
 	//”¼‰ñ“]
 	if ((input->KeybordTrigger(DIK_S) || input->KeybordTrigger(DIK_DOWN) || input->KeybordTrigger(DIK_UP) || input->KeybordTrigger(DIK_W) || input->ControllerUp(ButtonY)) && rotationFlag == false)
 	{
+		sound->SoundSEPlayWave(SoundTable);
 		rotationMemory = rotation.z + 180.0f;
 		rotationFlag = true;
 		switch (Status)

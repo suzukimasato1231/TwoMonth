@@ -1,6 +1,7 @@
 #pragma once
 #include"ColorBlock.h"
 #include "3d/Object.h"
+#include"Sound/Sound.h"
 class Enemy
 {
 public:
@@ -11,12 +12,13 @@ public:
 private:
 	Sprite *sprite = nullptr;
 	Object *object = nullptr;
+	Sound *sound = nullptr;
 public:
-	void Init(Sprite *sprite, Object *object);
+	void Init(Sprite *sprite, Object *object, Sound *sound);
 
 	void MainInit();
 
-	void Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime,bool tutorialFlag);
+	void Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bool tutorialFlag);
 
 	void Draw();
 
@@ -59,9 +61,11 @@ public:
 	XMFLOAT2 GetShakePos();
 
 	bool GeteAttackFlag();
+
+	Sound::SoundData Sounddamege;
 private:
 	Object::ObjectData enemyPolygon[6];///“G‰æ‘œ
-	
+
 	Object::ObjectData Polygon;
 
 	Sprite::SpriteData damege;

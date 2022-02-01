@@ -18,7 +18,9 @@ GameSceneManager::~GameSceneManager()
 	Sound::SoundUnload(&soundDecision);
 	Sound::SoundUnload(&block.Soundput);
 	Sound::SoundUnload(&block.SoundSandwitch);
-	Sound::SoundUnload(&sound2);
+	Sound::SoundUnload(&table.SoundTable);
+	Sound::SoundUnload(&enemy.Sounddamege);
+	Sound::SoundUnload(&bgm);
 	safe_delete(sound);
 }
 void GameSceneManager::Initialize(Input *input, _DirectX *directX)
@@ -42,8 +44,8 @@ void GameSceneManager::Initialize(Input *input, _DirectX *directX)
 void GameSceneManager::Init()
 {
 	soundDecision = Sound::SoundLoadWave("Resources/Sound/Decision.wav");
-	/*sound2 = Sound::SoundLoadWave("Resources/BGM.wav");
-	sound->SoundBGMPlayLoopWave(sound2, sound->BGM);*/
+	bgm = Sound::SoundLoadWave("Resources/Sound/BGM.wav");
+	sound->SoundBGMPlayLoopWave(bgm, sound->BGM);
 
 	//カメラ
 	view->SetViewCamera(XMFLOAT3{ 0,0,-1000 }, XMFLOAT3{ 0, 0, 0 }, XMFLOAT3{ 0, 1, 0 });
@@ -77,11 +79,11 @@ void GameSceneManager::Init()
 	playerHPGraph[3] = sprite->SpriteCreate(L"Resources/playerHP/playerlife1.png");
 
 	//台クラス初期化
-	table.Init(input, sprite, object);
+	table.Init(input, sprite, object,sound);
 	//ブロッククラス
 	block.Init(input, sprite, object,sound);
 
-	enemy.Init(sprite, object);
+	enemy.Init(sprite, object,sound);
 
 	sceneChange.Init(sprite);
 

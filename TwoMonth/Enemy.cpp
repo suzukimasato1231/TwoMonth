@@ -8,7 +8,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(Sprite *sprite, Object *object)
+void Enemy::Init(Sprite *sprite, Object *object,Sound *sound)
 {
 	if (sprite == nullptr)
 	{
@@ -21,6 +21,11 @@ void Enemy::Init(Sprite *sprite, Object *object)
 		assert(object);
 	}
 	this->object = object;
+
+	assert(sound);
+	this->sound = sound;
+
+	Sounddamege = Sound::SoundLoadWave("Resources/Sound/damege.wav");
 
 	enemyPolygon[0] = object->CreateOBJ("redenemy");
 	enemyPolygon[1] = object->CreateOBJ("greenenemy");
@@ -102,6 +107,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bo
 		if (eAttackFlag == true && eAttackTime <= 1)
 		{
 			playerHP--;
+			sound->SoundSEPlayWave(Sounddamege);
 		}
 	}
 

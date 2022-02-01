@@ -55,7 +55,7 @@ private://定義
 
 	//音データ
 	Sound::SoundData soundDecision;//決定音
-	Sound::SoundData sound2;
+	Sound::SoundData bgm;
 
 	//スプライト画像
 	Sprite::SpriteData spriteGraph;
