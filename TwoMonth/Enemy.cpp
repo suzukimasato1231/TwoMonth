@@ -33,6 +33,9 @@ void Enemy::Init(Sprite *sprite, Object *object, Sound *sound)
 	enemyPolygon[3] = object->CreateOBJ("redblue_enemy");
 	enemyPolygon[4] = object->CreateOBJ("greenblue_enemy");
 	enemyPolygon[5] = object->CreateOBJ("greenred_enemy");
+	enemyPolygon[6] = object->CreateOBJ("rgb1_enemy");
+	enemyPolygon[7] = object->CreateOBJ("rgb2_enemy");
+	enemyPolygon[8] = object->CreateOBJ("rgb3_enemy");
 
 	//“G‚ÌUŒ‚“Ç‚Ýž‚Ý
 	Polygon = object->CreateOBJ("sphere");

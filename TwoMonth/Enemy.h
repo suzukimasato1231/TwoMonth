@@ -70,32 +70,32 @@ public:
 
 	Sound::SoundData Sounddamege;
 private:
-	Object::ObjectData enemyPolygon[6];///“G‰æ‘œ
+	Object::ObjectData enemyPolygon[9];///“G‰æ‘œ
 
 	Object::ObjectData Polygon;
 
 	Sprite::SpriteData damege;
 	//“GƒXƒe[ƒ^ƒX
-	static const int enemy_Num = 20;//“G‚Ì”
-	float enemyHP[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000, 9000, 3000, 5000, 5000, 3000, 3000, 3000, 5000, 5000 };///‘Ì—Í
-	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };///‘¶İ‚·‚é‚©
-	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
-	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
-	int enemyColorTop[enemy_Num] = { 1, 2, 3, 1, 3, 1, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorDown[enemy_Num] = { 1, 2, 3, 1, 3, 1, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorLeft[enemy_Num] = { 1, 2, 3, 3, 2, 2, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColorRight[enemy_Num] = { 1, 2, 3, 3, 2, 2, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	int enemyColor[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	static const int enemy_Num = 11;//“G‚Ì”
+	float enemyHP[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000 };///‘Ì—Í
+	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1 };///‘¶İ‚·‚é‚©
+	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
+	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
+	int enemyColorTop[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 3 ,1 };
+	int enemyColorDown[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 1 ,1 };
+	int enemyColorLeft[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 3, 2, 2, 3 };
+	int enemyColorRight[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 2, 1, 2, 2 };
+	int enemyColor[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3 };
 	//‰Šú‰»—p
-	const float enemyHPKeep[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000, 9000, 3000, 5000, 5000, 3000, 3000, 3000, 5000, 5000 };///‘Ì—Í
-	const bool enemyIsAliveKeep[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };///‘¶İ‚·‚é‚©
-	const bool enemyIsAttackKeep[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
-	const int enemyAttackDelayKeep[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
-	const int enemyColorTopKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorDownKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1 ,3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorLeftKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorRightKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
-	const int enemyColorKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1 };
+	const float enemyHPKeep[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000 };///‘Ì—Í
+	const bool enemyIsAliveKeep[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1 };///‘¶İ‚·‚é‚©
+	const bool enemyIsAttackKeep[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
+	const int enemyAttackDelayKeep[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
+	const int enemyColorTopKeep[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 3 ,1 };
+	const int enemyColorDownKeep[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 1 ,1 };
+	const int enemyColorLeftKeep[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 3, 2, 2, 3 };
+	const int enemyColorRightKeep[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 2, 1, 2, 2 };
+	const int enemyColorKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3 };
 
 	int enemyAttackCount = 0;///UŒ‚‚ÌƒJƒEƒ“ƒg—p
 
