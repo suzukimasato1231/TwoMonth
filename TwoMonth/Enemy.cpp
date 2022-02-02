@@ -8,7 +8,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(Sprite *sprite, Object *object,Sound *sound)
+void Enemy::Init(Sprite *sprite, Object *object, Sound *sound)
 {
 	if (sprite == nullptr)
 	{
@@ -134,7 +134,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bo
 
 void Enemy::Draw()
 {
-	if (enemyDameTime % 10 == 0)
+	if (enemyDameTime % 10 == 0 && enemyHP[nowPhase] >= 0)
 	{
 		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
 		{
@@ -214,7 +214,7 @@ void Enemy::DamegeCal(bool DamegeFlag)
 		{
 			damage += damageValueUp[i] + damageValueDown[i] + damageValueLeft[i] + damageValueRight[i];
 		}
-		
+
 		double z = std::pow(1.2, combo);
 		enemyHP[nowPhase] -= damage * z;
 		damage = 0;
@@ -415,7 +415,7 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 	{
 		for (int i = 1; i < ComboCount + 1; i++)
 		{
-			if (enemyColorTop[nowPhase] == Red && colorUp[i] == Red){damageValueUp[i] = damageNormal;}
+			if (enemyColorTop[nowPhase] == Red && colorUp[i] == Red) { damageValueUp[i] = damageNormal; }
 			else if (enemyColorTop[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUp[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Red && colorUp[i] == Blue) { damageValueUp[i] = damagaHigh; }
 			if (enemyColorTop[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUp[i] = damagaHigh; }
@@ -460,7 +460,7 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 	{
 		for (int i = 0; i < ComboCount + 1; i++)
 		{
-			if (enemyColorDown[nowPhase] == Red && colorUp[i] == Red){damageValueDown[i] = damageNormal;}
+			if (enemyColorDown[nowPhase] == Red && colorUp[i] == Red) { damageValueDown[i] = damageNormal; }
 			else if (enemyColorDown[nowPhase] == Red && colorUp[i] == Yellow) { damageValueDown[i] = damageLow; }
 			else if (enemyColorDown[nowPhase] == Red && colorUp[i] == Blue) { damageValueDown[i] = damagaHigh; }
 			if (enemyColorDown[nowPhase] == Yellow && colorUp[i] == Red) { damageValueDown[i] = damagaHigh; }
