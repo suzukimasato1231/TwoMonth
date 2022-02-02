@@ -62,14 +62,14 @@ private:
 
 	Sprite::SpriteData numGraph[10];
 
-	XMFLOAT2 position = { 0.0f, 180.0f };//座標
+	XMFLOAT2 position = { 0.0f, 100.0f };//座標
 
 	//チュートリアルを飛ばすボタンの表示
 	Sprite::SpriteData SkipTutorialGraph;
 	//チュートリアル中の何番目か	
 	int tutorialScene = ONE;
 	//チュートリアルが変わる最大時間
-	const int timeMax = 400;
+	const int timeMax = 500;
 	//現在のチュートリアルの時間
 	int tutorialTime = 0;
 	//時間計測
