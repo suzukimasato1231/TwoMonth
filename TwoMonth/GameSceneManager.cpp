@@ -371,7 +371,11 @@ void GameSceneManager::Draw(_DirectX directX)
 		//UI描画
 		block.DrawUI();
 		//ゲームオーバーまでのカウント描画
-		block.DrawGameOverCount();
+		if (tutorial.GetTutorialFlag() == false)
+		{
+			block.DrawGameOverCount();
+		}
+		
 		//プレイヤーHP
 		sprite->Draw(playerHPGraph[playerHP], XMFLOAT2(), window_width, window_height);
 		sprite->Draw(numGraph[turnNum], XMFLOAT2(230, 340), 128, 128);
