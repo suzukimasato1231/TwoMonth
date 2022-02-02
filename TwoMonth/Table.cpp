@@ -110,7 +110,11 @@ void Table::Update()
 	//‰E‰ñ‚è
 	if (rotationFlag == true && rotationMemory > rotation.z)
 	{
-		rotation.z += 5;
+		rotation.z += 7;
+		if (rotationMemory < rotation.z)
+		{
+			rotation.z = rotationMemory;
+		}
 		if (rotationMemory == rotation.z)
 		{
 			rotationFlag = false;
@@ -122,7 +126,11 @@ void Table::Update()
 	}//¶‰ñ‚è
 	if (rotationFlag == true && rotationMemory < rotation.z)
 	{
-		rotation.z -= 5;
+		rotation.z -= 7;
+		if (rotationMemory > rotation.z)
+		{
+			rotation.z = rotationMemory;
+		}
 		if (rotationMemory == rotation.z)
 		{
 			rotationFlag = false;
