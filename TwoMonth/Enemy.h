@@ -66,6 +66,8 @@ public:
 
 	bool GeteAttackFlag();
 
+	void AttackInit();
+
 	Sound::SoundData Sounddamege;
 private:
 	Object::ObjectData enemyPolygon[6];///“G‰æ‘œ

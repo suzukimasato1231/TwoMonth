@@ -556,6 +556,8 @@ void Block::DeleteBlock()
 			mapRight[j] = 0;
 		}
 	}
+	start_player = time(NULL);
+
 }
 
 void Block::BlockShift(int i, int j)

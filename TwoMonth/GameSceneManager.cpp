@@ -80,11 +80,11 @@ void GameSceneManager::Init()
 	playerHPGraph[3] = sprite->SpriteCreate(L"Resources/playerHP/playerlife1.png");
 
 	//台クラス初期化
-	table.Init(input, sprite, object,sound);
+	table.Init(input, sprite, object, sound);
 	//ブロッククラス
-	block.Init(input, sprite, object,sound);
+	block.Init(input, sprite, object, sound);
 
-	enemy.Init(sprite, object,sound);
+	enemy.Init(sprite, object, sound);
 
 	sceneChange.Init(sprite);
 
@@ -194,6 +194,7 @@ void GameSceneManager::Update()
 			block.DeleteBlock();
 			phaseNum++;
 			enemy.FlagChenge();
+			enemy.AttackInit();
 		}
 
 		tutorial.Update();
@@ -215,6 +216,7 @@ void GameSceneManager::Update()
 			tutorial.TutorialFlagChange();
 			block.DeleteBlock();
 			block.ChangeGameOverFlag();
+			enemy.AttackInit();
 		}
 
 		//チュートリアル中にゲームオーバーにならないようにする
@@ -246,11 +248,14 @@ void GameSceneManager::Update()
 			for (int i = 0; i < 4; i++)
 			{
 				if (enemy.GetEnemyColor(i) == Red) {
-					particleMan->EnemyRParticleAdd({ 0,0,-50 }); }
-				if (enemy.GetEnemyColor(i) == Yellow) { 
-					particleMan->EnemyGParticleAdd({ 0,0,-50 }); }
-				if (enemy.GetEnemyColor(i) == Blue) { 
-					particleMan->EnemyBParticleAdd({ 0,0,-50 }); }
+					particleMan->EnemyRParticleAdd({ 0,0,-50 });
+				}
+				if (enemy.GetEnemyColor(i) == Yellow) {
+					particleMan->EnemyGParticleAdd({ 0,0,-50 });
+				}
+				if (enemy.GetEnemyColor(i) == Blue) {
+					particleMan->EnemyBParticleAdd({ 0,0,-50 });
+				}
 			}
 		}
 		else if (enemy.GetEnemyDeadFlag() == false)
@@ -417,7 +422,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		//debugText.Print(10, 300, 2, "         d  :%f", damage);
 		//debugText.Print(10, 340, 2, "            :%d", block.GetSandDelay());
 		//debugText.Print(10, 380, 2, "         d  :%f");
-		debugText.Print(10, 420, 2, "         HP  :%f",enemy.GetEnemyHP());
+		debugText.Print(10, 420, 2, "         HP  :%f", enemy.GetEnemyHP());
 		//debugText.Print(10, 380, 2, "      comboa :%f", a);
 		//debugText.Print(10, 420, 2, "    colorUp :%d", block.GetColorNumUp());
 		//debugText.Print(10, 460, 2, "  colorDown :%d", block.GetColorNumDown());

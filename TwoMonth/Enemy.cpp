@@ -287,6 +287,15 @@ bool Enemy::GeteAttackFlag()
 	return eAttackFlag;
 }
 
+void Enemy::AttackInit()
+{
+	enemyAttackCount = 0;///攻撃のカウント用
+	eAttackFlag = false;
+	shakeTime = 0;
+	damegeHitFlag = false;
+	damegeColor = { 1.0f,1.0f,1.0f,0.0f };
+}
+
 void Enemy::ColorInformationInit()
 {
 	for (int i = 0; i < 100; i++)
