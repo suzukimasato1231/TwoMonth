@@ -29,7 +29,7 @@ XMMATRIX ParticleManager::matBillboard = XMMatrixIdentity();
 XMMATRIX ParticleManager::matBillboardY = XMMatrixIdentity();
 
 
-bool ParticleManager::StaticInitialize(ID3D12Device *device,ID3D12GraphicsCommandList *cmdList, View *view, int window_width, int window_height)
+bool ParticleManager::StaticInitialize(ID3D12Device *device, ID3D12GraphicsCommandList *cmdList, View *view, int window_width, int window_height)
 {
 	// nullptrチェック
 	assert(device);
@@ -219,7 +219,7 @@ void ParticleManager::EnemyBParticleAdd(XMFLOAT3 Pos)
 	}
 }
 
-void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo , bool explosion)
+void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo, bool explosion)
 {
 	for (int i = 0; i < combo; i++)
 	{
@@ -230,7 +230,7 @@ void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo , bool explosio
 		pos.y += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
 		pos.z += (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
 		////X,Y,Z全て{-0.05f,+0.05f}でランダムに分布
-		float md_vel = 8.0 + (1 *combo);
+		float md_vel = 8.0 + (1 * combo);
 		XMFLOAT3 vel{};
 		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
 		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
@@ -244,8 +244,18 @@ void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo , bool explosio
 		XMFLOAT4 end_color = { 0.1f,0.1f,0.1f,1.0f };
 		//追加
 		float b = 450;
-		Add(60, pos, vel, acc, b, b/5, start_color, end_color);
+		Add(60, pos, vel, acc, b, b / 5, start_color, end_color);
 	}
+}
+
+void ParticleManager::AllDeleteParticle()
+{
+	particles.remove_if(
+		[](Particle &x)
+		{
+			return x.frame >= 0;
+		}
+	);
 }
 
 bool ParticleManager::InitializeDescriptorHeap()

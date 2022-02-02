@@ -111,7 +111,8 @@ public: // 静的メンバ関数
 	void EnemyBParticleAdd(XMFLOAT3 Pos);
 
 	void PowerUpParticleAdd(XMFLOAT3 Pos, int combo,bool explosion);
-
+	//パーティクル全削除
+	void AllDeleteParticle();
 private: // 静的メンバ変数
 	// デバイス
 	static ID3D12Device *device;

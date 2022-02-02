@@ -195,6 +195,7 @@ void GameSceneManager::Update()
 			phaseNum++;
 			enemy.FlagChenge();
 			enemy.AttackInit();
+			particleMan->AllDeleteParticle();
 		}
 
 		tutorial.Update();
@@ -266,10 +267,12 @@ void GameSceneManager::Update()
 		if (enemy.GetEnemyLastHP() <= 0 && enemy.GetPhaseDelay() > 120)
 		{
 			scene = GameClearInit;
+			particleMan->AllDeleteParticle();
 		}
 		if (playerHP <= 0 || block.GetGameOverFlag() == true)
 		{
 			scene = GameOverInit;
+			particleMan->AllDeleteParticle();
 		}
 		hpRatio = enemy.GetEnemyHP() / enemy.GetConstEnemyHP();
 		if (hpRatio < 0)
@@ -281,6 +284,10 @@ void GameSceneManager::Update()
 		particleMan->Update();
 		//ライト更新
 		light->Update();
+		if (sceneChange.Change())
+		{
+			particleMan->AllDeleteParticle();
+		}
 		break;
 	case GameOverInit:
 		sceneChange.gameoverasingStart(XMFLOAT3(0.0f, -window_height, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), 100);
