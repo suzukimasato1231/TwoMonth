@@ -1017,7 +1017,7 @@ void Block::WallningDraw()
 		if (outWarningTime % 40 > 20)
 		{//ŠO‘¤‚ÌÔ‚¢Œx
 			object->Draw(outWarningWall, XMFLOAT3(0.0f, 0.0f, 101.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(),
-				XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), outWarningGraph);
+				XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), outWarningGraph);
 		}
 	}
 	//‚Í‚İo‚µ‚Ä‚¢‚¯‚È‚¢˜g‚ğ‰Â‹‰»
