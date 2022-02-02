@@ -119,7 +119,10 @@ void Tutorial::Draw()
 	if (tutorialFlag == true)
 	{
 		//チュートリアルを飛ばすボタン表示
-		sprite->Draw(SkipTutorialGraph, XMFLOAT2(), window_width, window_height);
+		if (tutorialTime % 50 > 25)
+		{
+			sprite->Draw(SkipTutorialGraph, XMFLOAT2(), window_width, window_height);
+		}
 		switch (tutorialScene)
 		{
 		case ONE:
