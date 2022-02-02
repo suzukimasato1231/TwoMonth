@@ -472,7 +472,7 @@ void Block::Damege()
 	if (sandFlag == true) {
 		sandDelay++;
 	}
-	if (sandDelay > 150 && sandFlag == true)
+	if (sandDelay > 120 && sandFlag == true)
 	{
 		for (int i = 0; i < 100; i++)
 		{
