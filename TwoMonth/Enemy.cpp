@@ -139,19 +139,59 @@ void Enemy::Draw()
 {
 	if (enemyDameTime % 10 == 0 && (nowPhase == 0 || enemyHP[nowPhase] >= 0))
 	{
-		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
+		if (nowPhase == 0)
 		{
 			object->OBJDraw(enemyPolygon[0], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
 				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
-		if (nowPhase == 1 || nowPhase == 4 || nowPhase == 7 || nowPhase == 10 || nowPhase == 13 || nowPhase == 16 || nowPhase == 19)
+		if (nowPhase == 1)
+		{
+			object->OBJDraw(enemyPolygon[0], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 2)
 		{
 			object->OBJDraw(enemyPolygon[1], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
 				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
-		if (nowPhase == 2 || nowPhase == 5 || nowPhase == 8 || nowPhase == 11 || nowPhase == 14 || nowPhase == 17)
+		if (nowPhase == 3)
 		{
 			object->OBJDraw(enemyPolygon[2], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 4)
+		{
+			object->OBJDraw(enemyPolygon[3], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 5)
+		{
+			object->OBJDraw(enemyPolygon[4], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 6)
+		{
+			object->OBJDraw(enemyPolygon[5], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 7)
+		{
+			object->OBJDraw(enemyPolygon[6], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 8)
+		{
+			object->OBJDraw(enemyPolygon[7], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 9)
+		{
+			object->OBJDraw(enemyPolygon[8], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
+				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		if (nowPhase == 10)
+		{
+			object->OBJDraw(enemyPolygon[6], XMFLOAT3(0.0f, -150.0f, -51.0f), XMFLOAT3(75.0f, 75.0f, 10.0f),
 				XMFLOAT3(), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 	}
