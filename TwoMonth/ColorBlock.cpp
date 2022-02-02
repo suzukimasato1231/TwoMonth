@@ -60,15 +60,15 @@ void ColorBlock::Draw()
 		{
 		case 1:
 			object->Draw(block[0], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), redGraph);
 			break;
 		case 2:
 			object->Draw(block[1], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), redGraph);
 			break;
 		case 3:
 			object->Draw(block[2], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), redGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), redGraph);
 			break;
 		}
 		break;
@@ -77,15 +77,15 @@ void ColorBlock::Draw()
 		{
 		case 1:
 			object->Draw(block[3], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 2:
 			object->Draw(block[4], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		case 3:
 			object->Draw(block[5], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), yellowGraph);
 			break;
 		}
 		break;
@@ -94,15 +94,15 @@ void ColorBlock::Draw()
 		{
 		case 1:
 			object->Draw(block[6], XMFLOAT3(pos.x, pos.y, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), blueGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 2:
 			object->Draw(block[7], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 15.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		case 3:
 			object->Draw(block[8], XMFLOAT3(pos.x + ofsetX, pos.y + ofsetY + 30.0f, -40.0f), XMFLOAT3(1.0f, 1.0f, 1.0f),
-				rotation, XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f), blueGraph);
+				rotation, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), blueGraph);
 			break;
 		}
 		break;
