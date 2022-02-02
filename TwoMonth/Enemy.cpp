@@ -134,7 +134,7 @@ void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bo
 
 void Enemy::Draw()
 {
-	if (enemyDameTime % 10 == 0 && enemyHP[nowPhase] >= 0)
+	if (enemyDameTime % 10 == 0 && (nowPhase == 0 || enemyHP[nowPhase] >= 0))
 	{
 		if (nowPhase == 0 || nowPhase == 3 || nowPhase == 6 || nowPhase == 9 || nowPhase == 12 || nowPhase == 15 || nowPhase == 18)
 		{
