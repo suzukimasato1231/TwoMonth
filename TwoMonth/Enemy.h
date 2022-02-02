@@ -120,9 +120,9 @@ private:
 
 	float damage;
 
-	float damagaHigh = 200;
-	float damageNormal = 100;
-	float damageLow = 50;
+	const float damagaHigh = 400;
+	const float damageNormal = 100;
+	const float damageLow = 50;
 
 	int  combo = 0;
 
