@@ -25,7 +25,7 @@ float4 main(VSOutput input) : SV_TARGET
 	//鏡面反射光
 	float3 specular = pow(saturate(dot(reflect, eyedir)), shininess) * m_specular;
 	//全て加算する
-	shadecolor.rgb = (ambient + diffuse+ specular) * lightcolor;
+	shadecolor.rgb = (ambient + diffuse + specular + 0.5) * lightcolor;
 	shadecolor.a = m_alpha;
 
 	return shadecolor * texcolor;
