@@ -482,7 +482,6 @@ void Block::Damege()
 		sandFlag = 0;
 		addFlag = true;
 		sandDelay = 0;
-		comboCount = 0;
 		for (int j = 1; j < mapNum; j++)
 		{
 			if (mapUP[j] > 0 && mapDown[j] > 0)
@@ -996,6 +995,7 @@ void Block::SandwitchDelete()
 
 			if (num == 1)
 			{
+				comboCount = 0;
 				sound->SoundSEPlayWave(SoundSandwitch);
 				sandEndFlag = true;
 			}

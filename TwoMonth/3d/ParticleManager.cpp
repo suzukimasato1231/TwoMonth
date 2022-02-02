@@ -137,7 +137,7 @@ void ParticleManager::ParticleAdd(XMFLOAT3 Pos)
 
 void ParticleManager::EnemyRParticleAdd(XMFLOAT3 Pos)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
 		const float md_pos = 20.0f;
@@ -165,7 +165,7 @@ void ParticleManager::EnemyRParticleAdd(XMFLOAT3 Pos)
 
 void ParticleManager::EnemyGParticleAdd(XMFLOAT3 Pos)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
 		const float md_pos = 20.0f;
@@ -193,7 +193,7 @@ void ParticleManager::EnemyGParticleAdd(XMFLOAT3 Pos)
 
 void ParticleManager::EnemyBParticleAdd(XMFLOAT3 Pos)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
 		const float md_pos = 20.0f;
@@ -223,7 +223,7 @@ void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo, bool explosion
 {
 	if (combo > 0)
 	{
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			//X,Y,Z全て{-5.0f,+5.0f}でランダムに分布
 			const float md_pos = 0.0f;
