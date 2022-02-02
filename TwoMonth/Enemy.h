@@ -24,7 +24,7 @@ public:
 
 	void AttackDraw();
 
-	void DrawDamege();//ダメージ表現
+	void DrawDamege(int hp);//ダメージ表現
 
 	void PhaseUpdate(bool CheckFlag, bool DamegeFlag, int ComboCount, int colorNumUP, int colorNumDown, int colorNumLeft, int colorNumRight, int direction);
 	//ダメージ計算
@@ -154,4 +154,6 @@ private:
 
 	bool damegeHitFlag = false;//ダメージ表現用フラグ
 	XMFLOAT4 damegeColor = { 1.0f,1.0f,1.0f,1.0f };
+
+	int memoryHP = 3;
 };

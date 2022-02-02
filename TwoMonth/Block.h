@@ -90,6 +90,8 @@ public:
 	int GetPTime();
 
 	void ChangeGameOverFlag();
+
+	void OverInit();
 private:
 	//ƒuƒƒbƒN’Ç‰Á
 	void AddBlock(int direction);

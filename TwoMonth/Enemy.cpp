@@ -81,6 +81,7 @@ void Enemy::MainInit()
 
 	damegeHitFlag = false;
 	damegeColor = { 1.0f,1.0f,1.0f,0.0f };
+	memoryHP = 3;
 }
 
 void Enemy::Update(int &playerHP, bool DamegeFlag, bool ComboCout, int pTime, bool tutorialFlag)
@@ -389,10 +390,11 @@ void Enemy::AttackDraw()
 }
 
 
-void Enemy::DrawDamege()
+void Enemy::DrawDamege(int hp)
 {
-	if (damegeHitFlag == true)
+	if (damegeHitFlag == true || hp < memoryHP)
 	{
+		memoryHP = hp;
 		damegeHitFlag = false;
 		damegeColor = { 1.0f,1.0f,1.0f,0.8f };
 	}

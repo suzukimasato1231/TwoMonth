@@ -16,7 +16,7 @@ Block::~Block()
 	}
 }
 
-void Block::Init(Input *input, Sprite *sprite, Object *object,Sound *sound)
+void Block::Init(Input *input, Sprite *sprite, Object *object, Sound *sound)
 {
 	assert(input);
 	this->input = input;
@@ -959,7 +959,7 @@ void Block::SandwitchDelete()
 	sandEndFlag = false;
 	ShakeFlag = false;
 	int num = 0;
-	
+
 	for (int n = (int)colorBlock.size() - 1; n >= 0; n--)
 	{
 		if (colorBlock[n]->GetDeleteFlag())
@@ -1188,6 +1188,23 @@ void Block::PlayerTime()
 void Block::ChangeGameOverFlag()
 {
 	gameOverFlag = false;
+}
+void Block::OverInit()
+{
+
+	blockOverFlag[UP] = true;
+	start_time[UP] = time(NULL);
+
+	blockOverFlag[Down] = true;
+	start_time[Down] = time(NULL);
+
+	blockOverFlag[Left] = true;
+	start_time[Left] = time(NULL);
+
+	blockOverFlag[Right] = true;
+	start_time[Right] = time(NULL);
+	gameOverFlag = false;
+
 }
 bool Block::GetSandEndFlag()
 {

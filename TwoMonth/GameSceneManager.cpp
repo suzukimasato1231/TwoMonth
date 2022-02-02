@@ -269,11 +269,19 @@ void GameSceneManager::Update()
 			scene = GameClearInit;
 			particleMan->AllDeleteParticle();
 		}
-		if (playerHP <= 0 || block.GetGameOverFlag() == true)
+		if (playerHP <= 0)
 		{
 			scene = GameOverInit;
 			particleMan->AllDeleteParticle();
 		}
+
+		if (block.GetGameOverFlag() == true)
+		{
+			block.OverInit();
+			playerHP--;
+		}
+
+
 		hpRatio = enemy.GetEnemyHP() / enemy.GetConstEnemyHP();
 		if (hpRatio < 0)
 		{
@@ -374,7 +382,7 @@ void GameSceneManager::Draw(_DirectX directX)
 		//パーティクル描画
 		particleMan->Draw();
 		//ダメージ表現
-		enemy.DrawDamege();
+		enemy.DrawDamege(playerHP);
 		//UI描画
 		block.DrawUI();
 		//ゲームオーバーまでのカウント描画
