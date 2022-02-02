@@ -699,6 +699,7 @@ void Enemy::FlagChenge()
 	enemyAttackCount = -1;
 	nowPhase++;
 	enemyDeadFlag = false;
+	combo = 0;
 }
 
 int Enemy::GetPhaseDelay()

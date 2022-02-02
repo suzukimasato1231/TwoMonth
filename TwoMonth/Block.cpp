@@ -557,7 +557,7 @@ void Block::DeleteBlock()
 		}
 	}
 	start_player = time(NULL);
-
+	comboCount = 0;
 }
 
 void Block::BlockShift(int i, int j)

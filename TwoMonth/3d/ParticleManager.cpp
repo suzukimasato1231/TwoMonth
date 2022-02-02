@@ -246,7 +246,7 @@ void ParticleManager::PowerUpParticleAdd(XMFLOAT3 Pos, int combo, bool explosion
 			XMFLOAT4 end_color = { 0.1f,0.1f,0.1f,1.0f };
 			//追加
 			float b = 450;
-			Add(60, pos, vel, acc, b, b / 5, start_color, end_color);
+			Add(50, pos, vel, acc, b, b / 5, start_color, end_color);
 		}
 	}
 }

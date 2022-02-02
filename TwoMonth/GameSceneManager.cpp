@@ -204,6 +204,7 @@ void GameSceneManager::Update()
 			if (tutorial.Longpress() == true || tutorial.GetTutorialEndFlag())
 			{//２秒長押ししたらシーンチェンジスタート
 				sceneChange.Start();
+				
 			}
 		}
 		else
@@ -218,6 +219,7 @@ void GameSceneManager::Update()
 			block.DeleteBlock();
 			block.ChangeGameOverFlag();
 			enemy.AttackInit();
+			particleMan->AllDeleteParticle();
 		}
 
 		//チュートリアル中にゲームオーバーにならないようにする
