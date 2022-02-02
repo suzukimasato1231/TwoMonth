@@ -32,7 +32,7 @@ void _Window::CreateGameWindow()
 
 	// ウィンドウオブジェクトの生成
 	hwnd = CreateWindow(w.lpszClassName, // クラス名
-		L"DirectXGame",         // タイトルバーの文字
+		L"Sandwitch",         // タイトルバーの文字
 		WS_OVERLAPPEDWINDOW,        // 標準的なウィンドウスタイル
 		CW_USEDEFAULT,              // 表示X座標（OSに任せる）
 		CW_USEDEFAULT,              // 表示Y座標（OSに任せる）
