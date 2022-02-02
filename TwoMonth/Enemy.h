@@ -77,25 +77,25 @@ private:
 	Sprite::SpriteData damege;
 	//“GƒXƒe[ƒ^ƒX
 	static const int enemy_Num = 11;//“G‚Ì”
-	float enemyHP[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 9000 };///‘Ì—Í
+	float enemyHP[enemy_Num] = { 8000,	10200, 13000, 16000, 18000, 20000, 21000, 22000, 23000, 25000, 27000 };///‘Ì—Í
 	bool enemyIsAlive[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1 };///‘¶İ‚·‚é‚©
 	bool enemyIsAttack[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
-	int enemyAttackDelay[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,5 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
+	int enemyAttackDelay[enemy_Num] = { 4, 5, 5 ,5 ,5 ,5, 5, 5 ,4 ,4 ,3 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
 	int enemyColorTop[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 3 ,1 };
 	int enemyColorDown[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 1 ,1 };
 	int enemyColorLeft[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 2, 1, 2, 2 };
 	int enemyColorRight[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 3, 2, 2, 3 };
-	int enemyColor[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3 };
+	int enemyColor[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3 };
 	//‰Šú‰»—p
-	const float enemyHPKeep[enemy_Num] = { 3000, 3000, 3000, 5000, 5000, 5000, 7000, 7000, 7000, 9000, 30000 };///‘Ì—Í
-	const bool enemyIsAliveKeep[enemy_Num] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1 };///‘¶İ‚·‚é‚©
-	const bool enemyIsAttackKeep[enemy_Num] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
-	const int enemyAttackDelayKeep[enemy_Num] = { 5, 5, 5 ,5 ,5 ,5, 5, 5 ,5 ,5 ,3 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
-	const int enemyColorTopKeep[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 3 ,1 };
-	const int enemyColorDownKeep[enemy_Num] = { 1, 1, 3, 2, 1, 3, 1, 1, 3, 1 ,1 };
-	const int enemyColorLeftKeep[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 2, 1, 2, 2 };
-	const int enemyColorRightKeep[enemy_Num] = { 1, 1, 3, 2, 2, 2, 3, 3, 2, 2, 3 };
-	const int enemyColorKeep[enemy_Num] = { 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3 };
+	const float enemyHPKeep[enemy_Num] =        { 8000,	10200, 13000, 16000, 18000, 20000, 21000, 22000, 23000, 25000, 27000 };///‘Ì—Í
+	const bool enemyIsAliveKeep[enemy_Num] =    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1 };///‘¶İ‚·‚é‚©
+	const bool enemyIsAttackKeep[enemy_Num] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };///UŒ‚‚µ‚Ä‚¢‚é‚©
+	const int enemyAttackDelayKeep[enemy_Num] = { 4, 5, 5 ,5 ,5 ,5, 5, 5 ,4 ,4 ,4 };///UŒ‚‚·‚é‚Ü‚Å‚ÌŠÔ
+	const int enemyColorTopKeep[enemy_Num] =    { 1, 1, 3, 2, 1, 3, 1, 1, 3, 3 ,1 };
+	const int enemyColorDownKeep[enemy_Num] =   { 1, 1, 3, 2, 1, 3, 1, 1, 3, 1 ,1 };
+	const int enemyColorLeftKeep[enemy_Num] =   { 1, 1, 3, 2, 2, 2, 3, 2, 1, 2, 2 };
+	const int enemyColorRightKeep[enemy_Num] =  { 1, 1, 3, 2, 2, 2, 3, 3, 2, 2, 3 };
+	const int enemyColorKeep[enemy_Num] =       { 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3 };
 
 	
 

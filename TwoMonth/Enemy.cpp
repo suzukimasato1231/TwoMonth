@@ -259,7 +259,7 @@ void Enemy::DamegeCal(bool DamegeFlag)
 			damage += damageValueUp[i] + damageValueDown[i] + damageValueLeft[i] + damageValueRight[i];
 		}
 
-		double z = std::pow(1.2, combo);
+		double z = std::pow(1.05, combo);
 		enemyHP[nowPhase] -= damage * z;
 		damage = 0;
 		for (int i = 0; i < 100; i++)
