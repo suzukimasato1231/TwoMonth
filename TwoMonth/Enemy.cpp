@@ -527,9 +527,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorLeft[nowPhase] == Red && colorRight[i] == Red) { damageValueLeft[i] = damageNormal; }
 			else if (enemyColorLeft[nowPhase] == Red && colorRight[i] == Yellow) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Red && colorRight[i] == Blue) { damageValueLeft[i] = damagaHigh; }
-			if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Red) { damageValueLeft[i] = damageLow; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueLeft[i] = damagaHigh; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueLeft[i] = damageNormal; }
+			if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Red) { damageValueLeft[i] = damagaHigh; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueLeft[i] = damageNormal; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueLeft[i] = damageLow; }
 			if (enemyColorLeft[nowPhase] == Blue && colorRight[i] == Red) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueLeft[i] = damagaHigh; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorRight[i] == Blue) { damageValueLeft[i] = damageNormal; }
@@ -537,9 +537,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorRight[nowPhase] == Red && colorLeft[i] == Red) { damageValueRight[i] = damageNormal; }
 			else if (enemyColorRight[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueRight[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Red && colorLeft[i] == Blue) { damageValueRight[i] = damagaHigh; }
-			if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueRight[i] = damageLow; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueRight[i] = damagaHigh; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueRight[i] = damageNormal; }
+			if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueRight[i] = damagaHigh; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueRight[i] = damageNormal; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueRight[i] = damageLow; }
 			if (enemyColorRight[nowPhase] == Blue && colorLeft[i] == Red) { damageValueRight[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueRight[i] = damagaHigh; }
 			else if (enemyColorRight[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueRight[i] = damageNormal; }
@@ -547,9 +547,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorTop[nowPhase] == Red && colorDown[i] == Red) { damageValueUp[i] = damageNormal; }
 			else if (enemyColorTop[nowPhase] == Red && colorDown[i] == Yellow) { damageValueUp[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Red && colorDown[i] == Blue) { damageValueUp[i] = damagaHigh; }
-			if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUp[i] = damageLow; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUp[i] = damagaHigh; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUp[i] = damageNormal; }
+			if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Red) { damageValueUp[i] = damagaHigh; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueUp[i] = damageNormal; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueUp[i] = damageLow; }
 			if (enemyColorTop[nowPhase] == Blue && colorDown[i] == Red) { damageValueUp[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueUp[i] = damagaHigh; }
 			else if (enemyColorTop[nowPhase] == Blue && colorDown[i] == Blue) { damageValueUp[i] = damageNormal; }
@@ -562,9 +562,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorLeft[nowPhase] == Red && colorUp[i] == Red) { damageValueUp[i] = damageNormal; }
 			else if (enemyColorLeft[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUp[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Red && colorUp[i] == Blue) { damageValueUp[i] = damagaHigh; }
-			if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUp[i] = damageNormal; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUp[i] = damageLow; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUp[i] = damagaHigh; }
+			if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUp[i] = damagaHigh; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUp[i] = damageNormal; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUp[i] = damageLow; }
 			if (enemyColorLeft[nowPhase] == Blue && colorUp[i] == Red) { damageValueUp[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUp[i] = damagaHigh; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUp[i] = damageNormal; }
@@ -572,9 +572,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorTop[nowPhase] == Red && colorRight[i] == Red) { damageValueRight[i] = damageNormal; }
 			else if (enemyColorTop[nowPhase] == Red && colorRight[i] == Yellow) { damageValueRight[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Red && colorRight[i] == Blue) { damageValueRight[i] = damagaHigh; }
-			if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Red) { damageValueRight[i] = damageNormal; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueRight[i] = damageLow; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueRight[i] = damagaHigh; }
+			if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Red) { damageValueRight[i] = damagaHigh; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueRight[i] = damageNormal; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueRight[i] = damageLow; }
 			if (enemyColorTop[nowPhase] == Blue && colorRight[i] == Red) { damageValueRight[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueRight[i] = damagaHigh; }
 			else if (enemyColorTop[nowPhase] == Blue && colorRight[i] == Blue) { damageValueRight[i] = damageNormal; }
@@ -582,9 +582,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorDown[nowPhase] == Red && colorLeft[i] == Red) { damageValueLeft[i] = damageNormal; }
 			else if (enemyColorDown[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorDown[nowPhase] == Red && colorLeft[i] == Blue) { damageValueLeft[i] = damagaHigh; }
-			if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueLeft[i] = damageNormal; }
-			else if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueLeft[i] = damageLow; }
-			else if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueLeft[i] = damagaHigh; }
+			if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueLeft[i] = damagaHigh; }
+			else if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueLeft[i] = damageNormal; }
+			else if (enemyColorDown[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueLeft[i] = damageLow; }
 			if (enemyColorDown[nowPhase] == Blue && colorLeft[i] == Red) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorDown[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueLeft[i] = damagaHigh; }
 			else if (enemyColorDown[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueLeft[i] = damageNormal; }
@@ -592,9 +592,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorRight[nowPhase] == Red && colorDown[i] == Red) { damageValueDown[i] = damageNormal; }
 			else if (enemyColorRight[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDown[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Red && colorDown[i] == Blue) { damageValueDown[i] = damagaHigh; }
-			if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDown[i] = damageNormal; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDown[i] = damageLow; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDown[i] = damagaHigh; }
+			if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDown[i] = damagaHigh; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDown[i] = damageNormal; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDown[i] = damageLow; }
 			if (enemyColorRight[nowPhase] == Blue && colorDown[i] == Red) { damageValueDown[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDown[i] = damagaHigh; }
 			else if (enemyColorRight[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDown[i] = damageNormal; }
@@ -607,9 +607,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorRight[nowPhase] == Red && colorUp[i] == Red) { damageValueUp[i] = damageNormal; }
 			else if (enemyColorRight[nowPhase] == Red && colorUp[i] == Yellow) { damageValueUp[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Red && colorUp[i] == Blue) { damageValueUp[i] = damagaHigh; }
-			if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUp[i] = damageNormal; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUp[i] = damageLow; }
-			else if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUp[i] = damagaHigh; }
+			if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Red) { damageValueUp[i] = damagaHigh; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Yellow) { damageValueUp[i] = damageNormal; }
+			else if (enemyColorRight[nowPhase] == Yellow && colorUp[i] == Blue) { damageValueUp[i] = damageLow; }
 			if (enemyColorRight[nowPhase] == Blue && colorUp[i] == Red) { damageValueUp[i] = damageLow; }
 			else if (enemyColorRight[nowPhase] == Blue && colorUp[i] == Yellow) { damageValueUp[i] = damagaHigh; }
 			else if (enemyColorRight[nowPhase] == Blue && colorUp[i] == Blue) { damageValueUp[i] = damageNormal; }
@@ -617,9 +617,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorTop[nowPhase] == Red && colorLeft[i] == Red) { damageValueLeft[i] = damageNormal; }
 			else if (enemyColorTop[nowPhase] == Red && colorLeft[i] == Yellow) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Red && colorLeft[i] == Blue) { damageValueLeft[i] = damagaHigh; }
-			if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueLeft[i] = damageNormal; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueLeft[i] = damageLow; }
-			else if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueLeft[i] = damagaHigh; }
+			if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Red) { damageValueLeft[i] = damagaHigh; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Yellow) { damageValueLeft[i] = damageNormal; }
+			else if (enemyColorTop[nowPhase] == Yellow && colorLeft[i] == Blue) { damageValueLeft[i] = damageLow; }
 			if (enemyColorTop[nowPhase] == Blue && colorLeft[i] == Red) { damageValueLeft[i] = damageLow; }
 			else if (enemyColorTop[nowPhase] == Blue && colorLeft[i] == Yellow) { damageValueLeft[i] = damagaHigh; }
 			else if (enemyColorTop[nowPhase] == Blue && colorLeft[i] == Blue) { damageValueLeft[i] = damageNormal; }
@@ -627,9 +627,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorDown[nowPhase] == Red && colorRight[i] == Red) { damageValueRight[i] = damageNormal; }
 			else if (enemyColorDown[nowPhase] == Red && colorRight[i] == Yellow) { damageValueRight[i] = damageLow; }
 			else if (enemyColorDown[nowPhase] == Red && colorRight[i] == Blue) { damageValueRight[i] = damagaHigh; }
-			if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Red) { damageValueRight[i] = damageNormal; }
-			else if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueRight[i] = damageLow; }
-			else if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueRight[i] = damagaHigh; }
+			if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Red) { damageValueRight[i] = damagaHigh; }
+			else if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Yellow) { damageValueRight[i] = damageNormal; }
+			else if (enemyColorDown[nowPhase] == Yellow && colorRight[i] == Blue) { damageValueRight[i] = damageLow; }
 			if (enemyColorDown[nowPhase] == Blue && colorRight[i] == Red) { damageValueRight[i] = damageLow; }
 			else if (enemyColorDown[nowPhase] == Blue && colorRight[i] == Yellow) { damageValueRight[i] = damagaHigh; }
 			else if (enemyColorDown[nowPhase] == Blue && colorRight[i] == Blue) { damageValueRight[i] = damageNormal; }
@@ -637,9 +637,9 @@ void Enemy::DamageCheck(int ComboCount, int direction)
 			if (enemyColorLeft[nowPhase] == Red && colorDown[i] == Red) { damageValueDown[i] = damageNormal; }
 			else if (enemyColorLeft[nowPhase] == Red && colorDown[i] == Yellow) { damageValueDown[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Red && colorDown[i] == Blue) { damageValueDown[i] = damagaHigh; }
-			if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDown[i] = damageNormal; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDown[i] = damageLow; }
-			else if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDown[i] = damagaHigh; }
+			if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Red) { damageValueDown[i] = damagaHigh; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Yellow) { damageValueDown[i] = damageNormal; }
+			else if (enemyColorLeft[nowPhase] == Yellow && colorDown[i] == Blue) { damageValueDown[i] = damageLow; }
 			if (enemyColorLeft[nowPhase] == Blue && colorDown[i] == Red) { damageValueDown[i] = damageLow; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorDown[i] == Yellow) { damageValueDown[i] = damagaHigh; }
 			else if (enemyColorLeft[nowPhase] == Blue && colorDown[i] == Blue) { damageValueDown[i] = damageNormal; }
